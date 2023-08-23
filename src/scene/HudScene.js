@@ -40,12 +40,9 @@ class HudScene extends Phaser.Scene {
         const endWeekButton = new CustomButton(this, contractButton.x + contractButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'END WEEK 1');
         this.add.existing(endWeekButton);
 
-        const container = this.add.container(
-        
         projectButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                         this.scene.run('ProjectScene');
-                        this.enableInteractive();
                         projectButton.disableInteractive();
                         console.log("project");
         });
@@ -53,7 +50,6 @@ class HudScene extends Phaser.Scene {
         contractorsButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                         this.scene.run('ContractorsScene');
-                        enableInteractive();
                         contractorsButton.disableInteractive();
                         console.log("contractor");
         });
@@ -61,7 +57,6 @@ class HudScene extends Phaser.Scene {
         materialsButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                         this.scene.run('MaterialScene');
-                        enableInteractive();
                         materialsButton.disableInteractive();
                         console.log("material");
         });
@@ -69,7 +64,6 @@ class HudScene extends Phaser.Scene {
         personnelButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                         this.scene.run('PersonnelScene');
-                        enableInteractive();
                         personnelButton.disableInteractive();
                         console.log("personnel");
         });
@@ -77,7 +71,6 @@ class HudScene extends Phaser.Scene {
         contractButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                         this.scene.run('ContractScene');
-                        enableInteractive();
                         contractButton.disableInteractive();
                         console.log("contract");
         });
