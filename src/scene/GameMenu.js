@@ -77,7 +77,7 @@ class GameMenu extends Phaser.Scene {
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                         this.scene.stop('GameMenu')
                         this.scene.launch('MainScene')
-            });
+        });
         
         // settingsButton
         const settingsButton = new CustomButton(this, 400, 350, 'button1Normal', 'button1Hover', 'Settings');
@@ -92,5 +92,6 @@ class GameMenu extends Phaser.Scene {
             this.scene.stop('GameMenu');
             this.scene.launch('MainScene');
         }
+
     }
 }
