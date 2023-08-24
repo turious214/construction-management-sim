@@ -6,10 +6,10 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "jest --config ./test/config/jest.config.js",
-    "test-detailed": "jest --config ./test/config/jest.config.js --watchAll --verbose --coverage",
-    "e2e-open": "cypress open --project ./test --config-file ./config/cypress-detailed.config.js",
-    "e2e": "cypress run --project ./test --config-file ./config/cypress.config.js --headless"
+    "test": "jest --config test/config/jest.config.js",
+    "test-detailed": "jest --config test/config/jest.config.js --watchAll --verbose --coverage",
+    "e2e-open": "cypress open --project test --config-file config/cypress-detailed.config.js",
+    "e2e": "cypress run --project test --config-file config/cypress.config.js --headless"
   },
   "author": "",
   "license": "ISC",
