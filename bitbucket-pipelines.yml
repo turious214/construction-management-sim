@@ -1,0 +1,20 @@
+image: node:10.15.0
+
+pipelines:
+  pull-requests:
+    "**":
+      - step:
+          caches:
+            - node
+          script:
+            - npm install
+            - npm test
+  branches:
+    master:
+      - step:
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run test
+            - npm run e2e
