@@ -22,7 +22,7 @@ context('Files', () => {
     // Instead of writing a response inline you can
     // use a fixture file's content.
 
-    cy.server()
+    cy.intercept()
     cy.fixture('example.json').as('comment')
     // when application makes an Ajax request matching "GET comments/*"
     // Cypress will intercept it and reply with object

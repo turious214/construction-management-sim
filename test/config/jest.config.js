@@ -4,7 +4,7 @@ module.exports = {
 
   // Restrict to directory
     roots: [
-      "<rootDir>/test/jest"
+      "<rootDir>/../jest"
     ],
 
 };

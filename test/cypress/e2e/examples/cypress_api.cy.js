@@ -60,13 +60,13 @@ context('Cypress.Cookies', () => {
     // preserving a cookie will not clear it when
     // the next test starts
     cy.setCookie('lastCookie', '789XYZ')
-    Cypress.Cookies.preserveOnce('lastCookie')
+    cy.session('lastCookie')
   })
 
   it('.defaults() - set defaults for all cookies', () => {
     // now any cookie with the name 'session_id' will
     // not be cleared before each new test runs
-    Cypress.Cookies.defaults({
+    cy.session({
       whitelist: 'session_id',
     })
   })
@@ -83,7 +83,7 @@ context('Cypress.Server', () => {
 
   // https://on.cypress.io/cypress-server
   it('.defaults() - change default config of server', () => {
-    Cypress.Server.defaults({
+    cy.intercept({
       delay: 0,
       force404: false,
     })

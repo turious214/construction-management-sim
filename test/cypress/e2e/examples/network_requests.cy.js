@@ -7,10 +7,10 @@ context('Network Requests', () => {
 
   // Manage AJAX / XHR requests in your app
 
-  it('cy.server() - control behavior of network requests and responses', () => {
+  it('cy.intercept() - control behavior of network requests and responses', () => {
     // https://on.cypress.io/server
 
-    cy.server().should((server) => {
+    cy.intercept().should((server) => {
       // the default options on server
       // you can override any of these options
       expect(server.delay).to.eq(0)
@@ -33,7 +33,7 @@ context('Network Requests', () => {
       expect(server.whitelist).to.be.a('function')
     })
 
-    cy.server({
+    cy.intercept({
       method: 'POST',
       delay: 1000,
       status: 422,
@@ -150,7 +150,7 @@ context('Network Requests', () => {
 
     let message = 'whoa, this comment does not exist'
 
-    cy.server()
+    cy.intercept()
 
     // Listen to GET to comments/1
     cy.route('GET', 'comments/*').as('getComment')

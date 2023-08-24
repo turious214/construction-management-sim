@@ -1,6 +1,11 @@
 ** Test command lines **
-jest - npm test 
-cypress - npm run e2e
+JEST
+- npm run test
+- npm run test-detailed 
+
+CYPRESS
+- npm run e2e
+- npm run e2e-open
 
 
 
