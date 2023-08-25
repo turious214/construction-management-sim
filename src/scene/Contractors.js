@@ -5,6 +5,9 @@ class Contractors extends Phaser.Scene {
 
         // game controls
         this.control = null;
+        this.scrollbar = null;
+        this.isDragging = false;
+        this.scrollView = null;
     }
 
     preload() {
@@ -52,18 +55,13 @@ class Contractors extends Phaser.Scene {
         const card = this.add.image(INIT_MAIN_UI_X * 7, INIT_MAIN_UI_Y * 20, 'card').setScale(1, 1.5);
 
         // add scroll view
-        const scrollView = this.add.container(card.x / 7, card.y / 4);
+        this.scrollView = this.add.container(card.x / 7, card.y / 4);
         const scrollViewContent = null;
 
-        // ------------------------------------------------------------ for test
-        // const b = new CustomButton(this, 400, card.y / 4, 'button1Normal', 'button1Hover', 'test');
-        // this.add.existing(b);
-
-        // put random info
+        // put random info[default = 20 messages]
         for (let i = 0; i < 20; i++) {
-            const scrollViewContent = this.add.container(scrollView.x , scrollView.y / 4 * i + 76 + i * 35);
-            scrollView.add(scrollViewContent);
-
+            const scrollViewContent = this.add.container(this.scrollView.x , this.scrollView.y / 4 * i + 76 + i * 35);
+            this.scrollView.add(scrollViewContent);
 
             // name
             const generateName = generateRandomCompanyName();
@@ -90,45 +88,42 @@ class Contractors extends Phaser.Scene {
             // add scroll view mask
             const mask = this.make.graphics();
             mask.fillStyle(0xffffff);
-            mask.fillRect(100, 0, 800, 650);
+            mask.fillRect(0, -1000, 1000, 1000);
+            mask.fillStyle(0x000000);
+            mask.fillRect(100, 150, 800, 500)
             scrollViewContent.setMask(mask.createGeometryMask());
         }
 
-        // set scroll view
-        // add scroll bar --- work
-        const scrollbar = this.add.graphics();
-        scrollbar.fillStyle(0x666666, 1);
-        scrollbar.fillRect(630, scrollView.y - 25, 8, 50);
-        scrollView.add(scrollbar);
+        // add scroll bar
+        this.scrollbar = this.add.graphics();
+        this.scrollbar.fillStyle(0x666666, 1);
+        this.scrollbar.fillRect(680, 175, 8, 50);
+    }
 
-        scrollbar.setInteractive(new Phaser.Geom.Rectangle(630, scrollView.y - 25, 8, 50), Phaser.Geom.Rectangle.Contains);
+    update() {
+        // set scroll bar
+        this.scrollbar.setInteractive(new Phaser.Geom.Rectangle(680, 175, 8, 50), Phaser.Geom.Rectangle.Contains);
 
-        let isDragging = false;
-
-        scrollbar.on('pointerdown', () => {
-            isDragging = true;
-        });
-
-        this.input.on('pointermove', (pointer) => {
-            if (!isDragging) {
-                return;
-            }
-
-            console.log(pointer.y)
-            console.log(scrollbar.y)
-            console.log(card.y)
-            const offsetY = pointer.y - 200;
-            const scrollbarY = Phaser.Math.Clamp(offsetY, 0, 400);
-            scrollbar.y = scrollbarY;
-
-            const contentY = (scrollbar.y / (400 - scrollbar.height)) * (scrollViewContent.height - 400);
-            scrollViewContent.y = -contentY;
+        this.scrollbar.on('pointerdown', () => {
+            this.isDragging = true;
         });
 
         this.input.on('pointerup', () => {
-            isDragging = false;
+            this.isDragging = false;
         });
 
+        // set scroll view connect with scroll bar
+        if (this.isDragging) {
+            const pointer = this.input.activePointer;
+
+            const offsetY = pointer.y - 200;
+            this.scrollbar.y = Phaser.Math.Clamp(offsetY, 0, 400);
+
+            //51.5*n+n/10 scrollView height - scrollbar height = scroll speed
+            const contentY = (this.scrollbar.y / (400 - 50)) * (1030 - 400) - 100;
+            this.scrollView.y = -contentY;
+            console.log(this.scrollView.y);
+        }
     }
 }
 
