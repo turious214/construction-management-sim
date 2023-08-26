@@ -30,18 +30,18 @@ class Personnel extends Phaser.Scene {
             const personnelNames = jsonData.personnelNames;
 
             const BOX_Y_POS = 100;
-        const TaskXPos = [];
-        const TASK_1_X_POS = 130;
-        const TASK_SEPERATION_FACTOR = 200;
-        let i = 0;
-        while (i < numTasks) {
-            if (i == 0) {
-                TaskXPos[i] = TASK_1_X_POS;
-            }
-            else {
-                TaskXPos[i] = TaskXPos[i-1] + TASK_SEPERATION_FACTOR;
-            }
-            i++;
+            const TaskXPos = [];
+            const TASK_1_X_POS = 130;
+            const TASK_SEPERATION_FACTOR = 200;
+            let i = 0;
+            while (i < numTasks) {
+                if (i == 0) {
+                    TaskXPos[i] = TASK_1_X_POS;
+                }
+                else {
+                    TaskXPos[i] = TaskXPos[i-1] + TASK_SEPERATION_FACTOR;
+                }
+                i++;
         }
         
         
@@ -65,7 +65,7 @@ class Personnel extends Phaser.Scene {
         while(i < numTasks) {
             tasks[i] = this.add.image(TaskXPos[i], TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
             i++;
-            this.add.text(TaskXPos[i-1] - 40, TASK_Y_POS-225, `Task ${i}`, { fontSize: '20px', color: '#ffffff' });
+            this.add.text(TaskXPos[i-1] - 40, TASK_Y_POS-225, `Task ${i}`, { fontSize: '20px', color: '#ffffff' }).setOrigin(0,0);
         }
 
         // const cardTextTask1 = this.add.text(TASK_1_X_POS - 40 , TASK_Y_POS-225, 'Task 1', { fontSize: '20px', color: '#ffffff' });
