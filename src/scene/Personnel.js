@@ -28,7 +28,7 @@ class Personnel extends Phaser.Scene {
             const numTasks = jsonData.numTasks;
             const personnelPerTask = jsonData.PersonnelPerTask;
             const personnelNames = jsonData.personnelNames;
-            
+
             const BOX_Y_POS = 100;
         const TaskXPos = [];
         const TASK_1_X_POS = 130;
@@ -65,12 +65,8 @@ class Personnel extends Phaser.Scene {
         while(i < numTasks) {
             tasks[i] = this.add.image(TaskXPos[i], TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
             i++;
+            this.add.text(TaskXPos[i-1] - 40, TASK_Y_POS-225, `Task ${i}`, { fontSize: '20px', color: '#ffffff' });
         }
-
-        // const task1 = this.add.image(TASK_1_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
-        // const task2 = this.add.image(TASK_2_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
-        // const task3 = this.add.image(TASK_3_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
-        // //const task4 = this.add.image(TASK_4_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
 
         // const cardTextTask1 = this.add.text(TASK_1_X_POS - 40 , TASK_Y_POS-225, 'Task 1', { fontSize: '20px', color: '#ffffff' });
         // cardTextTask1.setOrigin(0, 0);
