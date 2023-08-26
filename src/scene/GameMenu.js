@@ -6,8 +6,6 @@ class GameMenu extends Phaser.Scene {
         // Game control
         this.control = null;
     
-        // Guide on screen
-        this.guideText = [lang['start.screen.guide.1']];
 
         // // // Button states
         // this.playButton = 'play_button_up';
@@ -43,16 +41,22 @@ class GameMenu extends Phaser.Scene {
         // graphics.fillRect(0, 0, Config.WindowWidth, Config.WindowHeight);
         // graphics.fillRect()
 
+        const BUFFER = 100;
 
-        let startOption = this.add.text(Config.WindowWidth / 4, Config.WindowHeight / 8, lang['start.screen.enter'], {
+
+        let startOption = this.add.text(Config.WindowWidth / 3 - BUFFER, Config.WindowHeight / 8, 'PROJECT MANAGER', {
             color: '#fcd498',
-            fontSize: 50,
+            fontSize: 100,
             align: 'center',
-        }).setFixedSize(450, 50);
+        }).setFixedSize(Config.WindowWidth / 2, 100);
 
-        for (var i = 0; i < this.guideText.length; i++) {
-            let guide = this.add.text(300, 160 + i * 40, this.guideText[i], {
+
+        const GUIDE_TEXT = ['Press Enter to Continue'];
+
+        for (var i = 0; i < GUIDE_TEXT.length; i++) {
+            let guide = this.add.text(Config.WindowWidth / 3, startOption.y + startOption.height + i * 50, GUIDE_TEXT[i], {
                 align: 'center',
+                fontSize: 50,
                 color: '#F5F5DC'
             });
         }
@@ -68,8 +72,10 @@ class GameMenu extends Phaser.Scene {
 
         // ---| TEST ONLY - END |---
 
+        const SPACING_BETWEEN_BUTTONS = 100;
+
         // create button and add to scene
-        const playButton = new CustomButton(this, 400, 250, 'button1Normal', 'button1Hover', 'Play');
+        const playButton = new CustomButton(this, Config.WindowWidth / 2, Config.WindowHeight / 3, 'button1Normal', 'button1Hover', 'Play', 30);
         this.add.existing(playButton);
 
         // program button to do something
@@ -78,9 +84,10 @@ class GameMenu extends Phaser.Scene {
                         this.scene.stop('GameMenu')
                         this.scene.launch('MainScene')
         });
+
         
         // settingsButton
-        const settingsButton = new CustomButton(this, 400, 350, 'button1Normal', 'button1Hover', 'Settings');
+        const settingsButton = new CustomButton(this, playButton.x, playButton.y + SPACING_BETWEEN_BUTTONS, 'button1Normal', 'button1Hover', 'Settings', 30);
         this.add.existing(settingsButton);
 
      

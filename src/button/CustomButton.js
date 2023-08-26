@@ -1,7 +1,7 @@
 // ... declare IButtonContainer interface here
 
 class CustomButton extends Phaser.GameObjects.Container {
-    constructor(scene, x, y, upTexture, overTexture, text) {
+    constructor(scene, x, y, upTexture, overTexture, text, fontSize) {
         super(scene, x, y)
 
         this.upImage = scene.add.image(0, 0, upTexture);
@@ -15,7 +15,9 @@ class CustomButton extends Phaser.GameObjects.Container {
         
             
         this.text = scene.add.text(0, 0, text)
-            .setOrigin(0.5); // align to centre
+            .setOrigin(0.5) // align to centre
+            .setFontSize(fontSize);
+            ;
 
         this.add(this.upImage);
         this.add(this.overImage);

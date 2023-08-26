@@ -20,11 +20,13 @@ class Config {
     }
 
     static get WindowWidth() {
-        return 50 * 16;
+        // return 50 * 16;
+        return 1920;
     }
 
     static get WindowHeight() {
-        return 50 * 16;
+        // return 50 * 16;
+        return 1080;
     }
 
     static get DialogTransitionTime() {

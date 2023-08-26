@@ -3,8 +3,13 @@ var config = {
     width: Config.WindowWidth,
     height: Config.WindowHeight,
     parent: 'main-game',
-    scene: [GameMenu, MainScene]
-    // scene: [GameMenu]
+    scene: [GameMenu, MainScene],
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTRE_BOTH
+    }
+    
+    
 };
 
 var game = new Phaser.Game(config);
