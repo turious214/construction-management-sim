@@ -79,6 +79,11 @@ class MainScene extends Phaser.Scene {
         this.add.existing(endWeekButton);
 
 
+        personnelButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.scene.stop('MainScene')
+                        this.scene.launch('Personnel')
+        });
 
 
 

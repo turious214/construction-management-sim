@@ -3,7 +3,7 @@ var config = {
     width: Config.WindowWidth,
     height: Config.WindowHeight,
     parent: 'main-game',
-    scene: [GameMenu, MainScene]
+    scene: [GameMenu, MainScene, Personnel]
     // scene: [GameMenu]
 };
 
