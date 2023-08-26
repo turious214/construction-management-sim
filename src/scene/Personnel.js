@@ -11,6 +11,7 @@ class Personnel extends Phaser.Scene {
 
     preload() {
         this.control = new Control(this);
+        this.load.json('data', 'assets/project/bridge1.json');
 
         this.load.image('button1Normal', 'assets/buttons/button_normal.png');
         this.load.image('button1Hover', 'assets/buttons/button_hover.png');
@@ -22,11 +23,28 @@ class Personnel extends Phaser.Scene {
     }
 
     create() {
-        const BOX_Y_POS = 100;
+        const jsonData = this.cache.json.get('data');
+        if (jsonData) {
+            const numTasks = jsonData.numTasks;
+            const personnelPerTask = jsonData.PersonnelPerTask;
+            const personnelNames = jsonData.personnelNames;
+            
+            const BOX_Y_POS = 100;
+        const TaskXPos = [];
         const TASK_1_X_POS = 130;
-        const TASK_2_X_POS = 330;
-        const TASK_3_X_POS = 530;
-        const TASK_4_X_POS = 730;
+        const TASK_SEPERATION_FACTOR = 200;
+        let i = 0;
+        while (i < numTasks) {
+            if (i == 0) {
+                TaskXPos[i] = TASK_1_X_POS;
+            }
+            else {
+                TaskXPos[i] = TaskXPos[i-1] + TASK_SEPERATION_FACTOR;
+            }
+            i++;
+        }
+        
+        
 
         const TASK_Y_POS = 500;
 
@@ -41,22 +59,31 @@ class Personnel extends Phaser.Scene {
         //card.add(cardText);
         cardText.setOrigin(0,0);
 
-        const task1 = this.add.image(TASK_1_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
-        const task2 = this.add.image(TASK_2_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
-        const task3 = this.add.image(TASK_3_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
-        //const task4 = this.add.image(TASK_4_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
+        //make tasks
+        const tasks = [];
+        i = 0;
+        while(i < numTasks) {
+            tasks[i] = this.add.image(TaskXPos[i], TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
+            i++;
+        }
 
-        const cardTextTask1 = this.add.text(TASK_1_X_POS - 40 , TASK_Y_POS-225, 'Task 1', { fontSize: '20px', color: '#ffffff' });
-        cardTextTask1.setOrigin(0, 0);
+        // const task1 = this.add.image(TASK_1_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
+        // const task2 = this.add.image(TASK_2_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
+        // const task3 = this.add.image(TASK_3_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
+        // //const task4 = this.add.image(TASK_4_X_POS, TASK_Y_POS, 'taskCard').setScale(0.5, 0.7);
+
+        // const cardTextTask1 = this.add.text(TASK_1_X_POS - 40 , TASK_Y_POS-225, 'Task 1', { fontSize: '20px', color: '#ffffff' });
+        // cardTextTask1.setOrigin(0, 0);
     
-        const cardTextTask2 = this.add.text(TASK_2_X_POS - 40 , TASK_Y_POS-225, 'Task 2', { fontSize: '20px', color: '#ffffff' });
-        cardTextTask2.setOrigin(0, 0);
+        // const cardTextTask2 = this.add.text(TASK_2_X_POS - 40 , TASK_Y_POS-225, 'Task 2', { fontSize: '20px', color: '#ffffff' });
+        // cardTextTask2.setOrigin(0, 0);
     
-        const cardTextTask3 = this.add.text(TASK_3_X_POS - 40, TASK_Y_POS-225, 'Task 3', { fontSize: '20px', color: '#ffffff' });
-        cardTextTask3.setOrigin(0, 0);
+        // const cardTextTask3 = this.add.text(TASK_3_X_POS - 40, TASK_Y_POS-225, 'Task 3', { fontSize: '20px', color: '#ffffff' });
+        // cardTextTask3.setOrigin(0, 0);
 
         // Create snap positions
         const snapPositions = [200, 400, 600];
+        //const Task1snapPositions = [200, 400, 600];
 
         // Create snap zones and panels
         for (const xPos of snapPositions) {
@@ -83,6 +110,10 @@ class Personnel extends Phaser.Scene {
                 }
             });
         }
+        } else {
+            console.error('Failed to load JSON data.');
+        }
+        
     }
 
     update() {

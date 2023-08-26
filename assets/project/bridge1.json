@@ -1,7 +1,8 @@
 {
     "funds": 100000000,
     "weather": [{}],
-    "day": [{}]
-    
-    
+    "day": [{}],
+    "numTasks": 3,
+    "PersonnelPerTask": 10,
+    "personnelNames": ["Max", "Luke", "Mathew", "Martha", "Bob", "Alice", "Tyrone", "Mary", "Shaniqua"]
 }
