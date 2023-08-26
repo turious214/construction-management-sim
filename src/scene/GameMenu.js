@@ -41,10 +41,10 @@ class GameMenu extends Phaser.Scene {
         // graphics.fillRect(0, 0, Config.WindowWidth, Config.WindowHeight);
         // graphics.fillRect()
 
-        const BUFFER = 100;
+        const TITLE_BUFFER = 130;
 
 
-        let startOption = this.add.text(Config.WindowWidth / 3 - BUFFER, Config.WindowHeight / 8, 'PROJECT MANAGER', {
+        let startOption = this.add.text(Config.WindowWidth / 3 - TITLE_BUFFER, Config.WindowHeight / 8, 'PROJECT MANAGER', {
             color: '#fcd498',
             fontSize: 100,
             align: 'center',
