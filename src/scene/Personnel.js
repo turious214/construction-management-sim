@@ -67,17 +67,7 @@ class Personnel extends Phaser.Scene {
             i++;
             this.add.text(TaskXPos[i-1] - 40, TASK_Y_POS-225, `Task ${i}`, { fontSize: '20px', color: '#ffffff' }).setOrigin(0,0);
         }
-
-        // const cardTextTask1 = this.add.text(TASK_1_X_POS - 40 , TASK_Y_POS-225, 'Task 1', { fontSize: '20px', color: '#ffffff' });
-        // cardTextTask1.setOrigin(0, 0);
-    
-        // const cardTextTask2 = this.add.text(TASK_2_X_POS - 40 , TASK_Y_POS-225, 'Task 2', { fontSize: '20px', color: '#ffffff' });
-        // cardTextTask2.setOrigin(0, 0);
-    
-        // const cardTextTask3 = this.add.text(TASK_3_X_POS - 40, TASK_Y_POS-225, 'Task 3', { fontSize: '20px', color: '#ffffff' });
-        // cardTextTask3.setOrigin(0, 0);
-
-        // Create snap positions
+        //Create snap positions
         const snapPositions = [200, 400, 600];
         //const Task1snapPositions = [200, 400, 600];
 
@@ -106,12 +96,15 @@ class Personnel extends Phaser.Scene {
                 }
             });
         }
+
         } else {
             console.error('Failed to load JSON data.');
         }
         
     }
 
+
+    
     update() {
         let isSelectDown = Phaser.Input.Keyboard.JustDown(this.control.keyEsc);
         if (isSelectDown) {
