@@ -29,23 +29,9 @@ class MainScene extends Phaser.Scene {
     }
 
     create() {
-       
-        let graphics = this.add.graphics({
-            fillStyle: {
-                color: 0xc066f2a,
-                alpha: 1,
-                pattern: '../assets/images/Arkanos.png'
-            }
-            //0xc06f2a - original color
-        });
-        graphics.fillRect(0, 0, Config.WindowWidth, Config.WindowHeight);
 
-        let startOption = this.add.text(200, 100, 'GAME', {
-            color: '#fcd498',
-            fontSize: 100,
-            align: 'center'
-
-        }).setFixedSize(400, 400);
+        // draw background
+        this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
 
         const INIT_MAIN_UI_X = 200;
         const INIT_MAIN_UI_Y = 50;
@@ -75,9 +61,17 @@ class MainScene extends Phaser.Scene {
         const contractButton = new CustomButton(this, personnelButton.x + personnelButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contract', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(contractButton);
 
+        // go main scene
+        contractButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.scene.stop('MainScene');
+                this.scene.start('ContractScene');
+            });
+
         // endWeekButton - change to dynamically allow different weeks
         const endWeekButton = new CustomButton(this, contractButton.x + contractButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'END WEEK 1', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(endWeekButton);
+
 
 
 
