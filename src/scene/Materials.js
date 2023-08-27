@@ -59,7 +59,7 @@ class Materials extends Phaser.Scene {
         }).setFixedSize(400, 400);
         
         // add scroll view
-        this.scrollView = this.add.container(card.x / 7 - 25, card.y / 2 - 50);
+        this.scrollView = this.add.container(card.x/7 - 25, card.y/5 + 150);
         const scrollViewContent = null;
 
         // put random info
@@ -68,43 +68,39 @@ class Materials extends Phaser.Scene {
             this.scrollView.add(scrollViewContent);
 
             // name
-            /*
             const generateName = generateRandomMaterial();
             const material = this.add.text(0, 0, generateName, {
                 fontSize: 30,
                 color: '#ffffff'
             });
             scrollViewContent.add(material);
-            */
 
-            // price
-            /* const generatePrice = generateRandomPrice(ratingImage5.texture.key);
-            const price = this.add.text(0, 0, `$${generatePrice} / kg`, {
+            // units
+            const generateUnits = Phaser.Math.Between(0, 2000);
+            const price = this.add.text(card.x - 200, 0, `${generateUnits} kg`, {
                 fontSize: 30,
                 color: '#ffffff'
             });
-            scrollViewContent.add(price); */
+            scrollViewContent.add(price); 
 
             // add scroll view mask
             const mask = this.make.graphics();
             mask.fillStyle(0xffffff);
             mask.fillRect(0, -1000, 1000, 1000);
             mask.fillStyle(0x000000);
-            mask.fillRect(100, 150, 800, 500)
+            mask.fillRect(100, 315, 1300, 680)
             scrollViewContent.setMask(mask.createGeometryMask());
         }
-
-
 
         // add scroll bar
         this.scrollbar = this.add.graphics();
         this.scrollbar.fillStyle(0x666666, 1);
-        this.scrollbar.fillRect(680, 175, 8, 50);
+        this.scrollbar.fillRect(1380, 315, 8, 50);
     }
 
     update() {
         // set scroll bar
-        this.scrollbar.setInteractive(new Phaser.Geom.Rectangle(680, 175, 8, 50), Phaser.Geom.Rectangle.Contains);
+        this.scrollbar.setInteractive(new Phaser.Geom.Rectangle(1380, 315, 8, 50), Phaser.Geom.Rectangle.Contains);
 
         this.scrollbar.on('pointerdown', () => {
             this.isDragging = true;
@@ -118,11 +114,10 @@ class Materials extends Phaser.Scene {
         if (this.isDragging) {
             const pointer = this.input.activePointer;
 
-            const offsetY = pointer.y - 200;
-            this.scrollbar.y = Phaser.Math.Clamp(offsetY, 0, 400);
+            const offsetY = pointer.y - 315;
+            this.scrollbar.y = Phaser.Math.Clamp(offsetY, 0, 600);
 
-            //51.5*n+n/10 scrollView height - scrollbar height = scroll speed
-            const contentY = (this.scrollbar.y / (400 - 50)) * (1030 - 400) - 100;
+            const contentY = (this.scrollbar.y - 315) / (600 - 50) * (1030 - 600);
             this.scrollView.y = -contentY;
             console.log(this.scrollView.y);
         }
@@ -142,16 +137,3 @@ function generateRandomMaterial() {
     return materials[materialsNameNum]
 }
 
-function generateRandomPrice(ratingImageName) {
-    const priceRanges = [
-        { min: 50, max: 150 },
-        { min: 151, max: 250 },
-        { min: 251, max: 350 },
-        { min: 351, max: 450 },
-        { min: 451, max: 550 },
-        { min: 551, max: 650 }
-    ];
-
-    const star = parseInt(ratingImageName.charAt(0))
-    return Phaser.Math.Between(priceRanges[star].min, priceRanges[star].max);
-}
