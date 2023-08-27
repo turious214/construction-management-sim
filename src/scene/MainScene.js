@@ -67,6 +67,12 @@ class MainScene extends Phaser.Scene {
         const materialsButton = new CustomButton(this, contractorsButton.x + contractorsButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Materials', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(materialsButton);
 
+        materialsButton.setInteractive()
+        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                    this.scene.stop('MainScene')
+                    this.scene.launch('Materials')
+        });
+
         // personnelButton
         const personnelButton = new CustomButton(this, materialsButton.x + materialsButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Personnel', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(personnelButton);
