@@ -78,12 +78,12 @@ class Materials extends Phaser.Scene {
             */
 
             // price
-            const generatePrice = generateRandomPrice(ratingImage5.texture.key);
+            /* const generatePrice = generateRandomPrice(ratingImage5.texture.key);
             const price = this.add.text(0, 0, `$${generatePrice} / kg`, {
                 fontSize: 30,
                 color: '#ffffff'
             });
-            scrollViewContent.add(price);
+            scrollViewContent.add(price); */
 
             // add scroll view mask
             const mask = this.make.graphics();

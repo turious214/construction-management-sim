@@ -27,7 +27,7 @@ class MaterialsShop extends Phaser.Scene {
 
        //add back button
        const backButton = new CustomButton(this, Config.WindowWidth - 200, card.y + 100, 'button1Normal', 'button1Hover', 'Back', 30);
-       this.add.backing(backButton);
+       this.add.existing(backButton);
 
        //go main scene
        backButton.setInteractive()
