@@ -28,12 +28,12 @@ class Materials extends Phaser.Scene {
         // add card
         const card = this.add.image(Config.WindowWidth / 2 - 200, Config.WindowHeight / 2 + 100, 'card').setScale(2, 2);;
 
-        //add exist button
-        const existButton = new CustomButton(this, Config.WindowWidth - 200, card.y + 100, 'button1Normal', 'button1Hover', 'Exist', 30);
-        this.add.existing(existButton);
+        //add exit button
+        const exitButton = new CustomButton(this, Config.WindowWidth - 200, card.y + 100, 'button1Normal', 'button1Hover', 'Exit', 30);
+        this.add.existing(exitButton);
 
         //go main scene
-        existButton.setInteractive()
+        exitButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                 this.scene.stop('Materials')
                 this.scene.launch('MainScene')
