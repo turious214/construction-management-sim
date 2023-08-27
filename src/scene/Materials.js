@@ -25,8 +25,11 @@ class Materials extends Phaser.Scene {
         //add background
         this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
 
+        // add card
+        const card = this.add.image(Config.WindowWidth / 2 - 200, Config.WindowHeight / 2 + 100, 'card').setScale(2, 2);;
+
         //add exist button
-        const existButton = new CustomButton(this, Config.WindowWidth - 200, Config.WindowHeight - 100, 'button1Normal', 'button1Hover', 'Exist', 30);
+        const existButton = new CustomButton(this, Config.WindowWidth - 200, card.y + 100, 'button1Normal', 'button1Hover', 'Exist', 30);
         this.add.existing(existButton);
 
         //go main scene
@@ -37,7 +40,7 @@ class Materials extends Phaser.Scene {
             });
 
         //shop button
-        const shopButton = new CustomButton(this, Config.WindowWidth - 200, 100, 'button1Normal', 'button1Hover', 'Shop', 30);
+        const shopButton = new CustomButton(this, Config.WindowWidth - 200, card.y - 100, 'button1Normal', 'button1Hover', 'Shop', 30);
         this.add.existing(shopButton);
 
         //go shop
@@ -54,31 +57,30 @@ class Materials extends Phaser.Scene {
             align: 'center'
 
         }).setFixedSize(400, 400);
-
-        // add card
-        const card = this.add.image(Config.WindowWidth / 2 - 200, Config.WindowHeight / 2 + 100, 'card').setScale(2, 2);;
-
+        
         // add scroll view
-        this.scrollView = this.add.container(card.x / 7, card.y / 4);
+        this.scrollView = this.add.container(card.x / 7 - 25, card.y / 2 - 50);
         const scrollViewContent = null;
 
         // put random info
         for (let i = 0; i < 20; i++) {
-            const scrollViewContent = this.add.container(this.scrollView.x, this.scrollView.y / 4 * i + 76 + i * 35);
+            const scrollViewContent = this.add.container(this.scrollView.x , this.scrollView.y / 4 * i + 76 + i * 35);
             this.scrollView.add(scrollViewContent);
 
             // name
+            /*
             const generateName = generateRandomMaterial();
             const material = this.add.text(0, 0, generateName, {
-                fontSize: 18,
+                fontSize: 30,
                 color: '#ffffff'
             });
-            scrollViewContent.add(companyName);
+            scrollViewContent.add(material);
+            */
 
             // price
             const generatePrice = generateRandomPrice(ratingImage5.texture.key);
-            const price = this.add.text(475, 1, `$${generatePrice} / kg`, {
-                fontSize: 18,
+            const price = this.add.text(0, 0, `$${generatePrice} / kg`, {
+                fontSize: 30,
                 color: '#ffffff'
             });
             scrollViewContent.add(price);
@@ -91,6 +93,8 @@ class Materials extends Phaser.Scene {
             mask.fillRect(100, 150, 800, 500)
             scrollViewContent.setMask(mask.createGeometryMask());
         }
+
+
 
         // add scroll bar
         this.scrollbar = this.add.graphics();

@@ -3,7 +3,7 @@ var config = {
     width: Config.WindowWidth,
     height: Config.WindowHeight,
     parent: 'main-game',
-    scene: [GameMenu, MainScene],
+    scene: [GameMenu, MainScene, Materials, MaterialsShop],
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTRE_BOTH
