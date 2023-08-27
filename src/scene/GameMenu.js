@@ -41,10 +41,10 @@ class GameMenu extends Phaser.Scene {
         // graphics.fillRect(0, 0, Config.WindowWidth, Config.WindowHeight);
         // graphics.fillRect()
 
-        const TITLE_BUFFER = 130;
+        const TITLE_BUFFER_X = 130;
 
 
-        let startOption = this.add.text(Config.WindowWidth / 3 - TITLE_BUFFER, Config.WindowHeight / 8, 'PROJECT MANAGER', {
+        let startOption = this.add.text(Config.WindowWidth / 3 - TITLE_BUFFER_X, Config.WindowHeight / 8, 'PROJECT MANAGER', {
             color: '#fcd498',
             fontSize: 100,
             align: 'center',
@@ -72,7 +72,7 @@ class GameMenu extends Phaser.Scene {
 
         // ---| TEST ONLY - END |---
 
-        const SPACING_BETWEEN_BUTTONS = 100;
+        const SPACING_BETWEEN_BUTTONS_Y = 100;
 
         // create button and add to scene
         const playButton = new CustomButton(this, Config.WindowWidth / 2, Config.WindowHeight / 3, 'button1Normal', 'button1Hover', 'Play', 30);
@@ -87,8 +87,22 @@ class GameMenu extends Phaser.Scene {
 
         
         // settingsButton
-        const settingsButton = new CustomButton(this, playButton.x, playButton.y + SPACING_BETWEEN_BUTTONS, 'button1Normal', 'button1Hover', 'Settings', 30);
+        const settingsButton = new CustomButton(this, playButton.x, playButton.y + SPACING_BETWEEN_BUTTONS_Y, 'button1Normal', 'button1Hover', 'Settings', 30);
         this.add.existing(settingsButton);
+
+        // draggable
+
+        this.input.setDraggable(settingsButton);
+
+        this.input.on('drag', (pointer, gameObject, dragX, dragY) =>
+        {
+
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+
+        });
+
+
 
      
     }
