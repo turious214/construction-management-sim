@@ -45,51 +45,35 @@ class HUDScene extends Phaser.Scene {
 
         projectButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                        this.scene.stop(`${this.currentScene}`)
-                        this.scene.run('ProjectScene');
-                        this.currentScene = 'ProjectScene';
-                        // projectButton.disableInteractive();
-                        console.log("project");
+                        this.changeScene('ProjectScene');
+
         });
 
         contractorsButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                        this.scene.stop(`${this.currentScene}`)
-                        this.scene.run('ContractorsScene');
-                        this.currentScene = 'ContractorsScene';
+                        this.changeScene('ContractorsScene');
+                        // this.scene.stop(`${this.currentScene}`)
+                        // this.scene.run('ContractorsScene');
+                        // this.currentScene = 'ContractorsScene';
 
-                        // contractorsButton.disableInteractive();
-                        console.log("contractor");
+                        // // contractorsButton.disableInteractive();
+                        // console.log("contractor");
         });
 
         materialsButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                        this.scene.stop(`${this.currentScene}`)
-                        this.scene.run('MaterialScene');
-                        this.currentScene = 'MaterialScene';
-
-                        // materialsButton.disableInteractive();
-                        console.log("material");
+                        this.changeScene('MaterialScene');
         });
 
         personnelButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                        this.scene.stop(`${this.currentScene}`)
-                        this.scene.run('PersonnelScene');
-                        this.currentScene = 'PersonnelScene';
-
-                        // personnelButton.disableInteractive();
-                        console.log("personnel");
+                        this.changeScene('PersonnelScene');
+                    
         });
 
         contractButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                        this.scene.stop(`${this.currentScene}`)
-                        this.scene.run('ContractScene');
-                        this.currentScene = 'PersonnelScene';
-
-                        // contractButton.disableInteractive();
-                        console.log("contract");
+                        this.changeScene('ContractScene');
         });
 
         endWeekButton.setInteractive()
@@ -98,6 +82,13 @@ class HUDScene extends Phaser.Scene {
         });
 
         this.scene.bringToTop();
+    }
+
+    changeScene(newScene) {
+        this.scene.stop(`${this.currentScene}`)
+        this.scene.run(newScene);
+        this.currentScene = newScene;
+        console.log(newScene);
     }
 
 }
