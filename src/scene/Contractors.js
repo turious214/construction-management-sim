@@ -45,7 +45,7 @@ class Contractors extends Phaser.Scene {
             });
 
         // add title
-        this.add.text(Config.WindowWidth / 16, Config.WindowHeight / 16, lang['contractor'], {
+        this.add.text(Config.WindowWidth / 16, Config.WindowHeight / 16, 'CONTRACTORS', {
             color: '#fcd498',
             fontSize: 50,
             align: 'top',

@@ -61,11 +61,18 @@ class MainScene extends Phaser.Scene {
         const contractButton = new CustomButton(this, personnelButton.x + personnelButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contract', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(contractButton);
 
-        // go main scene
+        // event to go to ContractScene
         contractButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                 this.scene.stop('MainScene');
                 this.scene.start('ContractScene');
+            });
+        
+        // event to go to ContractorsScene
+        contractorsButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.scene.stop('MainScene');
+                this.scene.start('Contractors');
             });
 
         // endWeekButton - change to dynamically allow different weeks
