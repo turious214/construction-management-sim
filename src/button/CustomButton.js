@@ -42,6 +42,15 @@ class CustomButton extends Phaser.GameObjects.Container {
 
 
 
+        }
+
+        setTextColor(color) {
+            this.text.setColor(color);
+        }
+
+
+
+
         
 
         // this.button = new Button(scene, 0, 0, texture, tint)
@@ -51,7 +60,6 @@ class CustomButton extends Phaser.GameObjects.Container {
 
         // this.add(this.button)
         // this.add(this.text)
-    }
 
 //     onClick() {
 //         return this.button.onClick()

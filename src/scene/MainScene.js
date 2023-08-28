@@ -47,7 +47,9 @@ class MainScene extends Phaser.Scene {
 
         // contractorsButton
         const contractorsButton = new CustomButton(this, projectButton.x + projectButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contractors', HUD_BUTTON_TEXT_SIZE);
+        // contractorsButton.setTextColor('#fcd498');
         this.add.existing(contractorsButton);
+        
 
         // materialsButton
         const materialsButton = new CustomButton(this, contractorsButton.x + contractorsButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Materials', HUD_BUTTON_TEXT_SIZE);
