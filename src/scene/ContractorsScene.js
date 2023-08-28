@@ -11,5 +11,7 @@ class ContractorsScene extends Phaser.Scene {
     }
 
     create() {
+        // draw background
+        this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
     }
 }
