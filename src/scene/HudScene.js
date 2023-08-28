@@ -4,6 +4,7 @@ class HUDScene extends Phaser.Scene {
         super('HudScene');
         this.control = null;
         this.cursor = null;
+        this.currentScene = 'ProjectScene';
     }
 
     preload() {
@@ -15,6 +16,8 @@ class HUDScene extends Phaser.Scene {
     create() {
         const INIT_MAIN_UI_X = 55;
         const INIT_MAIN_UI_Y = 20;
+
+
 
         // projectButon
         const projectButton = new CustomButton(this, INIT_MAIN_UI_X, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Project');
@@ -42,36 +45,50 @@ class HUDScene extends Phaser.Scene {
 
         projectButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.scene.stop(`${this.currentScene}`)
                         this.scene.run('ProjectScene');
-                        projectButton.disableInteractive();
+                        this.currentScene = 'ProjectScene';
+                        // projectButton.disableInteractive();
                         console.log("project");
         });
 
         contractorsButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.scene.stop(`${this.currentScene}`)
                         this.scene.run('ContractorsScene');
-                        contractorsButton.disableInteractive();
+                        this.currentScene = 'ContractorsScene';
+
+                        // contractorsButton.disableInteractive();
                         console.log("contractor");
         });
 
         materialsButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.scene.stop(`${this.currentScene}`)
                         this.scene.run('MaterialScene');
-                        materialsButton.disableInteractive();
+                        this.currentScene = 'MaterialScene';
+
+                        // materialsButton.disableInteractive();
                         console.log("material");
         });
 
         personnelButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.scene.stop(`${this.currentScene}`)
                         this.scene.run('PersonnelScene');
-                        personnelButton.disableInteractive();
+                        this.currentScene = 'PersonnelScene';
+
+                        // personnelButton.disableInteractive();
                         console.log("personnel");
         });
 
         contractButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.scene.stop(`${this.currentScene}`)
                         this.scene.run('ContractScene');
-                        contractButton.disableInteractive();
+                        this.currentScene = 'PersonnelScene';
+
+                        // contractButton.disableInteractive();
                         console.log("contract");
         });
 
