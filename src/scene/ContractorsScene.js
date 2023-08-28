@@ -1,7 +1,7 @@
-class Contractors extends Phaser.Scene {
+class ContractorsScene extends Phaser.Scene {
 
     constructor() {
-        super('Contractors')
+        super('ContractorsScene')
 
         // game controls
         this.control = null;
@@ -40,7 +40,7 @@ class Contractors extends Phaser.Scene {
         // go main scene
         existButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                this.scene.stop('Contractors');
+                this.scene.stop('ContractorsScene');
                 this.scene.launch('MainScene');
             });
 

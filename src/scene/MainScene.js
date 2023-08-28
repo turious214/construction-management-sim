@@ -72,7 +72,7 @@ class MainScene extends Phaser.Scene {
         contractorsButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                 this.scene.stop('MainScene');
-                this.scene.start('Contractors');
+                this.scene.start('ContractorsScene');
             });
 
         // endWeekButton - change to dynamically allow different weeks

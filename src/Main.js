@@ -3,7 +3,7 @@ var config = {
     width: Config.WindowWidth,
     height: Config.WindowHeight,
     parent: 'main-game',
-    scene: [GameMenu, MainScene, ContractScene, Contractors],
+    scene: [GameMenu, MainScene, ContractScene, ContractorsScene],
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTRE_BOTH
