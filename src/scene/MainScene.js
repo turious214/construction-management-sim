@@ -71,12 +71,6 @@ class MainScene extends Phaser.Scene {
         // endWeekButton - change to dynamically allow different weeks
         const endWeekButton = new CustomButton(this, contractButton.x + contractButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'END WEEK 1', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(endWeekButton);
-
-
-
-
-
-
     }
 
     update() {
