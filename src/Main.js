@@ -3,7 +3,7 @@ var config = {
     width: Config.WindowWidth,
     height: Config.WindowHeight,
     parent: 'main-game',
-    scene: [GameMenu, HudScene, ProjectScene, ContractorsScene, MaterialScene, PersonnelScene, ContractScene]
+    scene: [GameMenu, HUDScene, ProjectScene, ContractorsScene, MaterialScene, PersonnelScene, ContractScene]
     //scene: [GameMenu, MainScene]
     // scene: [GameMenu]
 };
