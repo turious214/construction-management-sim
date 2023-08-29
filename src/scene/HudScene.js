@@ -5,6 +5,7 @@ class HUDScene extends Phaser.Scene {
         this.control = null;
         this.cursor = null;
         this.currentScene = 'ProjectScene';
+        this.currentButton = null;
     }
 
     preload() {
@@ -24,13 +25,13 @@ class HUDScene extends Phaser.Scene {
         
         const projectButton = new CustomButton(this, INIT_MAIN_UI_X, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Project', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(projectButton);
+        this.currentButton = projectButton;
+        projectButton.setTextColor('#fcd498');
 
         // contractorsButton
         const contractorsButton = new CustomButton(this, projectButton.x + projectButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contractors', HUD_BUTTON_TEXT_SIZE);
-        // contractorsButton.setTextColor('#fcd498');
         this.add.existing(contractorsButton);
         
-
         // materialsButton
         const materialsButton = new CustomButton(this, contractorsButton.x + contractorsButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Materials', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(materialsButton);
@@ -43,55 +44,37 @@ class HUDScene extends Phaser.Scene {
         const contractButton = new CustomButton(this, personnelButton.x + personnelButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contract', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(contractButton);
 
-        // // event to go to ContractScene
-        // contractButton.setInteractive()
-        //     .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-        //         this.scene.stop('MainScene');
-        //         this.scene.start('ContractScene');
-        //     });
-        
-        // // event to go to ContractorsScene
-        // contractorsButton.setInteractive()
-        //     .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-        //         this.scene.stop('MainScene');
-        //         this.scene.start('ContractorsScene');
-        //     });
-
         // endWeekButton - change to dynamically allow different weeks
         const endWeekButton = new CustomButton(this, contractButton.x + contractButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'END WEEK 1', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(endWeekButton);
 
-        // projectButton.setInteractive()
-        //     .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-        //                 this.changeScene('ProjectScene');
+        projectButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.changeScene('ProjectScene', projectButton);
 
-        // });
+        });
+
 
         contractorsButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                        this.changeScene('ContractorsScene');
-                        // this.scene.stop(`${this.currentScene}`)
-                        // this.scene.run('ContractorsScene');
-                        // this.currentScene = 'ContractorsScene';
+                        this.changeScene('ContractorsScene', contractorsButton);
 
-                        // // contractorsButton.disableInteractive();
-                        // console.log("contractor");
         });
 
         materialsButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                        this.changeScene('MaterialScene');
+                        this.changeScene('MaterialScene', materialsButton);
         });
 
         personnelButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                        this.changeScene('PersonnelScene');
+                        this.changeScene('PersonnelScene', personnelButton);
                     
         });
 
         contractButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                        this.changeScene('ContractScene');
+                        this.changeScene('ContractScene', contractButton);
         });
 
         endWeekButton.setInteractive()
@@ -102,11 +85,23 @@ class HUDScene extends Phaser.Scene {
         this.scene.bringToTop();
     }
 
-    changeScene(newScene) {
+    changeScene(newScene, button) {
         this.scene.stop(`${this.currentScene}`)
         this.scene.run(newScene);
         this.currentScene = newScene;
+
+        // change text color of current button 
+        this.currentButton.setTextColor('#F5F5DC');
+
+        // change text color of next button
+        button.setTextColor('#fcd498');
+
+        // update current button
+        this.currentButton = button;
+
         console.log(newScene);
     }
+
+
 
 }
