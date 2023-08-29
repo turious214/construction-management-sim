@@ -1,7 +1,7 @@
-class MaterialScene extends Phaser.Scene {
+class MaterialsScene extends Phaser.Scene {
 
     constructor() {
-        super('MaterialScene');
+        super('MaterialsScene');
         this.control = null;
         this.cursor = null;
     }

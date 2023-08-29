@@ -29,28 +29,69 @@ class ProjectScene extends Phaser.Scene {
     }
 
     create() {
-        let graphics = this.add.graphics({
-            fillStyle: {
-                color: 0xc066f2a,
-                alpha: 1,
-                pattern: '../assets/images/Arkanos.png'
-            }
-            //0xc06f2a - original color
-        });
-        graphics.fillRect(0, 0, Config.WindowWidth, Config.WindowHeight);
 
-        let startOption = this.add.text(200, 100, lang['game.test'], {
-            color: '#fcd498',
-            fontSize: 100,
-            align: 'center'
+        // draw background
+        this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
 
-        }).setFixedSize(400, 400);
+        const INIT_MAIN_UI_X = 200;
+        const INIT_MAIN_UI_Y = 50;
+        const HUD_BUTTON_TEXT_SIZE = 30
+
+        // projectButton
+        // create button and add to scene
+        
+        const projectButton = new CustomButton(this, INIT_MAIN_UI_X, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Project', HUD_BUTTON_TEXT_SIZE);
+        this.add.existing(projectButton);
+
+        // program button to do something
+
+        // contractorsButton
+        const contractorsButton = new CustomButton(this, projectButton.x + projectButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contractors', HUD_BUTTON_TEXT_SIZE);
+        // contractorsButton.setTextColor('#fcd498');
+        this.add.existing(contractorsButton);
+        
+
+        // materialsButton
+        const materialsButton = new CustomButton(this, contractorsButton.x + contractorsButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Materials', HUD_BUTTON_TEXT_SIZE);
+        this.add.existing(materialsButton);
+
+        // personnelButton
+        const personnelButton = new CustomButton(this, materialsButton.x + materialsButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Personnel', HUD_BUTTON_TEXT_SIZE);
+        this.add.existing(personnelButton);
+
+        // ContractsButton
+        const contractButton = new CustomButton(this, personnelButton.x + personnelButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contract', HUD_BUTTON_TEXT_SIZE);
+        this.add.existing(contractButton);
+
+        // event to go to ContractScene
+        contractButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.scene.stop('MainScene');
+                this.scene.start('ContractScene');
+            });
+        
+        // event to go to ContractorsScene
+        contractorsButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.scene.stop('MainScene');
+                this.scene.start('ContractorsScene');
+            });
+
+        // endWeekButton - change to dynamically allow different weeks
+        const endWeekButton = new CustomButton(this, contractButton.x + contractButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'END WEEK 1', HUD_BUTTON_TEXT_SIZE);
+        this.add.existing(endWeekButton);
     }
 
     update() {
+        
         let isSelectDown = Phaser.Input.Keyboard.JustDown(this.control.keyEsc);
         if (isSelectDown) {
-            this.scene.start('GameMenu');
+            this.scene.stop('ProjectScene');
+            this.scene.launch('GameMenu');
         }
     }
+
+
+
+    
 }

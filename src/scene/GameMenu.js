@@ -115,6 +115,6 @@ class GameMenu extends Phaser.Scene {
 
     startGame() {
             this.scene.start('ProjectScene');
-            this.scene.launch("HudScene");
+            this.scene.launch("HUDScene");
     }
 }
