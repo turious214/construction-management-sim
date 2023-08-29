@@ -15,9 +15,6 @@ class HUDScene extends Phaser.Scene {
 
     create() {
 
-        // draw background
-        this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
-
         const INIT_MAIN_UI_X = 200;
         const INIT_MAIN_UI_Y = 50;
         const HUD_BUTTON_TEXT_SIZE = 30
@@ -102,7 +99,7 @@ class HUDScene extends Phaser.Scene {
                         console.log("end week");
         });
 
-        // this.scene.bringToTop();
+        this.scene.bringToTop();
     }
 
     changeScene(newScene) {

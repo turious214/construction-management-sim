@@ -41,7 +41,7 @@ class ContractorsScene extends Phaser.Scene {
         existButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                 this.scene.stop('ContractorsScene');
-                this.scene.launch('MainScene');
+                this.scene.run('ProjectScene');
             });
 
         // add title
