@@ -3,11 +3,12 @@ var config = {
     width: Config.WindowWidth,
     height: Config.WindowHeight,
     parent: 'main-game',
-    scene: [GameMenu, MainScene, ContractScene, ContractorsScene],
+    scene: [GameMenu, HUDScene, ProjectScene, ContractorsScene, MaterialScene, PersonnelScene, ContractScene],
+
     scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTRE_BOTH
-    }
+            mode: Phaser.Scale.FIT,
+            autoCenter: Phaser.Scale.CENTRE_BOTH
+        }
 };
 
 var game = new Phaser.Game(config);

@@ -1,31 +1,16 @@
-class MainScene extends Phaser.Scene {
-    
-    constructor() {
-        super('MainScene');
+class HUDScene extends Phaser.Scene {
 
-        // game controls
+    constructor() {
+        super('HudScene');
         this.control = null;
         this.cursor = null;
-
-        // remaining funds the player has 
-        this.funds = null;
-
-        // weather forecast for duration of project - implement
-        this.weather = [];
-
-        // text bubble shown to viewer at beginning of day
-        this.narration = [];
-
-        // complications - add game complexity - v2
-        this.complications = [];
-
+        this.currentScene = 'ProjectScene';
     }
 
     preload() {
         this.control = new Control(this);
         this.load.image('button1Normal', 'assets/buttons/button_normal.png');
         this.load.image('button1Hover', 'assets/buttons/button_hover.png');
-        
     }
 
     create() {
@@ -42,8 +27,6 @@ class MainScene extends Phaser.Scene {
         
         const projectButton = new CustomButton(this, INIT_MAIN_UI_X, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Project', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(projectButton);
-
-        // program button to do something
 
         // contractorsButton
         const contractorsButton = new CustomButton(this, projectButton.x + projectButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contractors', HUD_BUTTON_TEXT_SIZE);
@@ -80,18 +63,53 @@ class MainScene extends Phaser.Scene {
         // endWeekButton - change to dynamically allow different weeks
         const endWeekButton = new CustomButton(this, contractButton.x + contractButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'END WEEK 1', HUD_BUTTON_TEXT_SIZE);
         this.add.existing(endWeekButton);
+
+        projectButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.changeScene('ProjectScene');
+
+        });
+
+        contractorsButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.changeScene('ContractorsScene');
+                        // this.scene.stop(`${this.currentScene}`)
+                        // this.scene.run('ContractorsScene');
+                        // this.currentScene = 'ContractorsScene';
+
+                        // // contractorsButton.disableInteractive();
+                        // console.log("contractor");
+        });
+
+        materialsButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.changeScene('MaterialScene');
+        });
+
+        personnelButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.changeScene('PersonnelScene');
+                    
+        });
+
+        contractButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        this.changeScene('ContractScene');
+        });
+
+        endWeekButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                        console.log("end week");
+        });
+
+        this.scene.bringToTop();
     }
 
-    update() {
-        
-        let isSelectDown = Phaser.Input.Keyboard.JustDown(this.control.keyEsc);
-        if (isSelectDown) {
-            this.scene.stop('MainScene');
-            this.scene.launch('GameMenu');
-        }
+    changeScene(newScene) {
+        this.scene.stop(`${this.currentScene}`)
+        this.scene.run(newScene);
+        this.currentScene = newScene;
+        console.log(newScene);
     }
 
-
-
-    
 }
