@@ -7,6 +7,8 @@ class CustomButton extends Phaser.GameObjects.Container {
         this.upImage = scene.add.image(0, 0, upTexture);
         this.overImage = scene.add.image(0, 0, overTexture)
 
+        this.scene = scene;
+
         this.width = this.upImage.width;
         this.height = this.upImage.height;
 
@@ -41,9 +43,6 @@ class CustomButton extends Phaser.GameObjects.Container {
 
 
 
-
-        
-
         // this.button = new Button(scene, 0, 0, texture, tint)
         // this.text = scene.add
         // .text(0, 0, "Button", { color: "black" })
@@ -57,10 +56,12 @@ class CustomButton extends Phaser.GameObjects.Container {
 //         return this.button.onClick()
 //     }
 
-//     setText(text) {
-//         this.text.text = text
-//         return this
-//     }
+    // setText(text) {
+    //     this.text = this.scene.add.text(0, 0, text)
+    //     .setOrigin(0.5) // align to centre
+    //     .setFontSize(25);
+    //     this.add(this.text)
+    // }
 
 //     setTextStyle(style) {
 //         this.text.setStyle(style)

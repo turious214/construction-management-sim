@@ -8,6 +8,9 @@ class ContractScene extends Phaser.Scene {
         this.scrollbar = null;
         this.isDragging = false;
         this.scrollView = null;
+        this.contractors = ['Plumbers', 'Electricians', 'Plasterers', 'Carpenter', 'Painters', 'Masons', 'Landscapers', 'Excavators', 'Concreters', 'Framers', 'HVAC'];
+        this.contractorsWindow = [0, 1, 2];
+        
     }
 
     preload() {
@@ -26,6 +29,10 @@ class ContractScene extends Phaser.Scene {
         this.load.image('5 star', 'assets/images/5 star.png')
 
         this.load.image('red-panel', 'assets/cards/card1/Panel Red.png')
+
+        this.load.image('left-arrow', 'assets/icons/09.png');
+        this.load.image('right-arrow', 'assets/icons/10.png');
+
     }
 
     create() {
@@ -54,8 +61,46 @@ class ContractScene extends Phaser.Scene {
             align: 'top',
         });
 
+        
+
         // add card
         const card = this.add.image(INIT_MAIN_UI_X * 4.8, INIT_MAIN_UI_Y * 11.5, 'card').setScale(2.5, 2);
+
+        // add arrows
+        const ARROW_DIST = 500;
+        const leftArrow = this.add.image(card.x - ARROW_DIST, 150, 'left-arrow');
+        const rightArrow = this.add.image(card.x + ARROW_DIST, 150, 'right-arrow');
+
+        // add contractor-type heading
+        const HEADING_DIST = 20;
+    
+        let middleHeading = new CustomButton(this, card.x, 150,'button1Normal', 'button1Hover', 'Electricians', 30).setScale(1.2, 1.2);
+        this.add.existing(middleHeading);
+
+        let leftHeading = new CustomButton(this, middleHeading.x - middleHeading.width - HEADING_DIST, 150,'button1Normal', 'button1Hover', 'Plumbers', 30).setScale(0.75, 0.75);
+        this.add.existing(leftHeading);
+
+        let rightHeading = new CustomButton(this, middleHeading.x + middleHeading.width + HEADING_DIST, 150,'button1Normal', 'button1Hover', 'Plasterers', 30).setScale(0.75, 0.75);
+        this.add.existing(rightHeading);
+
+        // move between contractors
+        leftArrow.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                    this.shiftHeading(leftHeading, middleHeading, rightHeading, 'left', card.x, HEADING_DIST);
+                    // console.log('left');
+        });
+
+        rightArrow.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                    this.shiftHeading(leftHeading, middleHeading, rightHeading, 'right', card.x, HEADING_DIST);
+                    // console.log('right');
+        });
+            
+
+
+
+
+
 
         // add scroll view
         this.scrollView = this.add.container(INIT_MAIN_UI_X * 1.05, INIT_MAIN_UI_Y * 6);
@@ -169,6 +214,81 @@ class ContractScene extends Phaser.Scene {
             demo.refresh()
         });
         this.scene.add(handle, demo, true);
+    }
+
+    shiftHeading(leftHeading, middleHeading, rightHeading, direction, cardxPos, HEADING_DIST) {
+        let left = this.contractorsWindow[0];
+        let middle = this.contractorsWindow[1];
+        let right = this.contractorsWindow[2];
+
+        if (direction === 'left') {
+            // check for shifting past beginning
+            console.log('left');
+            if (left - 1 < 0) {
+                left = this.contractors.length - 1;
+            } else {
+                left--;
+            }
+
+            if (middle - 1 < 0) {
+                middle = this.contractors.length - 1;
+            } else {
+                middle--;
+            }
+
+            if (right - 1 < 0) {
+                right = this.contractors.length - 1;
+            } else {
+                right--;
+            }
+
+        } else {
+
+            // check for shifting past end
+            if (left + 1 === this.contractors.length) {
+                left = 0;
+            } else {
+                left++;
+            }
+
+            if (middle + 1 === this.contractors.length) {
+                middle = 0;
+            } else {
+                middle++;
+            }
+
+            if (right + 1 === this.contractors.length) {
+                right = 0;
+            } else {
+                right++;
+            }
+        }
+
+        // set indices of new window
+        this.contractorsWindow[0] = left;
+        this.contractorsWindow[1] = middle;
+        this.contractorsWindow[2] = right;
+
+        // console.log('left: ' + left);
+        // console.log('middle: ' + middle);
+        // console.log('right: ' + right);
+
+        // remove previous buttons
+        middleHeading.destroy();
+        leftHeading.destroy();
+        rightHeading.destroy();
+
+        // make new buttons
+
+        middleHeading = new CustomButton(this, cardxPos, 150,'button1Normal', 'button1Hover', `${this.contractors[this.contractorsWindow[1]]}`, 30).setScale(1.2, 1.2);
+        this.add.existing(middleHeading);
+
+        leftHeading = new CustomButton(this, middleHeading.x - middleHeading.width - HEADING_DIST, 150,'button1Normal', 'button1Hover', `${this.contractors[this.contractorsWindow[0]]}`, 30).setScale(0.75, 0.75);
+        this.add.existing(leftHeading);
+
+        rightHeading = new CustomButton(this, middleHeading.x + middleHeading.width + HEADING_DIST, 150,'button1Normal', 'button1Hover', `${this.contractors[this.contractorsWindow[2]]}`, 30).setScale(0.75, 0.75);
+        this.add.existing(rightHeading);
+
     }
 
 }
