@@ -87,23 +87,25 @@ class ContractScene extends Phaser.Scene {
         leftArrow.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                     this.shiftHeading(leftHeading, middleHeading, rightHeading, 'left', card.x, HEADING_DIST);
+                    this.destroyWindowContents(names, ratings, prices, clickAreas);
                     // console.log('left');
         });
 
         rightArrow.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                     this.shiftHeading(leftHeading, middleHeading, rightHeading, 'right', card.x, HEADING_DIST);
+                    this.destroyWindowContents(names, ratings, prices, clickAreas);
                     // console.log('right');
         });
             
-
-
-
-
-
-
         // add scroll view
         this.scrollView = this.add.container(INIT_MAIN_UI_X * 1.05, INIT_MAIN_UI_Y * 6);
+
+        // lists to store names, price, rating, clickAreas
+        let names = [];
+        let ratings = [];
+        let prices = [];
+        let clickAreas = [];
 
         // put random info[default = 20 messages]
         for (let i = 0; i < 20; i++) {
@@ -119,11 +121,17 @@ class ContractScene extends Phaser.Scene {
             });
             scrollViewContent.add(companyName);
 
+            // add to names
+            names.push(companyName);
+
             // rating
             const generateRating = generateRandomRating();
             const ratingImage = this.add.image(scrollViewContent.x + 1000, scrollViewContent.y + 18,  generateRating)
                 .setScale(0.1, 0.1)
             scrollViewContent.add(ratingImage);
+
+            // add to ratings
+            ratings.push(ratingImage);
 
             // price
             const generatePrice = generateRandomPrice(ratingImage.texture.key);
@@ -133,6 +141,9 @@ class ContractScene extends Phaser.Scene {
             });
             scrollViewContent.add(price);
 
+            // add to prices
+            prices.push(price);
+
             // add each container's touchable area
             const clickArea = this.add.graphics();
             clickArea.fillStyle(0xff0000);
@@ -140,6 +151,9 @@ class ContractScene extends Phaser.Scene {
             clickArea.setAlpha(0.5);
             clickArea.setDepth(-1);
             scrollViewContent.add(clickArea);
+
+            // add clickArea
+            clickAreas.push(clickArea);
 
             // set each clickArea open window
             const areaCheck1 = new Phaser.Geom.Rectangle(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60)
@@ -150,7 +164,12 @@ class ContractScene extends Phaser.Scene {
                     // unsure click in two area
                     if (Phaser.Geom.Rectangle.Contains(areaCheck2, pointer.x, pointer.y)) {
                         console.log(companyName.text);
-                        this.createWindow(TaskAssignmentScene);
+                        // this.createWindow(TaskAssignmentScene);
+                        // clickArea.destroy();
+                        // price.destroy();
+
+
+
                     }
                 }, this);
 
@@ -289,6 +308,15 @@ class ContractScene extends Phaser.Scene {
         rightHeading = new CustomButton(this, middleHeading.x + middleHeading.width + HEADING_DIST, 150,'button1Normal', 'button1Hover', `${this.contractors[this.contractorsWindow[2]]}`, 30).setScale(0.75, 0.75);
         this.add.existing(rightHeading);
 
+    }
+
+    destroyWindowContents(names, ratings, prices, clickAreas) {
+        for (let i = 0; i < names.length; i++) {
+            names[i].destroy();
+            ratings[i].destroy();
+            prices[i].destroy();
+            clickAreas[i].destroy();
+        }
     }
 
 }
