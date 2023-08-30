@@ -147,7 +147,7 @@ class ContractScene extends Phaser.Scene {
             // add each container's touchable area
             const clickArea = this.add.graphics();
             clickArea.fillStyle(0xff0000);
-            clickArea.fillRect(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60);
+            clickArea.fillRoundedRect(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60, 10);
             clickArea.setAlpha(0.5);
             clickArea.setDepth(-1);
             scrollViewContent.add(clickArea);
