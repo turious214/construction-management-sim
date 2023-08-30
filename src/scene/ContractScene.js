@@ -43,12 +43,12 @@ class ContractScene extends Phaser.Scene {
         this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
 
         // add exist button
-        const existButton = new CustomButton(this, INIT_MAIN_UI_X * 8, INIT_MAIN_UI_Y * 20,'button1Normal', 'button1Hover', 'Exist', 30);
-        this.add.existing(existButton);
-        existButton.setDepth(1);
+        const exitButton = new CustomButton(this, INIT_MAIN_UI_X * 8, INIT_MAIN_UI_Y * 20,'button1Normal', 'button1Hover', 'Exit', 30);
+        this.add.existing(exitButton);
+        exitButton.setDepth(1);
 
         // go main scene
-        existButton.setInteractive()
+        exitButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                 this.scene.stop('ContractScene');
                 this.scene.launch('MainScene');
