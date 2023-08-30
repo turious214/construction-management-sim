@@ -82,22 +82,7 @@ class ContractScene extends Phaser.Scene {
 
         let rightHeading = new CustomButton(this, middleHeading.x + middleHeading.width + HEADING_DIST, 150,'button1Normal', 'button1Hover', 'Plasterers', 30).setScale(0.75, 0.75);
         this.add.existing(rightHeading);
-
-        // move between contractors
-        leftArrow.setInteractive()
-            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                    this.shiftHeading(leftHeading, middleHeading, rightHeading, 'left', card.x, HEADING_DIST);
-                    this.destroyWindowContents(names, ratings, prices, clickAreas);
-                    // console.log('left');
-        });
-
-        rightArrow.setInteractive()
-            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                    this.shiftHeading(leftHeading, middleHeading, rightHeading, 'right', card.x, HEADING_DIST);
-                    this.destroyWindowContents(names, ratings, prices, clickAreas);
-                    // console.log('right');
-        });
-            
+       
         const CONTENT_BUFFER_X = 50;
         const SUBHEADING_SPACE_Y = 100;
 
@@ -117,6 +102,143 @@ class ContractScene extends Phaser.Scene {
         let prices = [];
         let clickAreas = [];
 
+        // // put random info[default = 20 messages]
+        this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas)
+        // for (let i = 0; i < 20; i++) {
+        //     // add each contract
+        //     const scrollViewContent = this.add.container(this.scrollView.x / 10, this.scrollView.y / 6 * i);
+        //     this.scrollView.add(scrollViewContent);
+
+        //     // name
+        //     const generateName = generateRandomCompanyName();
+        //     const companyName = this.add.text(scrollViewContent.x + CONTENT_BUFFER_X, scrollViewContent.y, generateName, {
+        //         fontSize: 40,
+        //         color: '#ffffff'
+        //     });
+        //     scrollViewContent.add(companyName);
+
+        //     // add to names
+        //     names.push(companyName);
+
+        //     // rating
+        //     const generateRating = generateRandomRating();
+        //     const ratingImage = this.add.image(scrollViewContent.x + 1000, scrollViewContent.y + 18,  generateRating)
+        //         .setScale(0.1, 0.1)
+        //     scrollViewContent.add(ratingImage);
+
+        //     // add to ratings
+        //     ratings.push(ratingImage);
+
+        //     // price
+        //     const generatePrice = generateRandomPrice(ratingImage.texture.key);
+        //     const price = this.add.text(scrollViewContent.x + 1200, scrollViewContent.y+3, `$${generatePrice}`, {
+        //         fontSize: 40,
+        //         color: '#ffffff'
+        //     });
+        //     scrollViewContent.add(price);
+
+        //     // add to prices
+        //     prices.push(price);
+
+        //     // add each container's touchable area
+        //     const clickArea = this.add.graphics();
+        //     clickArea.fillStyle(0xff0000);
+        //     clickArea.fillRoundedRect(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60, 10);
+        //     clickArea.setAlpha(0.5);
+        //     clickArea.setDepth(-1);
+        //     scrollViewContent.add(clickArea);
+
+        //     // add clickArea
+        //     clickAreas.push(clickArea);
+
+        //     // set each clickArea open window
+        //     const areaCheck1 = new Phaser.Geom.Rectangle(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60)
+        //     const areaCheck2 = new Phaser.Geom.Rectangle(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 - 10, 1382, 571)
+
+        //     clickArea.setInteractive(areaCheck1, Phaser.Geom.Rectangle.Contains)
+        //         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, function (pointer) {
+        //             // unsure click in two area
+        //             if (Phaser.Geom.Rectangle.Contains(areaCheck2, pointer.x, pointer.y)) {
+        //                 // console.log(companyName.text);
+        //                 // this.createWindow(TaskAssignmentScene);
+
+        //                 // remove contractor entry - potentially change this until after selection has been made
+        //                 companyName.destroy();
+        //                 ratingImage.destroy();
+        //                 price.destroy();
+        //                 clickArea.destroy();
+
+        //                 this.createWindow(TaskAssignmentScene);
+
+        //             }
+        //         }, this);
+
+        //     // add scroll view mask
+        //     const mask = this.make.graphics();
+        //     mask.fillStyle(0xffffff);
+        //     mask.fillRect(0, -1000, 1000, 1000);
+        //     mask.fillStyle(0x000000);
+        //     mask.fillRect(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 + 80, 1382, 470)
+        //     scrollViewContent.setMask(mask.createGeometryMask());
+        // }
+
+        // move between contractors
+        leftArrow.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                    this.shiftHeading(leftHeading, middleHeading, rightHeading, 'left', card.x, HEADING_DIST);
+                    this.destroyWindowContents(names, ratings, prices, clickAreas);
+                    this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas)
+                    // console.log('left');
+        });
+
+        rightArrow.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                    this.shiftHeading(leftHeading, middleHeading, rightHeading, 'right', card.x, HEADING_DIST);
+                    this.destroyWindowContents(names, ratings, prices, clickAreas);
+                    this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas)
+                    // console.log('right');
+        });
+
+        // add scroll bar
+        this.scrollbar = this.add.graphics();
+        this.scrollbar.fillStyle(0x666666, 1);
+        this.scrollbar.fillRect(INIT_MAIN_UI_X * 8.5, INIT_MAIN_UI_Y * 5.8, 30, 50);
+    }
+
+    update() {
+
+        let isSelectDown = Phaser.Input.Keyboard.JustDown(this.control.keyEsc);
+        if (isSelectDown) {
+            this.scene.stop('ContractScene');
+            this.scene.launch('MainScene');
+        }
+
+        // set scroll bar
+        this.scrollbar.setInteractive(new Phaser.Geom.Rectangle(this.scrollbar.commandBuffer[4], this.scrollbar.commandBuffer[5], 30, 50), Phaser.Geom.Rectangle.Contains);
+
+        this.scrollbar.on('pointerdown', () => {
+            this.isDragging = true;
+        });
+
+        this.input.on('pointerup', () => {
+            this.isDragging = false;
+        });
+
+        // set scroll view connect with scroll bar
+        if (this.isDragging) {
+            const pointer = this.input.activePointer;
+
+            const offsetY = pointer.y - this.scrollbar.commandBuffer[5];
+            this.scrollbar.y = Phaser.Math.Clamp(offsetY, 0, 525);
+
+            //set scroll speed
+            const contentY = (this.scrollbar.y / 1100) * 2910 - 300;
+            this.scrollView.y = -contentY;
+        }
+    }
+
+
+    generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas) {
         // put random info[default = 20 messages]
         for (let i = 0; i < 20; i++) {
             // add each contract
@@ -196,42 +318,6 @@ class ContractScene extends Phaser.Scene {
             scrollViewContent.setMask(mask.createGeometryMask());
         }
 
-        // add scroll bar
-        this.scrollbar = this.add.graphics();
-        this.scrollbar.fillStyle(0x666666, 1);
-        this.scrollbar.fillRect(INIT_MAIN_UI_X * 8.5, INIT_MAIN_UI_Y * 5.8, 30, 50);
-    }
-
-    update() {
-
-        let isSelectDown = Phaser.Input.Keyboard.JustDown(this.control.keyEsc);
-        if (isSelectDown) {
-            this.scene.stop('ContractScene');
-            this.scene.launch('MainScene');
-        }
-
-        // set scroll bar
-        this.scrollbar.setInteractive(new Phaser.Geom.Rectangle(this.scrollbar.commandBuffer[4], this.scrollbar.commandBuffer[5], 30, 50), Phaser.Geom.Rectangle.Contains);
-
-        this.scrollbar.on('pointerdown', () => {
-            this.isDragging = true;
-        });
-
-        this.input.on('pointerup', () => {
-            this.isDragging = false;
-        });
-
-        // set scroll view connect with scroll bar
-        if (this.isDragging) {
-            const pointer = this.input.activePointer;
-
-            const offsetY = pointer.y - this.scrollbar.commandBuffer[5];
-            this.scrollbar.y = Phaser.Math.Clamp(offsetY, 0, 525);
-
-            //set scroll speed
-            const contentY = (this.scrollbar.y / 1100) * 2910 - 300;
-            this.scrollView.y = -contentY;
-        }
     }
 
     createWindow (func)
