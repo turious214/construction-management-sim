@@ -98,8 +98,18 @@ class ContractScene extends Phaser.Scene {
                     // console.log('right');
         });
             
+        const CONTENT_BUFFER_X = 50;
+        const SUBHEADING_SPACE_Y = 100;
+
         // add scroll view
-        this.scrollView = this.add.container(INIT_MAIN_UI_X * 1.05, INIT_MAIN_UI_Y * 6);
+        this.scrollView = this.add.container(INIT_MAIN_UI_X * 1.05, INIT_MAIN_UI_Y * 6 + SUBHEADING_SPACE_Y);
+
+        const subHeadings = this.add.text(this.scrollView.x, this.scrollView.y - SUBHEADING_SPACE_Y, `\t\t\t\tCompany Name\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tRating\t\t\t\t\t\t\tRate`, {
+            fontSize: 40,
+            color: '#ffffff'
+        });
+
+        
 
         // lists to store names, price, rating, clickAreas
         let names = [];
@@ -115,8 +125,7 @@ class ContractScene extends Phaser.Scene {
 
             // name
             const generateName = generateRandomCompanyName();
-            let COMPANY_NAME_X_BUFFER = 50;
-            const companyName = this.add.text(scrollViewContent.x + COMPANY_NAME_X_BUFFER, scrollViewContent.y, generateName, {
+            const companyName = this.add.text(scrollViewContent.x + CONTENT_BUFFER_X, scrollViewContent.y, generateName, {
                 fontSize: 40,
                 color: '#ffffff'
             });
