@@ -115,7 +115,8 @@ class ContractScene extends Phaser.Scene {
 
             // name
             const generateName = generateRandomCompanyName();
-            const companyName = this.add.text(scrollViewContent.x, scrollViewContent.y, generateName, {
+            let COMPANY_NAME_X_BUFFER = 50;
+            const companyName = this.add.text(scrollViewContent.x + COMPANY_NAME_X_BUFFER, scrollViewContent.y, generateName, {
                 fontSize: 40,
                 color: '#ffffff'
             });
