@@ -104,7 +104,7 @@ class ContractScene extends Phaser.Scene {
         // add scroll view
         this.scrollView = this.add.container(INIT_MAIN_UI_X * 1.05, INIT_MAIN_UI_Y * 6 + SUBHEADING_SPACE_Y);
 
-        const subHeadings = this.add.text(this.scrollView.x, this.scrollView.y - SUBHEADING_SPACE_Y, `\t\t\t\tCompany Name\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tRating\t\t\t\t\t\t\tRate`, {
+        const subHeadings = this.add.text(this.scrollView.x, this.scrollView.y - SUBHEADING_SPACE_Y, `\t\t\t\tCompany Name\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tRating\t\t\t\t\t\t\tRate/Day`, {
             fontSize: 40,
             color: '#ffffff'
         });
@@ -192,7 +192,7 @@ class ContractScene extends Phaser.Scene {
             mask.fillStyle(0xffffff);
             mask.fillRect(0, -1000, 1000, 1000);
             mask.fillStyle(0x000000);
-            mask.fillRect(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 - 10, 1382, 571)
+            mask.fillRect(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 + 80, 1382, 470)
             scrollViewContent.setMask(mask.createGeometryMask());
         }
 
