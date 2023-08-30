@@ -163,12 +163,16 @@ class ContractScene extends Phaser.Scene {
                 .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, function (pointer) {
                     // unsure click in two area
                     if (Phaser.Geom.Rectangle.Contains(areaCheck2, pointer.x, pointer.y)) {
-                        console.log(companyName.text);
+                        // console.log(companyName.text);
                         // this.createWindow(TaskAssignmentScene);
-                        // clickArea.destroy();
-                        // price.destroy();
 
+                        // remove contractor entry - potentially change this until after selection has been made
+                        companyName.destroy();
+                        ratingImage.destroy();
+                        price.destroy();
+                        clickArea.destroy();
 
+                        this.createWindow(TaskAssignmentScene);
 
                     }
                 }, this);
@@ -242,7 +246,7 @@ class ContractScene extends Phaser.Scene {
 
         if (direction === 'left') {
             // check for shifting past beginning
-            console.log('left');
+            // console.log('left');
             if (left - 1 < 0) {
                 left = this.contractors.length - 1;
             } else {
