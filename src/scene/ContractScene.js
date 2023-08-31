@@ -10,7 +10,6 @@ class ContractScene extends Phaser.Scene {
         this.scrollView = null;
         this.contractors = ['Plumbers', 'Electricians', 'Plasterers', 'Carpenter', 'Painters', 'Masons', 'Landscapers', 'Excavators', 'Concreters', 'Framers', 'HVAC'];
         this.contractorsWindow = [0, 1, 2];
-        
     }
 
     preload() {
@@ -27,6 +26,8 @@ class ContractScene extends Phaser.Scene {
         this.load.image('3 star', 'assets/images/3 star.png')
         this.load.image('4 star', 'assets/images/4 star.png')
         this.load.image('5 star', 'assets/images/5 star.png')
+
+        this.load.json('data', 'assets/project/bridge1.json')
 
         this.load.image('red-panel', 'assets/cards/card1/Panel Red.png')
 
@@ -61,8 +62,6 @@ class ContractScene extends Phaser.Scene {
             align: 'top',
         });
 
-        
-
         // add card
         const card = this.add.image(INIT_MAIN_UI_X * 4.8, INIT_MAIN_UI_Y * 11.5, 'card').setScale(2.5, 2);
 
@@ -94,100 +93,22 @@ class ContractScene extends Phaser.Scene {
             color: '#ffffff'
         });
 
-        
-
         // lists to store names, price, rating, clickAreas
         let names = [];
         let ratings = [];
         let prices = [];
         let clickAreas = [];
+        let infoNum = this.cache.json.get('data').infoGenerateNum;
 
-        // // put random info[default = 20 messages]
-        this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas)
-        // for (let i = 0; i < 20; i++) {
-        //     // add each contract
-        //     const scrollViewContent = this.add.container(this.scrollView.x / 10, this.scrollView.y / 6 * i);
-        //     this.scrollView.add(scrollViewContent);
-
-        //     // name
-        //     const generateName = generateRandomCompanyName();
-        //     const companyName = this.add.text(scrollViewContent.x + CONTENT_BUFFER_X, scrollViewContent.y, generateName, {
-        //         fontSize: 40,
-        //         color: '#ffffff'
-        //     });
-        //     scrollViewContent.add(companyName);
-
-        //     // add to names
-        //     names.push(companyName);
-
-        //     // rating
-        //     const generateRating = generateRandomRating();
-        //     const ratingImage = this.add.image(scrollViewContent.x + 1000, scrollViewContent.y + 18,  generateRating)
-        //         .setScale(0.1, 0.1)
-        //     scrollViewContent.add(ratingImage);
-
-        //     // add to ratings
-        //     ratings.push(ratingImage);
-
-        //     // price
-        //     const generatePrice = generateRandomPrice(ratingImage.texture.key);
-        //     const price = this.add.text(scrollViewContent.x + 1200, scrollViewContent.y+3, `$${generatePrice}`, {
-        //         fontSize: 40,
-        //         color: '#ffffff'
-        //     });
-        //     scrollViewContent.add(price);
-
-        //     // add to prices
-        //     prices.push(price);
-
-        //     // add each container's touchable area
-        //     const clickArea = this.add.graphics();
-        //     clickArea.fillStyle(0xff0000);
-        //     clickArea.fillRoundedRect(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60, 10);
-        //     clickArea.setAlpha(0.5);
-        //     clickArea.setDepth(-1);
-        //     scrollViewContent.add(clickArea);
-
-        //     // add clickArea
-        //     clickAreas.push(clickArea);
-
-        //     // set each clickArea open window
-        //     const areaCheck1 = new Phaser.Geom.Rectangle(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60)
-        //     const areaCheck2 = new Phaser.Geom.Rectangle(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 - 10, 1382, 571)
-
-        //     clickArea.setInteractive(areaCheck1, Phaser.Geom.Rectangle.Contains)
-        //         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, function (pointer) {
-        //             // unsure click in two area
-        //             if (Phaser.Geom.Rectangle.Contains(areaCheck2, pointer.x, pointer.y)) {
-        //                 // console.log(companyName.text);
-        //                 // this.createWindow(TaskAssignmentScene);
-
-        //                 // remove contractor entry - potentially change this until after selection has been made
-        //                 companyName.destroy();
-        //                 ratingImage.destroy();
-        //                 price.destroy();
-        //                 clickArea.destroy();
-
-        //                 this.createWindow(TaskAssignmentScene);
-
-        //             }
-        //         }, this);
-
-        //     // add scroll view mask
-        //     const mask = this.make.graphics();
-        //     mask.fillStyle(0xffffff);
-        //     mask.fillRect(0, -1000, 1000, 1000);
-        //     mask.fillStyle(0x000000);
-        //     mask.fillRect(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 + 80, 1382, 470)
-        //     scrollViewContent.setMask(mask.createGeometryMask());
-        // }
+        // generate random info
+        this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
 
         // move between contractors
         leftArrow.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                     this.shiftHeading(leftHeading, middleHeading, rightHeading, 'left', card.x, HEADING_DIST);
                     this.destroyWindowContents(names, ratings, prices, clickAreas);
-                    this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas)
+                    this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
                     // console.log('left');
         });
 
@@ -195,14 +116,14 @@ class ContractScene extends Phaser.Scene {
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                     this.shiftHeading(leftHeading, middleHeading, rightHeading, 'right', card.x, HEADING_DIST);
                     this.destroyWindowContents(names, ratings, prices, clickAreas);
-                    this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas)
+                    this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
                     // console.log('right');
         });
 
         // add scroll bar
         this.scrollbar = this.add.graphics();
         this.scrollbar.fillStyle(0x666666, 1);
-        this.scrollbar.fillRect(INIT_MAIN_UI_X * 8.5, INIT_MAIN_UI_Y * 5.8, 30, 50);
+        this.scrollbar.fillRect(INIT_MAIN_UI_X * 8.5, INIT_MAIN_UI_Y * 7.8, 30, 50);
     }
 
     update() {
@@ -229,18 +150,18 @@ class ContractScene extends Phaser.Scene {
             const pointer = this.input.activePointer;
 
             const offsetY = pointer.y - this.scrollbar.commandBuffer[5];
-            this.scrollbar.y = Phaser.Math.Clamp(offsetY, 0, 525);
+            this.scrollbar.y = Phaser.Math.Clamp(offsetY, 0, 410);
 
             //set scroll speed
-            const contentY = (this.scrollbar.y / 1100) * 2910 - 300;
+            const contentY = (this.scrollbar.y / 10) * (this.cache.json.get('data').infoGenerateNum * 2.6 + (0.65 * (this.cache.json.get('data').infoGenerateNum - 20))) - 400;
             this.scrollView.y = -contentY;
         }
     }
 
 
-    generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas) {
+    generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum) {
         // put random info[default = 20 messages]
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < infoNum; i++) {
             // add each contract
             const scrollViewContent = this.add.container(this.scrollView.x / 10, this.scrollView.y / 6 * i);
             this.scrollView.add(scrollViewContent);

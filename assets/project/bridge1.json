@@ -1,7 +1,6 @@
 {
     "funds": 100000000,
     "weather": [{}],
-    "day": [{}]
-    
-    
+    "day": [{}],
+    "infoGenerateNum": 20
 }
