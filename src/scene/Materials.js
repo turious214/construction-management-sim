@@ -29,7 +29,7 @@ class Materials extends Phaser.Scene {
         const card = this.add.image(Config.WindowWidth / 2 - 200, Config.WindowHeight / 2 + 100, 'card').setScale(2, 2);;
 
         //add exit button
-        const exitButton = new CustomButton(this, Config.WindowWidth - 200, card.y + 100, 'button1Normal', 'button1Hover', 'Exit', 30);
+        const exitButton = new CustomButton(this, Config.WindowWidth - 235, card.y + 100, 'button1Normal', 'button1Hover', 'Exit', 30);
         this.add.existing(exitButton);
 
         //go main scene
@@ -40,7 +40,7 @@ class Materials extends Phaser.Scene {
             });
 
         //shop button
-        const shopButton = new CustomButton(this, Config.WindowWidth - 200, card.y - 100, 'button1Normal', 'button1Hover', 'Shop', 30);
+        const shopButton = new CustomButton(this, Config.WindowWidth - 235, card.y - 100, 'button1Normal', 'button1Hover', 'Shop', 30);
         this.add.existing(shopButton);
 
         //go shop
@@ -54,16 +54,16 @@ class Materials extends Phaser.Scene {
         let startOption = this.add.text(200, 100, 'MATERIALS', {
             color: '#fcd498',
             fontSize: 100,
-            align: 'center'
+            align: 'left'
 
-        }).setFixedSize(400, 400);
+        }).setFixedSize(1000, 400);
         
         // add scroll view
         this.scrollView = this.add.container(card.x/7 - 25, card.y/5 + 150);
         const scrollViewContent = null;
 
         // put random info
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 10; i++) {
             const scrollViewContent = this.add.container(this.scrollView.x , this.scrollView.y / 4 * i + 76 + i * 35);
             this.scrollView.add(scrollViewContent);
 

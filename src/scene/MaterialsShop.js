@@ -23,11 +23,18 @@ class MaterialsShop extends Phaser.Scene {
         //add background
         this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
 
+        //add title
+            let startOption = this.add.text(200, 100, 'SHOP', {
+            color: '#fcd498',
+            fontSize: 100,
+            align: 'left'
+        }).setFixedSize(1000, 400);
+
         // add card
         const card = this.add.image(Config.WindowWidth / 2 - 200, Config.WindowHeight / 2 + 100, 'card').setScale(2, 2);;
         
         //add back button
-       const backButton = new CustomButton(this, Config.WindowWidth - 200, card.y + 100, 'button1Normal', 'button1Hover', 'Back', 30);
+       const backButton = new CustomButton(this, Config.WindowWidth - 235, card.y + 100, 'button1Normal', 'button1Hover', 'Back', 30);
        this.add.existing(backButton);
 
        //go main scene
@@ -36,21 +43,13 @@ class MaterialsShop extends Phaser.Scene {
                this.scene.stop('MaterialsShop')
                this.scene.launch('Materials')
            });
-
-       //add title
-       let startOption = this.add.text(200, 100, 'MATERIALS SHOP', {
-           color: '#fcd498',
-           fontSize: 100,
-           align: 'center'
-
-       }).setFixedSize(400, 400);
         
         // add scroll view
         this.scrollView = this.add.container(card.x/7 - 25, card.y/5 + 150);
         const scrollViewContent = null;
 
         // put random info
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 10; i++) {
             const scrollViewContent = this.add.container(this.scrollView.x , this.scrollView.y / 4 * i + 76 + i * 35);
             this.scrollView.add(scrollViewContent);
 
