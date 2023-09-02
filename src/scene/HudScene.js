@@ -99,7 +99,7 @@ class HUDScene extends Phaser.Scene {
         // update current button
         this.currentButton = button;
 
-        console.log(newScene);
+        // console.log(newScene);
     }
 
 
