@@ -39,7 +39,7 @@ class TaskAssignmentScene extends Phaser.Scene {
         doneButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                 this.scene.stop('TaskAssignmentScene');
-                this.scene.launch('ContractScene');
+                this.scene.launch('ContractorsScene');
             });
 
         // add title 
