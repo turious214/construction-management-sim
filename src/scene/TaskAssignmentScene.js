@@ -19,8 +19,8 @@ class TaskAssignmentScene extends Phaser.Scene {
         this.load.json('data', 'assets/project/bridge1.json')
 
         this.load.image('card2', 'assets/cards/card2/Card X2.png');
-        this.load.image('checkbox', 'assets/images/checkbox.png');
-        this.load.image('checkmark', 'assets/images/checkmark.png');        
+        this.load.image('checkbox', 'assets/images/checkbox.jpg');
+        this.load.image('tick', 'assets/images/checkmark.png');        
     } 
 
     create() {
@@ -125,37 +125,44 @@ class TaskAssignmentScene extends Phaser.Scene {
             scrollViewContent.add(taskName); 
 
 
-
             // Checkbox
-            const checkbox = this.add.rectangle(
+            const clickArea = this.add.graphics();
+            clickArea.fillStyle(0xff0000); // You can use any color you like
+            clickArea.setAlpha(0.5);
+            clickArea.setDepth(-1);
+            scrollViewContent.add(clickArea);
+
+            const checkbox = this.add.image(
                 scrollViewContent.x + CONTENT_BUFFER_X + 500, 
-                scrollViewContent.y + i * 22 + HEADING_SPACE_Y + 14,
-                30, // Width of the square
-                30, // Height of the square
-                0x00ff00 // Set the initial color (e.g., green)
-            );
+                scrollViewContent.y + i * 22 + HEADING_SPACE_Y + 14, 
+                'checkbox')
+                .setScale(0.1, 0.1)
+                .setInteractive();
 
-            // Set interactive and enable input
-            checkbox.setInteractive();
+            const tick = this.add.image(
+                scrollViewContent.x + CONTENT_BUFFER_X + 500, 
+                scrollViewContent.y + i * 22 + HEADING_SPACE_Y + 14, 
+                'tick')
+                .setScale(0.1, 0.1)
+                .setVisible(false); // Initially hidden
 
-            // Tracks the checkbox state 
-            let isChecked = false;
-
-            // Add a click event to toggle the checkbox state
+            // Add a click event to toggle the checkbox state and show/hide the tick
             checkbox.on('pointerdown', () => {
-                if (isChecked) {
-                    checkbox.setFillStyle(0x00ff00); // Set the color when unchecked = green
+                if (tick.visible) {
+                    tick.setVisible(false);
                 } else {
-                    checkbox.setFillStyle(0xff0000); // Set the color when checked = red 
+                    tick.setVisible(true);
                 }
-                isChecked = !isChecked; // Toggle the state
             });
 
+
             scrollViewContent.add(checkbox);
+            scrollViewContent.add(tick);
+
+            
 
             // add to tasks
             tasks.push(taskName);
-
 
 
             // add scroll view mask
