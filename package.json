@@ -23,7 +23,7 @@
   },
   "cache": {
     "directories": [
-      "/root/.cache/Cypress"
+      "/root/.cache/Cypress/12.17.4/Cypress/Cypress"
     ]
   }
 }
