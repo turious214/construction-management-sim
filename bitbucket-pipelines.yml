@@ -15,6 +15,6 @@ pipelines:
           caches:
             - node
           script:
-            - npm install
+            - CYPRESS_CACHE_FOLDER=./tmp/Cypress npm install
             - npm run test
             - npm run e2e
