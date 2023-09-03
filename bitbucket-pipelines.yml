@@ -4,16 +4,12 @@ pipelines:
   pull-requests:
     "**":
       - step:
-          caches:
-            - node
           script:
             - npm install
             - npm test
   branches:
     master:
       - step:
-          caches:
-            - node
           script:
             - npm install
             - npm run test
