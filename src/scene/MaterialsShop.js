@@ -1,5 +1,7 @@
+
+
 class MaterialsShop extends Phaser.Scene {
-    
+
     constructor() {
         super('MaterialsShop');
 
@@ -24,33 +26,33 @@ class MaterialsShop extends Phaser.Scene {
         this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
 
         //add title
-            let startOption = this.add.text(200, 100, 'SHOP', {
+        let startOption = this.add.text(200, 100, 'SHOP', {
             color: '#fcd498',
             fontSize: 100,
             align: 'left'
         }).setFixedSize(1000, 400);
 
         // add card
-        const card = this.add.image(Config.WindowWidth / 2 - 200, Config.WindowHeight / 2 + 100, 'card').setScale(2, 2);;
-        
-        //add back button
-       const backButton = new CustomButton(this, Config.WindowWidth - 235, card.y + 100, 'button1Normal', 'button1Hover', 'Back', 30);
-       this.add.existing(backButton);
+        const card = this.add.image(Config.WindowWidth / 2 - 200, Config.WindowHeight / 2 + 100, 'card').setScale(2, 2);
 
-       //go main scene
-       backButton.setInteractive()
-           .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-               this.scene.stop('MaterialsShop')
-               this.scene.launch('Materials')
-           });
-        
+        //add back button
+        const backButton = new CustomButton(this, Config.WindowWidth - 235, card.y + 100, 'button1Normal', 'button1Hover', 'Back', 30);
+        this.add.existing(backButton);
+
+        //go main scene
+        backButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.scene.stop('MaterialsShop')
+                this.scene.launch('Materials')
+            });
+
         // add scroll view
-        this.scrollView = this.add.container(card.x/7 - 25, card.y/5 + 150);
+        this.scrollView = this.add.container(card.x / 7 - 25, card.y / 5 + 150);
         const scrollViewContent = null;
 
         // put random info
         for (let i = 0; i < 10; i++) {
-            const scrollViewContent = this.add.container(this.scrollView.x , this.scrollView.y / 4 * i + 76 + i * 35);
+            const scrollViewContent = this.add.container(this.scrollView.x, this.scrollView.y / 4 * i + 76 + i * 35);
             this.scrollView.add(scrollViewContent);
 
             // name
@@ -60,24 +62,78 @@ class MaterialsShop extends Phaser.Scene {
                 color: '#ffffff'
             });
             scrollViewContent.add(material);
-
-            // units
-            const generateQuantity = Phaser.Math.Between(0, 2000);
-            const quantity = this.add.text(card.x - 450, 0, `${generateQuantity} kg`, {
-                fontSize: 30,
-                color: '#ffffff'
-            });
-            scrollViewContent.add(quantity); 
-
-            const generatePrice = Phaser.Math.Between(0, 2000);
+            
+            
+            
+            /*
             const price = this.add.text(card.x - 200, 0, `$${generatePrice}`, {
                 fontSize: 30,
                 color: '#ffffff'
             });
-            scrollViewContent.add(price); 
+            scrollViewContent.add(price);
+            */
 
-            const buy = new CustomButton(this, card.x + 200, 0, 'button1Normal', 'button1Hover', 'Buy', 30);
+            
+
+            //units
+
+            let generatePrice = Phaser.Math.Between(0, 2000);
+            let number = 0;
+            let price = 0
+            let numberText;
+            let priceText;
+
+            numberText = this.add.text(card.x - 200, 0, number.toString(), {
+                fontSize: '32px',
+                fill: '#ffffff'
+            });
+            scrollViewContent.add(numberText);
+
+            priceText = this.add.text(card.x - 100, 0, '', {
+                fontSize: '32px',
+                fill: '#ffffff'
+            });
+            scrollViewContent.add(priceText);
+
+            const incrementButton = this.add.text(card.x - 155, 0, '+', {
+                fontSize: '32px',
+                fill: '#ffffff'
+            });
+
+            incrementButton.setInteractive();
+            incrementButton.on('pointerdown', () => {
+                number++;
+                numberText.setText(number.toString())
+                price = generatePrice * number
+                priceText.setText('Total: $' + price.toString())
+            });
+            scrollViewContent.add(incrementButton);
+
+            const decrementButton = this.add.text(card.x - 230, 0, '-', {
+                fontSize: '32px',
+                fill: '#ffffff'
+            });
+            decrementButton.setInteractive();
+            decrementButton.on('pointerdown', () => {
+                if (number>0)
+                    number--;
+                numberText.setText(number.toString())
+                price = generatePrice * number
+                priceText.setText('Total: $' + price.toString())
+            });
+            scrollViewContent.add(decrementButton);
+
+            const buy = new CustomButton(this, card.x + 290, 10, 'button1Normal', 'button1Hover', 'Buy', 30);
             scrollViewContent.add(buy);
+
+            buy.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                number = 0
+                price = 0
+                price = generatePrice * number
+                numberText.setText(number.toString())
+                priceText.setText('')
+            });
 
             // add scroll view mask
             const mask = this.make.graphics();
@@ -91,12 +147,12 @@ class MaterialsShop extends Phaser.Scene {
         // add scroll bar
         this.scrollbar = this.add.graphics();
         this.scrollbar.fillStyle(0x666666, 1);
-        this.scrollbar.fillRect(1380, 315, 8, 50);
+        this.scrollbar.fillRect(1380, 315, 20, 50);
     }
 
     update() {
         // set scroll bar
-        this.scrollbar.setInteractive(new Phaser.Geom.Rectangle(1380, 315, 8, 50), Phaser.Geom.Rectangle.Contains);
+        this.scrollbar.setInteractive(new Phaser.Geom.Rectangle(1380, 315, 20, 50), Phaser.Geom.Rectangle.Contains);
 
         this.scrollbar.on('pointerdown', () => {
             this.isDragging = true;
@@ -117,5 +173,13 @@ class MaterialsShop extends Phaser.Scene {
             this.scrollView.y = -contentY;
         }
     }
-    
+
 }
+
+function updateNumberText(numberText, number) {
+    numberText.setText(number.toString());
+}
+
+
+
+

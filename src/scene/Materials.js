@@ -77,7 +77,7 @@ class Materials extends Phaser.Scene {
 
             // units
             const generateUnits = Phaser.Math.Between(0, 2000);
-            const price = this.add.text(card.x - 200, 0, `${generateUnits} kg`, {
+            const price = this.add.text(card.x - 200, 0, `${generateUnits}`, {
                 fontSize: 30,
                 color: '#ffffff'
             });
@@ -95,12 +95,12 @@ class Materials extends Phaser.Scene {
         // add scroll bar
         this.scrollbar = this.add.graphics();
         this.scrollbar.fillStyle(0x666666, 1);
-        this.scrollbar.fillRect(1380, 315, 8, 50);
+        this.scrollbar.fillRect(1380, 315, 20, 50);
     }
 
     update() {
         // set scroll bar
-        this.scrollbar.setInteractive(new Phaser.Geom.Rectangle(1380, 315, 8, 50), Phaser.Geom.Rectangle.Contains);
+        this.scrollbar.setInteractive(new Phaser.Geom.Rectangle(1380, 315, 20, 50), Phaser.Geom.Rectangle.Contains);
 
         this.scrollbar.on('pointerdown', () => {
             this.isDragging = true;
