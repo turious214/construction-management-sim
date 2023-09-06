@@ -190,4 +190,6 @@ function generateRandomRating() {
     } else {
         return "0 star";
     }
+
+    // Added line for merge conflict
 }
