@@ -15,3 +15,5 @@ var game = new Phaser.Game(config);
 
 
 // test-gitkraken merge tools
+
+// addition of line for testing merge conflict
