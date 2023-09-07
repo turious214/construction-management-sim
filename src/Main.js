@@ -3,11 +3,17 @@ var config = {
     width: Config.WindowWidth,
     height: Config.WindowHeight,
     parent: 'main-game',
-    scene: [GameMenu, MainScene, ContractScene, ContractorsScene],
+    scene: [GameMenu, HUDScene, ProjectScene, ContractorsScene, MaterialsScene, PersonnelScene, ContractScene],
+
     scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTRE_BOTH
-    }
+            mode: Phaser.Scale.FIT,
+            autoCenter: Phaser.Scale.CENTRE_BOTH
+        }
 };
 
 var game = new Phaser.Game(config);
+
+
+// test-gitkraken merge tools
+
+// addition of line for testing merge conflict

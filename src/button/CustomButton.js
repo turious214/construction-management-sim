@@ -40,8 +40,11 @@ class CustomButton extends Phaser.GameObjects.Container {
                 this.upImage.setVisible(true);
                 this.overImage.setVisible(false);
             })
+        }
 
-
+        setTextColor(color) {
+            this.text.setColor(color);
+        }
 
         // this.button = new Button(scene, 0, 0, texture, tint)
         // this.text = scene.add
@@ -50,7 +53,6 @@ class CustomButton extends Phaser.GameObjects.Container {
 
         // this.add(this.button)
         // this.add(this.text)
-    }
 
 //     onClick() {
 //         return this.button.onClick()

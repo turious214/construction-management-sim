@@ -224,9 +224,7 @@ class ContractScene extends Phaser.Scene {
                         ratingImage.destroy();
                         price.destroy();
                         clickArea.destroy();
-
                         this.createWindow(TaskAssignmentScene);
-
                     }
                 }, this);
 

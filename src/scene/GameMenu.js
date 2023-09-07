@@ -81,8 +81,7 @@ class GameMenu extends Phaser.Scene {
         // program button to do something
         playButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                        this.scene.stop('GameMenu')
-                        this.scene.launch('MainScene')
+                    this.startGame();
         });
 
         
@@ -110,9 +109,12 @@ class GameMenu extends Phaser.Scene {
     update() {
         let isSelectDown = Phaser.Input.Keyboard.JustDown(this.control.keyEnter);
         if (isSelectDown) {
-            this.scene.stop('GameMenu');
-            this.scene.launch('MainScene');
+            this.startGame();
         }
+    }
 
+    startGame() {
+            this.scene.start('ProjectScene');
+            this.scene.launch("HUDScene");
     }
 }
