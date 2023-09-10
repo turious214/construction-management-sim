@@ -2,6 +2,7 @@
   "name": "p03_gbl",
   "version": "1.0.0",
   "description": "**Description**",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

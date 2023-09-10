@@ -1,4 +1,8 @@
-class HUDScene extends Phaser.Scene {
+import {Control} from "../gameinput/Control.js";
+import {CustomButton} from "../button/CustomButton.js";
+
+
+export class HUDScene extends Phaser.Scene {
 
     constructor() {
         super('HUDScene');
