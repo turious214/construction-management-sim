@@ -1,9 +1,9 @@
-INIT_MAIN_UI_X = 200;
-INIT_MAIN_UI_Y = 50;
-CONTENT_BUFFER_X = 50;
-SUBHEADING_SPACE_Y = 100;
+import {Control} from "../gameinput/Control.js";
+import {Config} from "../config/Config.js";
+import {CustomButton} from "../button/CustomButton.js";
+import {TaskAssignmentScene} from "./TaskAssignmentScene.js";
 
-class ContractorsScene extends Phaser.Scene {
+export class ContractorsScene extends Phaser.Scene {
 
     constructor() {
         super('ContractorsScene')

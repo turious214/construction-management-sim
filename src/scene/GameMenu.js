@@ -1,4 +1,11 @@
-class GameMenu extends Phaser.Scene {
+import { Config } from "../config/Config.js"
+import { Control } from "../gameinput/Control.js"
+import { CustomButton } from "../button/CustomButton.js"
+// import {}
+
+
+
+export class GameMenu extends Phaser.Scene {
 
     constructor() {
         super('GameMenu');

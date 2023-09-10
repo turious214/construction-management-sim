@@ -1,4 +1,14 @@
-var config = {
+import { GameMenu } from "./scene/GameMenu.js";
+import { HUDScene } from "./scene/HUDScene.js";
+import { ProjectScene } from "./scene/ProjectScene.js";
+import { ContractorsScene } from "./scene/ContractorsScene.js";
+import { MaterialsScene } from "./scene/MaterialsScene.js";
+import { PersonnelScene } from "./scene/PersonnelScene.js";
+import { ContractScene } from "./scene/ContractScene.js";
+import { Config } from "./config/Config.js"
+
+
+const config = {
     type: Phaser.AUTO,
     width: Config.WindowWidth,
     height: Config.WindowHeight,
@@ -11,7 +21,7 @@ var config = {
         }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 
 // test-gitkraken merge tools

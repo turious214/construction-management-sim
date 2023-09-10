@@ -1,6 +1,6 @@
 // ... declare IButtonContainer interface here
 
-class CustomButton extends Phaser.GameObjects.Container {
+export class CustomButton extends Phaser.GameObjects.Container {
     constructor(scene, x, y, upTexture, overTexture, text, fontSize) {
         super(scene, x, y)
 

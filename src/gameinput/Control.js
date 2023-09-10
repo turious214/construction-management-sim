@@ -1,7 +1,7 @@
 /**
  * Class for handling game control
  */
-class Control {
+export class Control {
 
     constructor(scene) {
         this.scene = scene;

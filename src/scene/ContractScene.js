@@ -1,16 +1,11 @@
-import * as mlregression from "ml-regression";
-import * as fs from "fs";
 
-let INIT_MAIN_UI_X;
-INIT_MAIN_UI_X = 200;
-let INIT_MAIN_UI_Y;
-INIT_MAIN_UI_Y = 50;
-let CONTENT_BUFFER_X;
-CONTENT_BUFFER_X = 50;
-let SUBHEADING_SPACE_Y;
-SUBHEADING_SPACE_Y = 100;
+// import * as mlregression from "ml-regression";
+// import * as fs from "fs";
 
-class ContractScene extends Phaser.Scene {
+import {Control} from "../gameinput/Control.js";
+import {Config} from "../config/Config.js";
+import {CustomButton} from "../button/CustomButton.js";
+export class ContractScene extends Phaser.Scene {
 
     constructor() {
         super('ContractScene')
