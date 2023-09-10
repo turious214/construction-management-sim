@@ -7,7 +7,7 @@ class TaskAssignmentScene extends Phaser.Scene {
         this.control = null; 
         this.scrollbar = null;
         this.isDragging = false;
-        this.scrollView = null;  
+        this.scrollView = null;
     }
 
     preload() {
@@ -31,15 +31,27 @@ class TaskAssignmentScene extends Phaser.Scene {
         this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'card2').setScale(2.5, 2.3);
 
         // add done button
-        const doneButton = new CustomButton(this, INIT_MAIN_UI_X * 11, INIT_MAIN_UI_Y * 39, 'button1Normal', 'button1Hover', 'Done', 25);
+        const doneButton = new CustomButton(this, INIT_MAIN_UI_X * 13, INIT_MAIN_UI_Y * 39, 'button1Normal', 'button1Hover', 'Done', 25);
         this.add.existing(doneButton);
         doneButton.setDepth(1); 
 
         // go main scene
         doneButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.events.emit('getResult', true);
                 this.scene.stop('TaskAssignmentScene');
-                this.scene.launch('ContractorsScene');
+            });
+
+        // add cancel button
+        const cancelButton = new CustomButton(this, INIT_MAIN_UI_X * 9, INIT_MAIN_UI_Y * 39, 'button1Normal', 'button1Hover', 'Cancel', 25);
+        this.add.existing(cancelButton);
+        cancelButton.setDepth(1);
+
+        // go main scene
+        cancelButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.events.emit('getResult', false);
+                this.scene.stop('TaskAssignmentScene');
             });
 
         // add title 
@@ -67,7 +79,6 @@ class TaskAssignmentScene extends Phaser.Scene {
         this.scrollbar = this.add.graphics();
         this.scrollbar.fillStyle(0x666666, 1);
         this.scrollbar.fillRect(INIT_MAIN_UI_X * 15, INIT_MAIN_UI_Y * 16, 30, 200);
-
     } 
 
     update() {
@@ -99,6 +110,12 @@ class TaskAssignmentScene extends Phaser.Scene {
             //set scroll speed
             const contentY = (this.scrollbar.y / 8) * (this.cache.json.get('data').infoGenerateNum * 2.6 + (0.65 * (this.cache.json.get('data').infoGenerateNum - 20))) - 400;
             this.scrollView.y = -contentY;
+        }
+
+        if (! this.scene.isActive('ContractScene') && ! this.scene.isActive('ContractorsScene') ) {
+            // Close the window if ContractScene be changed
+            this.events.emit('getResult', false);
+            this.scene.stop('TaskAssignmentScene');
         }
     }
 

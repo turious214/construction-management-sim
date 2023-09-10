@@ -3,7 +3,7 @@ var config = {
     width: Config.WindowWidth,
     height: Config.WindowHeight,
     parent: 'main-game',
-    scene: [GameMenu, HUDScene, ProjectScene, ContractorsScene, MaterialsScene, PersonnelScene, ContractScene],
+    scene: [GameMenu, HUDScene, ProjectScene, ContractorsScene, MaterialsScene, PersonnelScene, ContractScene, TaskAssignmentScene],
 
     scale: {
             mode: Phaser.Scale.FIT,

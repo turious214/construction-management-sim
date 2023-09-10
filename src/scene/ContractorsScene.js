@@ -1,3 +1,8 @@
+INIT_MAIN_UI_X = 200;
+INIT_MAIN_UI_Y = 50;
+CONTENT_BUFFER_X = 50;
+SUBHEADING_SPACE_Y = 100;
+
 class ContractorsScene extends Phaser.Scene {
 
     constructor() {
@@ -37,23 +42,8 @@ class ContractorsScene extends Phaser.Scene {
     }
 
     create() {
-        const INIT_MAIN_UI_X = 200;
-        const INIT_MAIN_UI_Y = 50;
-
         // add background
         this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
-
-        // add exist button
-        const exitButton = new CustomButton(this, INIT_MAIN_UI_X * 8, INIT_MAIN_UI_Y * 20,'button1Normal', 'button1Hover', 'Exit', 30);
-        this.add.existing(exitButton);
-        exitButton.setDepth(1);
-
-        // go main scene
-        exitButton.setInteractive()
-            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                this.scene.stop('ContractorsScene');
-                this.scene.launch('ProjectScene');
-            });
 
         // add card
         const card = this.add.image(INIT_MAIN_UI_X * 4.8, INIT_MAIN_UI_Y * 11.5, 'card').setScale(2.5, 2);
@@ -68,15 +58,15 @@ class ContractorsScene extends Phaser.Scene {
     
         let middleHeading = new CustomButton(this, card.x, 150,'button1Normal', 'button1Hover', 'Electricians', 30).setScale(1.2, 1.2);
         this.add.existing(middleHeading);
+        middleHeading.setDepth(1);
 
         let leftHeading = new CustomButton(this, middleHeading.x - middleHeading.width - HEADING_DIST, 150,'button1Normal', 'button1Hover', 'Plumbers', 30).setScale(0.75, 0.75);
         this.add.existing(leftHeading);
+        leftHeading.setDepth(1);
 
         let rightHeading = new CustomButton(this, middleHeading.x + middleHeading.width + HEADING_DIST, 150,'button1Normal', 'button1Hover', 'Plasterers', 30).setScale(0.75, 0.75);
         this.add.existing(rightHeading);
-       
-        const CONTENT_BUFFER_X = 50;
-        const SUBHEADING_SPACE_Y = 100;
+        rightHeading.setDepth(1);
 
         // add scroll view
         this.scrollView = this.add.container(INIT_MAIN_UI_X * 1.05, INIT_MAIN_UI_Y * 6 + SUBHEADING_SPACE_Y);
@@ -86,31 +76,24 @@ class ContractorsScene extends Phaser.Scene {
             color: '#ffffff'
         });
 
-        // lists to store names, price, rating, clickAreas
-        let names = [];
-        let ratings = [];
-        let prices = [];
-        let clickAreas = [];
         let infoNum = this.cache.json.get('data').infoGenerateNum;
 
         // generate random info
-        this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
+        this.generateContent(infoNum)
 
         // move between contractors
         leftArrow.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                     this.shiftHeading(leftHeading, middleHeading, rightHeading, 'left', card.x, HEADING_DIST);
-                    this.destroyWindowContents(names, ratings, prices, clickAreas);
-                    this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
-                    // console.log('left');
+                    this.scrollView.removeAll(true);
+                    this.generateContent(infoNum)
         });
 
         rightArrow.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                     this.shiftHeading(leftHeading, middleHeading, rightHeading, 'right', card.x, HEADING_DIST);
-                    this.destroyWindowContents(names, ratings, prices, clickAreas);
-                    this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
-                    // console.log('right');
+                    this.scrollView.removeAll(true);
+                    this.generateContent(infoNum)
         });
 
         // add scroll bar
@@ -152,11 +135,16 @@ class ContractorsScene extends Phaser.Scene {
     }
 
 
-    generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum) {
+    generateContent(infoNum, indicator = null) {
         // put random info[default = 20 messages]
         for (let i = 0; i < infoNum; i++) {
+            // generate replacement info
+            if (!(i === indicator) && indicator != null) {
+                continue;
+            }
+
             // add each contract
-            const scrollViewContent = this.add.container(this.scrollView.x / 10, this.scrollView.y / 6 * i);
+            const scrollViewContent = this.add.container((INIT_MAIN_UI_X * 1.05) / 10, (INIT_MAIN_UI_Y * 6 + SUBHEADING_SPACE_Y) / 6 * i);
             this.scrollView.add(scrollViewContent);
 
             // name
@@ -167,17 +155,11 @@ class ContractorsScene extends Phaser.Scene {
             });
             scrollViewContent.add(companyName);
 
-            // add to names
-            names.push(companyName);
-
             // rating
             const generateRating = generateRandomRating();
             const ratingImage = this.add.image(scrollViewContent.x + 1000, scrollViewContent.y + 18,  generateRating)
                 .setScale(0.1, 0.1)
             scrollViewContent.add(ratingImage);
-
-            // add to ratings
-            ratings.push(ratingImage);
 
             // price
             const generatePrice = generateRandomPrice(ratingImage.texture.key);
@@ -187,8 +169,13 @@ class ContractorsScene extends Phaser.Scene {
             });
             scrollViewContent.add(price);
 
-            // add to prices
-            prices.push(price);
+            // add scroll view mask
+            const mask = this.make.graphics();
+            mask.fillStyle(0xffffff);
+            mask.fillRect(0, -1000, 1000, 1000);
+            mask.fillStyle(0x000000);
+            mask.fillRect(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 + 80, 1382, 470)
+            scrollViewContent.setMask(mask.createGeometryMask());
 
             // add each container's touchable area
             const clickArea = this.add.graphics();
@@ -198,55 +185,32 @@ class ContractorsScene extends Phaser.Scene {
             clickArea.setDepth(-1);
             scrollViewContent.add(clickArea);
 
-            // add clickArea
-            clickAreas.push(clickArea);
-
             // set each clickArea open window
             const areaCheck1 = new Phaser.Geom.Rectangle(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60)
             const areaCheck2 = new Phaser.Geom.Rectangle(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 - 10, 1382, 571)
 
             clickArea.setInteractive(areaCheck1, Phaser.Geom.Rectangle.Contains)
                 .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, function (pointer) {
-                    // unsure click in two area
+                    // ensure click in two area
                     if (Phaser.Geom.Rectangle.Contains(areaCheck2, pointer.x, pointer.y)) {
-                        // console.log(companyName.text);
-                        // this.createWindow(TaskAssignmentScene);
+                        // prevent misuse
+                        this.input.enabled = false;
+                        const taskAssignmentScene = this.scene.get('TaskAssignmentScene');
+                        this.scene.launch('TaskAssignmentScene');
 
-                        // remove contractor entry - potentially change this until after selection has been made
-                        companyName.destroy();
-                        ratingImage.destroy();
-                        price.destroy();
-                        clickArea.destroy();
+                        // set listener to get option of TaskAssignmentScene
+                        this.scene.get('TaskAssignmentScene').events.on('getResult', (result) => {
+                            if (result) {
+                                this.scrollView.remove(scrollViewContent, true);
+                                this.generateContent(infoNum, i);
+                            }
 
-                        this.createWindow(TaskAssignmentScene); 
-
+                            taskAssignmentScene.events.off('getResult');
+                            this.input.enabled = true;
+                        });
                     }
-                }, this);
-
-            // add scroll view mask
-            const mask = this.make.graphics();
-            mask.fillStyle(0xffffff);
-            mask.fillRect(0, -1000, 1000, 1000);
-            mask.fillStyle(0x000000);
-            mask.fillRect(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 + 80, 1382, 470)
-            scrollViewContent.setMask(mask.createGeometryMask());
+                }, this)
         }
-
-    }
-
-    createWindow (func)
-    {
-        var handle = 'window' + this.count++;
-        var win = this.add.zone(400, 400, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
-        var demo = new func(handle, win);
-        this.input.setDraggable(win);
-
-        win.on('drag', function (pointer, dragX, dragY) {
-            this.x = dragX;
-            this.y = dragY;
-            demo.refresh()
-        });
-        this.scene.add(handle, demo, true);
     }
 
     shiftHeading(leftHeading, middleHeading, rightHeading, direction, cardxPos, HEADING_DIST) {
@@ -256,7 +220,6 @@ class ContractorsScene extends Phaser.Scene {
 
         if (direction === 'left') {
             // check for shifting past beginning
-            // console.log('left');
             if (left - 1 < 0) {
                 left = this.contractors.length - 1;
             } else {
@@ -302,17 +265,12 @@ class ContractorsScene extends Phaser.Scene {
         this.contractorsWindow[1] = middle;
         this.contractorsWindow[2] = right;
 
-        // console.log('left: ' + left);
-        // console.log('middle: ' + middle);
-        // console.log('right: ' + right);
-
         // remove previous buttons
         middleHeading.destroy();
         leftHeading.destroy();
         rightHeading.destroy();
 
         // make new buttons
-
         middleHeading = new CustomButton(this, cardxPos, 150,'button1Normal', 'button1Hover', `${this.contractors[this.contractorsWindow[1]]}`, 30).setScale(1.2, 1.2);
         this.add.existing(middleHeading);
 
@@ -322,15 +280,6 @@ class ContractorsScene extends Phaser.Scene {
         rightHeading = new CustomButton(this, middleHeading.x + middleHeading.width + HEADING_DIST, 150,'button1Normal', 'button1Hover', `${this.contractors[this.contractorsWindow[2]]}`, 30).setScale(0.75, 0.75);
         this.add.existing(rightHeading);
 
-    }
-
-    destroyWindowContents(names, ratings, prices, clickAreas) {
-        for (let i = 0; i < names.length; i++) {
-            names[i].destroy();
-            ratings[i].destroy();
-            prices[i].destroy();
-            clickAreas[i].destroy();
-        }
     }
 
 }
