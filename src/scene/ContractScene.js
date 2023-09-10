@@ -240,7 +240,7 @@ class ContractScene extends Phaser.Scene {
                         this.input.enabled = false;
                         const taskAssignmentScene = this.scene.get('TaskAssignmentScene');
                         this.scene.launch('TaskAssignmentScene');
-
+                        
                         // set listener to get option of TaskAssignmentScene
                         this.scene.get('TaskAssignmentScene').events.on('getResult', (result) => {
                             if (result) {
