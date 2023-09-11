@@ -12,7 +12,6 @@ class Materials extends Phaser.Scene {
 
     preload() {
         this.control = new Control(this);
-
         this.load.image('button1Normal', 'assets/buttons/button_normal.png');
         this.load.image('button1Hover', 'assets/buttons/button_hover.png');
 
@@ -96,6 +95,13 @@ class Materials extends Phaser.Scene {
         this.scrollbar = this.add.graphics();
         this.scrollbar.fillStyle(0x666666, 1);
         this.scrollbar.fillRect(1380, 315, 20, 50);
+
+        const filterButton= new CustomButton(this, 100, 100, 'filter_up', 'filter_down', 30);
+        this.add.existing(filterButton);
+        filterButton.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                filter(this.scrollView);
+            });
     }
 
     update() {
@@ -120,6 +126,35 @@ class Materials extends Phaser.Scene {
             const contentY = (this.scrollbar.y - 315) / (600 - 50) * (1030 - 600);
             this.scrollView.y = -contentY;
             console.log(this.scrollView.y);
+        }
+    }
+}
+
+//also add parameter for increase or decrease
+function filter(scrollView){
+    var i, shouldSwitch;
+    listView = scrollView.list;
+    switching = true;
+
+    while (switching) {
+        switching = false;
+        for (i = 0; i < listView.length - 1; i++) {
+            shouldSwitch = false;
+            //have switch statement for numbers and asc and desc
+            if(listView[i].list[0].text > listView[i + 1].list[0].text) {
+                shouldSwitch = true;
+                break;
+            }
+        }
+
+        if (shouldSwitch) {
+            tmp_text = listView[i].list[0].text
+            tmp_quan = listView[i].list[1].text
+            listView[i].list[0].text = listView[i + 1].list[0].text;
+            listView[i].list[1].text = listView[i + 1].list[1].text;
+            listView[i + 1].list[0].text = tmp_text;
+            listView[i + 1].list[1].text = tmp_quan;
+            switching = true;
         }
     }
 }
