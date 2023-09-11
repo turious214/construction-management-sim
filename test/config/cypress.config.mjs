@@ -1,14 +1,12 @@
-const { defineConfig } = require('cypress')
+import { defineConfig } from 'cypress';
+// const { defineConfig } = require('cypress')
 
-module.exports = defineConfig({
+export default defineConfig({
   projectId: '9nfcgw',
   e2e: {
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     screenshotOnRunFailure: false,
     video: false,
-    setupNodeEvents(on, config) {
-      return require('../cypress/plugins/index.js')(on, config)
-    },
   },
 })
