@@ -1,34 +1,51 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProjectScene = void 0;
-class ProjectScene extends Phaser.Scene {
+// import Control from "../gameinput/Control.ts"
+import Config from "../config/Config.ts"
+// import CustomButton from "../button/CustomButton.ts"
+
+
+export default class ProjectScene extends Phaser.Scene {
+
+    // private control?: Control;
+    // @ts-ignore
+    private funds: number;
+    // changes these later
+    // private weather: any[];
+    // private narration: any[];
+    // private complications: any[];
+    
     constructor() {
         super('ProjectScene');
-        // // game controls
-        // this.control = null;
+
+        // game controls
         // this.cursor = null;
-        //
-        // // remaining funds the player has
-        // this.funds = null;
-        //
-        // // weather forecast for duration of project - implement
-        // this.weather = [];
-        //
-        // // text bubble shown to viewer at beginning of day
-        // this.narration = [];
-        //
-        // // complications - add game complexity - v2
-        // this.complications = [];
+
+        // remaining funds the player has
+
+
+        // weather forecast for duration of project - implement
+
+
+        // text bubble shown to viewer at beginning of day
+
+
+        // complications - add game complexity - v2
+
+
     }
+
     preload() {
         // this.control = new Control(this);
-        // this.load.image('button1Normal', 'assets/buttons/button_normal.png');
-        // this.load.image('button1Hover', 'assets/buttons/button_hover.png');
+        this.load.image('button1Normal', 'assets/buttons/button_normal.png');
+        this.load.image('button1Hover', 'assets/buttons/button_hover.png');
+        this.load.image('background', 'assets/backgrounds/background1.png');
+        
     }
+
     create() {
-        // // draw background
-        // this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
-        //
+
+        // draw background
+        this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
+
         // const INIT_MAIN_UI_X = 200;
         // const INIT_MAIN_UI_Y = 50;
         // const HUD_BUTTON_TEXT_SIZE = 30
@@ -77,12 +94,17 @@ class ProjectScene extends Phaser.Scene {
         // const endWeekButton = new CustomButton(this, contractButton.x + contractButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'END WEEK 1', HUD_BUTTON_TEXT_SIZE);
         // this.add.existing(endWeekButton);
     }
+
     update() {
+        
         // let isSelectDown = Phaser.Input.Keyboard.JustDown(this.control.keyEsc);
         // if (isSelectDown) {
         //     this.scene.stop('ProjectScene');
         //     this.scene.launch('GameMenu');
         // }
     }
+
+
+
+    
 }
-exports.ProjectScene = ProjectScene;
