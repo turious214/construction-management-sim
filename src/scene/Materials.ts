@@ -1,15 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Materials = void 0;
-class Materials extends Phaser.Scene {
+// import Control from "../gameinput/Control.ts";
+// import Config from "../config/Config.ts";
+// import CustomButton from "../button/CustomButton.ts";
+export default class Materials extends Phaser.Scene {
+
     constructor() {
-        super('Materials');
+        super('Materials')
+
         // //game controls
         // this.control = null;
         // this.scrollbar = null;
         // this.isDragging = false;
         // this.scrollView = null;
     }
+
     preload() {
         // this.control = new Control(this);
         //
@@ -19,7 +22,9 @@ class Materials extends Phaser.Scene {
         // this.load.image('background', 'assets/backgrounds/background1.png');
         // this.load.image('card', 'assets/cards/card3/Card X5.png')
     }
+
     create() {
+
         // //add background
         // this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
         //
@@ -95,6 +100,7 @@ class Materials extends Phaser.Scene {
         // this.scrollbar.fillStyle(0x666666, 1);
         // this.scrollbar.fillRect(1380, 315, 8, 50);
     }
+
     update() {
         // set scroll bar
         // this.scrollbar.setInteractive(new Phaser.Geom.Rectangle(1380, 315, 8, 50), Phaser.Geom.Rectangle.Contains);
@@ -120,7 +126,7 @@ class Materials extends Phaser.Scene {
         // }
     }
 }
-exports.Materials = Materials;
+
 // function generateRandomMaterial() {
 //     const materials = [
 //         'wood',
@@ -133,3 +139,4 @@ exports.Materials = Materials;
 //     const materialsNameNum = Phaser.Math.Between(0, materials.length - 1);
 //     return materials[materialsNameNum]
 // }
+

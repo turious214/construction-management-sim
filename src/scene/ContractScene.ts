@@ -1,9 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ContractScene = void 0;
-class ContractScene extends Phaser.Scene {
+// import {Control} from "../gameinput/Control.ts";
+// import {Config} from "../config/Config.ts";
+// import CustomButton from "../button/CustomButton.ts";
+export default class ContractScene extends Phaser.Scene {
+
     constructor() {
-        super('ContractScene');
+        super('ContractScene')
+
         // game controls
         // this.control = null;
         // this.scrollbar = null;
@@ -12,6 +14,7 @@ class ContractScene extends Phaser.Scene {
         // this.contractors = ['Plumbers', 'Electricians', 'Plasterers', 'Carpenter', 'Painters', 'Masons', 'Landscapers', 'Excavators', 'Concreters', 'Framers', 'HVAC'];
         // this.contractorsWindow = [0, 1, 2];
     }
+
     preload() {
         // this.control = new Control(this);
         //
@@ -33,7 +36,9 @@ class ContractScene extends Phaser.Scene {
         //
         // this.load.image('left-arrow', 'assets/icons/09.png');
         // this.load.image('right-arrow', 'assets/icons/10.png');
+
     }
+
     create() {
         // const INIT_MAIN_UI_X = 200;
         // const INIT_MAIN_UI_Y = 50;
@@ -123,7 +128,9 @@ class ContractScene extends Phaser.Scene {
         // this.scrollbar.fillStyle(0x666666, 1);
         // this.scrollbar.fillRect(INIT_MAIN_UI_X * 8.5, INIT_MAIN_UI_Y * 7.8, 30, 50);
     }
+
     update() {
+
         // let isSelectDown = Phaser.Input.Keyboard.JustDown(this.control.keyEsc);
         // if (isSelectDown) {
         //     this.scene.stop('ContractScene');
@@ -151,6 +158,5 @@ class ContractScene extends Phaser.Scene {
         //     //set scroll speed
         //     const contentY = (this.scrollbar.y / 10) * (this.cache.json.get('data').infoGenerateNum * 2.6 + (0.65 * (this.cache.json.get('data').infoGenerateNum - 20))) - 400;
         //     this.scrollView.y = -contentY;
+        }
     }
-}
-exports.ContractScene = ContractScene;
