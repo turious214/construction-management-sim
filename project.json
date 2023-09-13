@@ -10,59 +10,39 @@
         },
         {
             "weatherType": "CLOUDY",
-            "description": "It is cloudy today"  
+            "description": "It is cloudy today"
         }
     ],
     "weeks": [
         {
-            "day_id": "123",
-            "weather": [
-                {
-                    "class_name": "Weather",
-                    "watherType": "SUNNY",
-                    "description": "It is sunny today"
-                }
-            ],
-            "narration": "Today is a normal sunny day",
+            "week_id": "123",
+            "weather_id": "1",
+            "narration": "This week is a normal sunny week",
             "events": [
-                {
-                    "class_name": "Facilitation",
-                    "event_id": "189882877",
-                    "description": "This is 189882877",
-                    "ocurrence_rate": "0.8"
-                },
-                {
-                    "class_name": "Complication",
-                    "event_id": "4818439832",
-                    "description": "This is 4818439832",
-                    "ocurrence_rate": "0.5"
-                }
+                "1",
+                "2"
+            ]
+        },
+        {
+            "week_id": "124",
+            "weather_id": "2",
+            "narration": "This week is a normal rainy week",
+            "events": [
+                "3",
+                "4"
+            ]
+        },
+        {
+            "week_id": "125",
+            "weather_id": "3",
+            "narration": "This week is a normal cloudy week",
+            "events": [
+                "5",
+                "6"
             ]
         }
     ],
-    "currentDay": {
-        "weather": {
-            "watherType": "SUNNY",
-            "description": "It is sunny today"
-        },
-        "narration": "Today is the first day of the game",
-        "events": [
-            {
-                "event_id": "189882877",
-                "description": "This is 189882877",
-                "ocurrence_rate": "0.8"
-            },
-            {
-                "event_id": "4818439832",
-                "description": "This is 4818439832",
-                "ocurrence_rate": "0.5"
-            }
-        ]
-    },
-    "currentWeather": {
-        "watherType": "SUNNY",
-        "description": "It is sunny today"
-    },
+    ],
     "remainingFunds": "100000",
     "personell": [
         {
@@ -127,70 +107,76 @@
             "new_event_rate": "0.01"
         }
     ],
-    "acquiredPersonnel": [
+    "tasks":[
         {
-            "id": 1,
-            "personel": {
-                "ocupation": "Excavator",
-                "contractorID": "1",
-                "rate": "100",
-                "rating": "4.5",
-                "ratingSprite": "4.5"
-            }
+            "task_id": "1",
+            "task_name": "Excavation"
         },
         {
-            "id": 2,
-            "personel": {
-                "ocupation": "Painter",
-                "contractorID": "2",
-                "rate": "100",
-                "rating": "4.5",
-                "ratingSprite": "4.5"
-            }
+            "task_id": "2",
+            "task_name": "Concreting"
+        },
+        {
+            "task_id": "3",
+            "task_name": "Brickwork"
+        },
+        {
+            "task_id": "4",
+            "task_name": "Roofing"
+        },
+        {
+            "task_id": "5",
+            "task_name": "Plumbing"
+        },
+        {
+            "task_id": "6",
+            "task_name": "Electrical"
+        },
+        {
+            "task_id": "7",
+            "task_name": "Painting"
         }
     ],
-    "acquiredMaterials": [
+    "events":[
         {
-            "id": 1,
-            "material": {
-                "name": "wood",
-                "price": "100",
-                "quality": "50"
-            }
+            "event_id":"1",
+            "description": "Rain",
+            "ocurrence_rate": "0.2"
         },
         {
-            "id": 2,
-            "material": {
-                "name": "marble",
-                "price": "500",
-                "quality": "150"
-            }
-        }
-    ],
-    "acquiredRiskMitigationTools": [
-        {
-            "id": 1,
-            "rmt": {
-                "event": {
-                    "class_name": "Complication",
-                    "event_id": "4818439832",
-                    "description": "This is 4818439832",
-                    "ocurrence_rate": "0.5"
-                },
-                "new_event_rate": "0.2"
-            }
+            "event_id":"2",
+            "description": "Wind",
+            "ocurrence_rate": "0.1"
         },
         {
-            "id": 2,
-            "rmt": {
-                "event": {
-                    "class_name": "Complication",
-                    "event_id": "489832",
-                    "description": "Nuclear disaster",
-                    "ocurrence_rate": "0.1"
-                },
-                "new_event_rate": "0.01"
-            }
+            "event_id":"3",
+            "description": "Snow",
+            "ocurrence_rate": "0.2"
+        },
+        {
+            "event_id":"4",
+            "description": "Flood",
+            "ocurrence_rate": "0.1"
+        },
+        {
+            "event_id":"5",
+            "description": "Earthquake",
+            "ocurrence_rate": "0.1"
+        },
+        {
+            "event_id":"6",
+            "description": "Tornado",
+            "ocurrence_rate": "0.1"
+        },
+        {
+            "event_id":"7",
+            "description": "Hurricane",
+            "ocurrence_rate": "0.1"
+        },
+        {
+            "event_id":"8",
+            "description": "Fire",
+            "ocurrence_rate": "0.1"
         }
     ]
 }
