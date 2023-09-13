@@ -1,0 +1,196 @@
+{
+    "weathers": [
+        {
+            "weatherType": "SUNNY",
+            "description": "It is sunny today"
+        },
+        {
+            "weatherType": "RAINY",
+            "description": "It is rainy today"
+        },
+        {
+            "weatherType": "CLOUDY",
+            "description": "It is cloudy today"  
+        }
+    ],
+    "weeks": [
+        {
+            "day_id": "123",
+            "weather": [
+                {
+                    "class_name": "Weather",
+                    "watherType": "SUNNY",
+                    "description": "It is sunny today"
+                }
+            ],
+            "narration": "Today is a normal sunny day",
+            "events": [
+                {
+                    "class_name": "Facilitation",
+                    "event_id": "189882877",
+                    "description": "This is 189882877",
+                    "ocurrence_rate": "0.8"
+                },
+                {
+                    "class_name": "Complication",
+                    "event_id": "4818439832",
+                    "description": "This is 4818439832",
+                    "ocurrence_rate": "0.5"
+                }
+            ]
+        }
+    ],
+    "currentDay": {
+        "weather": {
+            "watherType": "SUNNY",
+            "description": "It is sunny today"
+        },
+        "narration": "Today is the first day of the game",
+        "events": [
+            {
+                "event_id": "189882877",
+                "description": "This is 189882877",
+                "ocurrence_rate": "0.8"
+            },
+            {
+                "event_id": "4818439832",
+                "description": "This is 4818439832",
+                "ocurrence_rate": "0.5"
+            }
+        ]
+    },
+    "currentWeather": {
+        "watherType": "SUNNY",
+        "description": "It is sunny today"
+    },
+    "remainingFunds": "100000",
+    "personell": [
+        {
+            "ocupation": "Excavator",
+            "contractorID": "1",
+            "rate": "100",
+            "rating": "4.5",
+            "ratingSprite": "4.5"
+        },
+        {
+            "ocupation": "Painter",
+            "contractorID": "2",
+            "rate": "100",
+            "rating": "4.5",
+            "ratingSprite": "4.5"
+        },
+        {
+            "ocupation": "Concreter",
+            "contractorID": "3",
+            "rate": "100",
+            "rating": "4.5",
+            "ratingSprite": "4.5"
+        },
+        {
+            "ocupation": "Electrician",
+            "contractorID": "4",
+            "rate": "100",
+            "rating": "4.5",
+            "ratingSprite": "4.5"
+        }
+    ],
+    "materials": [
+        {
+            "name": "wood",
+            "price": "100",
+            "quality": "50"
+        },
+        {
+            "name": "marble",
+            "price": "500",
+            "quality": "150"
+        },
+        {
+            "name": "stone",
+            "price": "250",
+            "quality": "125"
+        }
+    ],
+    "riskMitigationTools": [
+        {
+            "rmt_id": "1",
+            "eventId": "12",
+            "new_event_rate": "0.2"
+        },
+        {
+            "rmt_id": "2",
+            "event": {
+                "event_id": "489832",
+                "description": "Nuclear disaster",
+                "ocurrence_rate": "0.1"
+            },
+            "new_event_rate": "0.01"
+        }
+    ],
+    "acquiredPersonnel": [
+        {
+            "id": 1,
+            "personel": {
+                "ocupation": "Excavator",
+                "contractorID": "1",
+                "rate": "100",
+                "rating": "4.5",
+                "ratingSprite": "4.5"
+            }
+        },
+        {
+            "id": 2,
+            "personel": {
+                "ocupation": "Painter",
+                "contractorID": "2",
+                "rate": "100",
+                "rating": "4.5",
+                "ratingSprite": "4.5"
+            }
+        }
+    ],
+    "acquiredMaterials": [
+        {
+            "id": 1,
+            "material": {
+                "name": "wood",
+                "price": "100",
+                "quality": "50"
+            }
+        },
+        {
+            "id": 2,
+            "material": {
+                "name": "marble",
+                "price": "500",
+                "quality": "150"
+            }
+        }
+    ],
+    "acquiredRiskMitigationTools": [
+        {
+            "id": 1,
+            "rmt": {
+                "event": {
+                    "class_name": "Complication",
+                    "event_id": "4818439832",
+                    "description": "This is 4818439832",
+                    "ocurrence_rate": "0.5"
+                },
+                "new_event_rate": "0.2"
+            }
+        },
+        {
+            "id": 2,
+            "rmt": {
+                "event": {
+                    "class_name": "Complication",
+                    "event_id": "489832",
+                    "description": "Nuclear disaster",
+                    "ocurrence_rate": "0.1"
+                },
+                "new_event_rate": "0.01"
+            }
+        }
+    ]
+}
