@@ -1,7 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Personnel = void 0;
-class Personnel extends Phaser.Scene {
+// import Control from "../gameinput/Control.ts";
+// import Config from "../config/Config.ts";
+// import CustomButton from "../button/CustomButton.ts";
+export default class Personnel extends Phaser.Scene {
     constructor() {
         super('Personnel');
         //
@@ -11,6 +11,7 @@ class Personnel extends Phaser.Scene {
         // this.snapZones = []; // Array to store snap zones
         // this.panels = []; // Array to store panels
     }
+
     preload() {
         // this.control = new Control(this);
         // this.load.json('data', 'assets/project/bridge1.json');
@@ -23,6 +24,7 @@ class Personnel extends Phaser.Scene {
         // this.load.image('panel', 'assets/cards/card1/Panel Empty Green.png');
         // this.load.image('background', 'assets/backgrounds/background1.png');
     }
+
     create() {
         // const jsonData = this.cache.json.get('data');
         // if (jsonData) {
@@ -101,7 +103,11 @@ class Personnel extends Phaser.Scene {
         // } else {
         //     console.error('Failed to load JSON data.');
         // }
+        
     }
+
+
+    
     update() {
         // let isSelectDown = Phaser.Input.Keyboard.JustDown(this.control.keyEsc);
         // if (isSelectDown) {
@@ -109,5 +115,20 @@ class Personnel extends Phaser.Scene {
         //     this.scene.launch('MainScene');
         // }
     }
+
+    // getClosestSnapZone(panel) {
+    //     let minDistance = Number.MAX_VALUE;
+    //     let closestZone = null;
+    //
+    //     for (const snapZone of this.snapZones) {
+    //         const distance = Phaser.Math.Distance.Between(panel.x, panel.y, snapZone.x, snapZone.y);
+    //
+    //         if (distance < minDistance) {
+    //             minDistance = distance;
+    //             closestZone = snapZone;
+    //         }
+    //     }
+    //
+    //     return closestZone;
+    // }
 }
-exports.Personnel = Personnel;
