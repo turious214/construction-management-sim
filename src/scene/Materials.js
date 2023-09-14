@@ -1,3 +1,5 @@
+import { dropDown } from '../features/filter.js';
+
 class Materials extends Phaser.Scene {
 
     constructor() {
@@ -17,14 +19,12 @@ class Materials extends Phaser.Scene {
 
         this.load.image('background', 'assets/backgrounds/background1.png');
         this.load.image('card', 'assets/cards/card3/Card X5.png')
-        this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
+        //this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
     }
 
     create() {
-
         //add background
         this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
-
         // add card
         const card = this.add.image(Config.WindowWidth / 2 - 200, Config.WindowHeight / 2 + 100, 'card').setScale(2, 2);;
 
@@ -39,7 +39,7 @@ class Materials extends Phaser.Scene {
                 this.scene.launch('MainScene')
             });
 
-        //shop button
+            //shop button
         const shopButton = new CustomButton(this, Config.WindowWidth - 235, card.y - 100, 'button1Normal', 'button1Hover', 'Shop', 30);
         this.add.existing(shopButton);
 
@@ -97,9 +97,17 @@ class Materials extends Phaser.Scene {
         this.scrollbar.fillStyle(0x666666, 1);
         this.scrollbar.fillRect(1380, 315, 20, 50);
 
+        var test = this.scrollView;
+        
+        var options = [
+            { text: 'Ascend Alphabetical', function() { filter(test, true, true)} },
+            { text: 'Descend Alphabetical', function() { filter(test, true, false)} },
+            { text: 'Ascend Numerical', function() { filter(test, false, true)} },
+            { text: 'Descend Numerical', function() { filter(test, false, false)} },
+        ]
 
+        /*
         const COLOR_PRIMARY = 0x4e342e;
-        const COLOR_LIGHT = 0x7b5e57;
         const COLOR_DARK = 0x260e04;
 
         var dropDownList = this.rexUI.add.dropDownList({
@@ -118,12 +126,7 @@ class Materials extends Phaser.Scene {
             },
 
             //drop down menu options
-            options: [
-                { text: 'Ascend Alphabetical' },
-                { text: 'Descend Alphabetical' },
-                { text: 'Ascend Numerical' },
-                { text: 'Descend Numerical' },
-            ],
+            options: options,
 
         list: {
                 createBackgroundCallback: function (scene) {
@@ -151,45 +154,27 @@ class Materials extends Phaser.Scene {
                     var alpha_num;
                     var asc_des;
 
-                    //set variables for filter based on case
-                    switch(button.text) {
-                        case "Ascend Alphabetical":
-                            alpha_num = true;
-                            asc_des = true;
-                            break;
-                        case "Descend Alphabetical":
-                            alpha_num = true;
-                            asc_des = false;
-                            break;
-                        case "Ascend Numerical":
-                            alpha_num = false;
-                            asc_des = true;
-                            break;
-                        case "Descend Numerical":
-                            alpha_num = false;
-                            asc_des = false;
-                            break;
-                        default:
-                            alpha_num = true;
-                            asc_des = true;
-                            break;
-                    }
-
                     //make button filter based on selection
                     button.setInteractive()
                         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                            filter(scene.scrollView, alpha_num, asc_des);
+                            option.function();
                     });
                 
                     return button;
                 },
 
+                onButtonClick: function(button, index, pointer, event) {
+                    dropDownList.setText(button.text);
+                },
+
                 // scope: dropDownList
+                // when selected no outline
                 onButtonOver: function (button, index, pointer, event) {
                     button.getElement('background').setStrokeStyle(1, 0xffffff);
                 },
 
                 // scope: dropDownList
+                // when not selected no outline
                 onButtonOut: function (button, index, pointer, event) {
                     button.getElement('background').setStrokeStyle();
                 },
@@ -197,6 +182,7 @@ class Materials extends Phaser.Scene {
             value: undefined
 
         }).layout();
+        */
     }
 
     update() {
