@@ -1,4 +1,8 @@
-var dropDownList = this.rexUI.add.dropDownList({
+import { DropDownList } from '../../node_modules/phaser3-rex-plugins/templates/ui/ui-components.js';
+
+function dropDown(scene, ) {
+    //var dropDownList = this.rexUI.add.dropDownList({
+    var config = ({
     x: 1250, y: 350,
     background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 0, COLOR_PRIMARY),
     text: CreateTextObject(this, 'Sort by').setFixedSize(150, 0),
@@ -88,6 +92,8 @@ var dropDownList = this.rexUI.add.dropDownList({
             },
             value: undefined
         }).layout();
+    return newDropDownList(scene, config);
+}
 
 function CreateTextObject(scene, text) {
     return scene.add.text(0, 0, text, { fontSize: 20 })
@@ -139,3 +145,5 @@ function filter(scrollView, alpha_num, asc_des){
         }
     }
 }
+
+export function dropDown();
