@@ -1,5 +1,3 @@
-import { dropDown } from '../features/filter.js';
-
 class Materials extends Phaser.Scene {
 
     constructor() {
@@ -18,8 +16,8 @@ class Materials extends Phaser.Scene {
         this.load.image('button1Hover', 'assets/buttons/button_hover.png');
 
         this.load.image('background', 'assets/backgrounds/background1.png');
-        this.load.image('card', 'assets/cards/card3/Card X5.png')
-        //this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
+        this.load.image('card', 'assets/cards/card3/Card X5.png');
+        this.load.script('dropDown', 'src/features/filter.js');
     }
 
     create() {
@@ -96,93 +94,20 @@ class Materials extends Phaser.Scene {
         this.scrollbar = this.add.graphics();
         this.scrollbar.fillStyle(0x666666, 1);
         this.scrollbar.fillRect(1380, 315, 20, 50);
-
-        var test = this.scrollView;
         
+        //list to be filtered 
+        var list = this.scrollView;
+        
+        //options for the dropDownList
         var options = [
-            { text: 'Ascend Alphabetical', function() { filter(test, true, true)} },
-            { text: 'Descend Alphabetical', function() { filter(test, true, false)} },
-            { text: 'Ascend Numerical', function() { filter(test, false, true)} },
-            { text: 'Descend Numerical', function() { filter(test, false, false)} },
-        ]
+            { text: 'Ascend Alphabetical', sort() { filter(list, true, true)} },
+            { text: 'Descend Alphabetical', sort() { filter(list, true, false)} },
+            { text: 'Ascend Numerical', sort() { filter(list, false, true)} },
+            { text: 'Descend Numerical', sort() { filter(list, false, false)} },
+        ];
 
-        /*
-        const COLOR_PRIMARY = 0x4e342e;
-        const COLOR_DARK = 0x260e04;
-
-        var dropDownList = this.rexUI.add.dropDownList({
-            x: 1250, y: 350,
-
-            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 0, COLOR_PRIMARY),
-            text: CreateTextObject(this, 'Sort by').setFixedSize(150, 0),
-
-            //padding
-            space: {
-                left: 10,
-                right: 10,
-                top: 10,
-                bottom: 10,
-                icon: 10
-            },
-
-            //drop down menu options
-            options: options,
-
-        list: {
-                createBackgroundCallback: function (scene) {
-                    return scene.rexUI.add.roundRectangle(0, 0, 2, 2, 0, COLOR_DARK);
-                },
-                createButtonCallback: function (scene, option, index, options) {
-                    var text = option.text;
-                    var button = scene.rexUI.add.label({
-                        background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 0),
-
-                        //text box
-                        text: CreateTextObject(scene, text),
-
-                        //padding
-                        space: {
-                            left: 10,
-                            right: 10,
-                            top: 10,
-                            bottom: 10,
-                            icon: 10
-                        }
-                    });
-                    button.text= option.text;
-
-                    var alpha_num;
-                    var asc_des;
-
-                    //make button filter based on selection
-                    button.setInteractive()
-                        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                            option.function();
-                    });
-                
-                    return button;
-                },
-
-                onButtonClick: function(button, index, pointer, event) {
-                    dropDownList.setText(button.text);
-                },
-
-                // scope: dropDownList
-                // when selected no outline
-                onButtonOver: function (button, index, pointer, event) {
-                    button.getElement('background').setStrokeStyle(1, 0xffffff);
-                },
-
-                // scope: dropDownList
-                // when not selected no outline
-                onButtonOut: function (button, index, pointer, event) {
-                    button.getElement('background').setStrokeStyle();
-                },
-            },
-            value: undefined
-
-        }).layout();
-        */
+        //add dropDownList
+        dropDown(this, options, 1250, 350);
     }
 
     update() {
@@ -209,10 +134,6 @@ class Materials extends Phaser.Scene {
             console.log(this.scrollView.y);
         }
     }
-}
-
-function CreateTextObject(scene, text) {
-    return scene.add.text(0, 0, text, { fontSize: 20 })
 }
 
 //also add parameter for increase or decrease

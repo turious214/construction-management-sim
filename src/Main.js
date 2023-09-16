@@ -1,4 +1,4 @@
-import UIPlugin from '../node_modules/phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 
 var config = {
     type: Phaser.AUTO,
@@ -13,7 +13,7 @@ var config = {
     plugins: {
         scene: [{
             key: 'rexUI',
-            plugin: UIPlugin,
+            plugin: RexUIPlugin,
             mapping: 'rexUI'
         }]
     }
