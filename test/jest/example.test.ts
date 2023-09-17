@@ -1,4 +1,5 @@
-function sum(a: number, b: number) {
+import { expect } from '@jest/globals';
+function sum(a: number, b: number): number {
     return a + b;
   }
   
