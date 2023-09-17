@@ -2,5 +2,6 @@
     "funds": 100000000,
     "weather": [{}],
     "day": [{}],
+    "temperature": [{}],
     "infoGenerateNum": 20
 }

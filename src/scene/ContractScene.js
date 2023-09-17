@@ -1,6 +1,13 @@
+import * as mlregression from "ml-regression";
+import * as fs from "fs";
+
+let INIT_MAIN_UI_X;
 INIT_MAIN_UI_X = 200;
+let INIT_MAIN_UI_Y;
 INIT_MAIN_UI_Y = 50;
+let CONTENT_BUFFER_X;
 CONTENT_BUFFER_X = 50;
+let SUBHEADING_SPACE_Y;
 SUBHEADING_SPACE_Y = 100;
 
 class ContractScene extends Phaser.Scene {
@@ -13,8 +20,13 @@ class ContractScene extends Phaser.Scene {
         this.scrollbar = null;
         this.isDragging = false;
         this.scrollView = null;
-        this.contractors = ['Plumbers', 'Electricians', 'Plasterers', 'Carpenter', 'Painters', 'Masons', 'Landscapers', 'Excavators', 'Concreters', 'Framers', 'HVAC'];
+        this.contractors = ['OBS', 'CBS', 'WBS'];
         this.contractorsWindow = [0, 1, 2];
+
+        //game data
+        this.weather = "summer"
+        this.temperature = 32;
+        this.weekDay = 5;
     }
 
     preload() {
@@ -42,31 +54,9 @@ class ContractScene extends Phaser.Scene {
     }
 
     create() {
-        // const INIT_MAIN_UI_X = 200;
-        // const INIT_MAIN_UI_Y = 50;
-        // const self = this;
 
         // add background
         this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
-
-        // add exist button
-        // const exitButton = new CustomButton(this, INIT_MAIN_UI_X * 8, INIT_MAIN_UI_Y * 20,'button1Normal', 'button1Hover', 'Exit', 30);
-        // this.add.existing(exitButton);
-        // exitButton.setDepth(1);
-
-        // go main scene
-        // exitButton.setInteractive()
-        //     .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-        //         this.scene.stop('ContractScene');
-        //         this.scene.launch('MainScene');
-        //     });
-
-        // add title
-        // this.add.text(Config.WindowWidth / 16, Config.WindowHeight / 16, 'CONTRACT', {
-        //     color: '#fcd498',
-        //     fontSize: 100,
-        //     align: 'top',
-        // });
 
         // add card
         const card = this.add.image(INIT_MAIN_UI_X * 4.8, INIT_MAIN_UI_Y * 11.5, 'card').setScale(2.5, 2);
@@ -79,34 +69,26 @@ class ContractScene extends Phaser.Scene {
         // add contractor-type heading
         const HEADING_DIST = 20;
     
-        let middleHeading = new CustomButton(this, card.x, 150,'button1Normal', 'button1Hover', 'Electricians', 30).setScale(1.2, 1.2);
+        let middleHeading = new CustomButton(this, card.x, 150,'button1Normal', 'button1Hover', 'CBS', 30).setScale(1.2, 1.2);
         this.add.existing(middleHeading);
         middleHeading.setDepth(1);
 
-        let leftHeading = new CustomButton(this, middleHeading.x - middleHeading.width - HEADING_DIST, 150,'button1Normal', 'button1Hover', 'Plumbers', 30).setScale(0.75, 0.75);
+        let leftHeading = new CustomButton(this, middleHeading.x - middleHeading.width - HEADING_DIST, 150,'button1Normal', 'button1Hover', 'OBS', 30).setScale(0.75, 0.75);
         this.add.existing(leftHeading);
         leftHeading.setDepth(1);
 
-        let rightHeading = new CustomButton(this, middleHeading.x + middleHeading.width + HEADING_DIST, 150,'button1Normal', 'button1Hover', 'Plasterers', 30).setScale(0.75, 0.75);
+        let rightHeading = new CustomButton(this, middleHeading.x + middleHeading.width + HEADING_DIST, 150,'button1Normal', 'button1Hover', 'WBS', 30).setScale(0.75, 0.75);
         this.add.existing(rightHeading);
         rightHeading.setDepth(1);
-
-        // const CONTENT_BUFFER_X = 50;
-        // const SUBHEADING_SPACE_Y = 100;
 
         // add scroll view
         this.scrollView = this.add.container(INIT_MAIN_UI_X * 1.05, INIT_MAIN_UI_Y * 6 + SUBHEADING_SPACE_Y);
 
-        const subHeadings = this.add.text(this.scrollView.x, this.scrollView.y - SUBHEADING_SPACE_Y, `\t\t\t\tCompany Name\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tRating\t\t\t\t\t\t\tRate/Day`, {
+        const subHeadings = this.add.text(this.scrollView.x, this.scrollView.y - SUBHEADING_SPACE_Y, `\t\t\t\tCost Category\t\t\t\t\t\t\t\t\t\t\t\t\tPredicted Cost(week)\t\t\t\t\t\t\tActual Cost(week)`, {
             fontSize: 40,
             color: '#ffffff'
         });
 
-        // lists to store names, price, rating, clickAreas
-        // let names = [];
-        // let ratings = [];
-        // let prices = [];
-        // let clickAreas = [];
         let infoNum = this.cache.json.get('data').infoGenerateNum;
 
         // generate random info
@@ -166,48 +148,45 @@ class ContractScene extends Phaser.Scene {
     }
 
 
-    generateContent(infoNum, indicator = null) {
-        // put random info[default = 20 messages]
+    generateContent(infoNum, type) {
+        // put OBS/CBS/WBS info
         for (let i = 0; i < infoNum; i++) {
-            // generate replacement info
-            if (!(i === indicator) && indicator != null) {
-                continue;
-            }
-
             // add each contract
             const scrollViewContent = this.add.container((INIT_MAIN_UI_X * 1.05) / 10, (INIT_MAIN_UI_Y * 6 + SUBHEADING_SPACE_Y) / 6 * i);
             this.scrollView.add(scrollViewContent);
 
-            // name
-            const generateName = generateRandomCompanyName();
-            const companyName = this.add.text(scrollViewContent.x + CONTENT_BUFFER_X, scrollViewContent.y, generateName, {
+            // category
+            const categoryName = generateCategoryName();
+            const name = this.add.text(scrollViewContent.x + CONTENT_BUFFER_X, scrollViewContent.y, categoryName, {
                 fontSize: 40,
                 color: '#ffffff'
             });
-            scrollViewContent.add(companyName);
+            scrollViewContent.add(name);
 
-            // add to names
-            // names.push(companyName);
-
-            // rating
-            const generateRating = generateRandomRating();
-            const ratingImage = this.add.image(scrollViewContent.x + 1000, scrollViewContent.y + 18,  generateRating)
-                .setScale(0.1, 0.1)
-            scrollViewContent.add(ratingImage);
-
-            // add to ratings
-            // ratings.push(ratingImage);
-
-            // price
-            const generatePrice = generateRandomPrice(ratingImage.texture.key);
-            const price = this.add.text(scrollViewContent.x + 1200, scrollViewContent.y+3, `$${generatePrice}`, {
+            // predicted cost
+            const predictedCost = generatePredictedCost();
+            const pCost = this.add.text(scrollViewContent.x + 300, scrollViewContent.y + 18,  `$${predictedCost}`, {
                 fontSize: 40,
                 color: '#ffffff'
             });
-            scrollViewContent.add(price);
+            scrollViewContent.add(pCost);
 
-            // add to prices
-            // prices.push(price);
+            // actual cost
+            const actualCost = generateActualCost();
+            const aCost = this.add.text(scrollViewContent.x + 600, scrollViewContent.y + 3, `$${actualCost}`, {
+                fontSize: 40,
+                color: '#ffffff'
+            });
+            scrollViewContent.add(aCost);
+
+            // graph button
+            const graphButton = new graphButton(scrollViewContent.x + 1200, scrollViewContent.y, 'button1Normal', 'button1Hover', 'Graph', 30);
+
+            // generate Graph
+            graphButton.setInteractive()
+                .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+
+                });
 
             // add scroll view mask
             const mask = this.make.graphics();
@@ -225,51 +204,33 @@ class ContractScene extends Phaser.Scene {
             clickArea.setDepth(-1);
             scrollViewContent.add(clickArea);
 
-            // add clickArea
-            // clickAreas.push(clickArea);
-
             // set each clickArea open window
-            const areaCheck1 = new Phaser.Geom.Rectangle(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60)
-            const areaCheck2 = new Phaser.Geom.Rectangle(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 - 10, 1382, 571)
+            // const areaCheck1 = new Phaser.Geom.Rectangle(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60)
+            // const areaCheck2 = new Phaser.Geom.Rectangle(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 - 10, 1382, 571)
 
-            clickArea.setInteractive(areaCheck1, Phaser.Geom.Rectangle.Contains)
-                .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, function (pointer) {
-                    // ensure click in two area
-                    if (Phaser.Geom.Rectangle.Contains(areaCheck2, pointer.x, pointer.y)) {
-                        // prevent misuse
-                        this.input.enabled = false;
-                        const taskAssignmentScene = this.scene.get('TaskAssignmentScene');
-                        this.scene.launch('TaskAssignmentScene');
-                        
-                        // set listener to get option of TaskAssignmentScene
-                        this.scene.get('TaskAssignmentScene').events.on('getResult', (result) => {
-                            if (result) {
-                                this.scrollView.remove(scrollViewContent, true);
-                                this.generateContent(infoNum, i);
-                            }
-
-                            taskAssignmentScene.events.off('getResult');
-                            this.input.enabled = true;
-                        });
-                    }
-            }, this)
+            // clickArea.setInteractive(areaCheck1, Phaser.Geom.Rectangle.Contains)
+            //     .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, function (pointer) {
+            //         // ensure click in two area
+            //         if (Phaser.Geom.Rectangle.Contains(areaCheck2, pointer.x, pointer.y)) {
+            //             // prevent misuse
+            //             this.input.enabled = false;
+            //             const taskAssignmentScene = this.scene.get('TaskAssignmentScene');
+            //             this.scene.launch('TaskAssignmentScene');
+            //
+            //             // set listener to get option of TaskAssignmentScene
+            //             this.scene.get('TaskAssignmentScene').events.on('getResult', (result) => {
+            //                 if (result) {
+            //                     this.scrollView.remove(scrollViewContent, true);
+            //                     this.generateContent(infoNum, i);
+            //                 }
+            //
+            //                 taskAssignmentScene.events.off('getResult');
+            //                 this.input.enabled = true;
+            //             });
+            //         }
+            // }, this)
         }
     }
-
-    // createWindow (func)
-    // {
-    //     var handle = 'window' + this.count++;
-    //     var win = this.add.zone(400, 400, func.WIDTH, func.HEIGHT).setInteractive().setOrigin(0);
-    //     var demo = new func(handle, win);
-    //     this.input.setDraggable(win);
-    //
-    //     win.on('drag', function (pointer, dragX, dragY) {
-    //         this.x = dragX;
-    //         this.y = dragY;
-    //         demo.refresh()
-    //     });
-    //     this.scene.add(handle, demo, true);
-    // }
 
     shiftHeading(leftHeading, middleHeading, rightHeading, direction, cardxPos, HEADING_DIST) {
         let left = this.contractorsWindow[0];
@@ -324,10 +285,6 @@ class ContractScene extends Phaser.Scene {
         this.contractorsWindow[1] = middle;
         this.contractorsWindow[2] = right;
 
-        // console.log('left: ' + left);
-        // console.log('middle: ' + middle);
-        // console.log('right: ' + right);
-
         // remove previous buttons
         middleHeading.destroy();
         leftHeading.destroy();
@@ -345,79 +302,45 @@ class ContractScene extends Phaser.Scene {
         this.add.existing(rightHeading);
 
     }
-
-    // destroyWindowContents(names, ratings, prices, clickAreas) {
-    //     for (let i = 0; i < names.length; i++) {
-    //         names[i].destroy();
-    //         ratings[i].destroy();
-    //         prices[i].destroy();
-    //         clickAreas[i].destroy();
-    //     }
-    // }
-
 }
 
-function generateRandomCompanyName() {
-    const suffixes = [
-        'Inc.',
-        'Corporation',
-        'Industries',
-        'Innovators',
-        'Ventures',
-        'Ltd.',
-        'Group',
-        'Services',
-        'Builders',
-        'Partners',
-        'Enterprises'
-    ];
-    const consonants = 'bcdfghjklmnpqrstvwxyz';
-    const vowels = 'aeiou';
-    const companyNameLength = Phaser.Math.Between(5, 10);
-    const suffixesNameNum = Phaser.Math.Between(0, 10);
+function generateCategoryName(i, type) {
+    const OBS = []
+    const CBS = ["Material Cost", "Labor Cost", "Contractor Cost"]
+    const WBS = []
 
-    let companyName = '';
-    for (let i = 0; i < companyNameLength; i++) {
-        if (i % 2 === 0) {
-            companyName += consonants.charAt(Phaser.Math.Between(0, consonants.length - 1));
-        } else {
-            companyName += vowels.charAt(Phaser.Math.Between(0, vowels.length - 1));
-        }
+    if (type === "OBS") {
+        return OBS[i];
+    } else if (type === "CBS") {
+        return CBS[i];
+    } else{
+        return WBS[i];
     }
-    return companyName.charAt(0).toUpperCase()
-        + companyName.slice(1)
-        + " "
-        + suffixes[suffixesNameNum];
 }
 
-function generateRandomPrice(ratingImageName) {
-    const priceRanges = [
-        { min: 50, max: 150 },
-        { min: 151, max: 250 },
-        { min: 251, max: 350 },
-        { min: 351, max: 450 },
-        { min: 451, max: 550 },
-        { min: 551, max: 650 }
-    ];
+function generatePredictedCost() {
+    // const mlregression = require('ml-regression');
+    // simple Linear Regression
+    const SLR = mlregression.SLR;
 
-    const star = parseInt(ratingImageName.charAt(0))
-    return Phaser.Math.Between(priceRanges[star].min, priceRanges[star].max);
+    // read the JSON file
+    const dataset = JSON.parse(fs.readFileSync('assets/project/CBS.json', 'utf-8'));
+    const materialTrainingData = dataset.material;
+
+    // prepare the training data
+    const factor = materialTrainingData.map(item => item.features);
+    const cost = materialTrainingData.map(item => item.output);
+
+    // train the model
+    const regression = new SLR(factor, cost);
+    const newFactor = [this.temperature, this.weather, this.weekDay];
+
+    return regression.predict(newFactor);
 }
 
-function generateRandomRating() {
-    const randomValue = Math.random();
-
-    if (randomValue < 0.05) {
-        return "5 star";
-    } else if (randomValue < 0.15) {
-        return "4 star";
-    } else if (randomValue < 0.35) {
-        return "3 star";
-    } else if (randomValue < 0.60) {
-        return "2 star";
-    } else if (randomValue < 0.90) {
-        return "1 star";
-    } else {
-        return "0 star";
-    }
+function generateActualCost() {
+    // read the JSON file
+    const jsonData = JSON.parse(fs.readFileSync('assets/project/expense.json', 'utf-8'));
+    const materialExpenses = jsonData.weeklyExpenses[0].actualExpenses.filter(expense => expense.type === "material");
+    return materialExpenses.reduce((total, expense) => total + expense.expense, 0)
 }
