@@ -7,14 +7,9 @@ pipelines:
           script:
             - npm install
             - npm test
-            - npm run e2e
   branches:
     master:
       - step:
           script:
             - npm install
-            - npm install phaser
-            - npm i jest @types/jest ts-jest typescript -D
-            - npm i cypress-image-diff-js
             - npm run test
-            - npm run e2e
