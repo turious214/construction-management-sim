@@ -1,5 +1,6 @@
 import { defineConfig } from 'cypress';
 import eyesPlugin from '@applitools/eyes-cypress'
+import getCompareSnapshotsPlugin from 'cypress-image-diff-js/dist/plugin.js';
 // const { defineConfig } = require('cypress')
 
 export default eyesPlugin(defineConfig({
@@ -9,6 +10,10 @@ export default eyesPlugin(defineConfig({
     // You may want to clean this up later by importing these.
     screenshotOnRunFailure: false,
     video: false,
+    setupNodeEvents(on, config) {
+      return getCompareSnapshotsPlugin(on, config);
+    },
+
   },
 }))
 
