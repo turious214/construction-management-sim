@@ -1,4 +1,5 @@
 //class that implements a project factory
+import { ProjectFactory } from './scene/ProjectFactory';
 
 export class BridgeFactory implements ProjectFactory {
     

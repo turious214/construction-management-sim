@@ -13,6 +13,7 @@ export default class BridgeProject extends Project {
     getRiskMitigationTools(): Map<number, RiskMitigationTool>;
     */
     constructor() {
+        super();
     }
     getFunds() {}
     getTasks() {}
