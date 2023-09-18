@@ -9,11 +9,14 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "serve": "vite preview",
-    "test": "jest --config test/jest/jest.config.cjs",
-    "test-detailed": "jest --config test/jest/jest.config.cjs --watchAll --verbose --coverage",
+    "jest-setup": "jest --config test/jest/jest.config.cjs",
+    "jest-setup-detailed": "jest --config test/jest/jest.config.cjs --verbose --coverage",
+    "test": "tsc && npm run jest-setup && npm run e2e",
+    "test-detailed": "tsc && npm run jest-setup-detailed && npm run e2e",
     "e2e-open": "cypress open --project test --config-file cypress/cypress-detailed.config.mjs",
     "e2e-setup": "cypress run --project test --config-file cypress/cypress.config.mjs --headless",
     "e2e": "start-server-and-test dev http://localhost:5173/ e2e-setup"
+
   },
   "author": "",
   "license": "ISC",
@@ -35,6 +38,7 @@
     ]
   },
   "dependencies": {
+    "@applitools/eyes-images": "^4.23.27",
     "node-fetch": "^2.6.7",
     "phaser": "^3.60.0"
   }
