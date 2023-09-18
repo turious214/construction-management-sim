@@ -1,36 +1,48 @@
 // import Control from "../gameinput/Control.ts"
 import Config from "../config/Config.ts"
 // import CustomButton from "../button/CustomButton.ts"
-
+class Task {
+    constructor(public Title: string, public description: string, public isCompleted: boolean) {}
+  }
 
 export default class ProjectScene extends Phaser.Scene {
 
-    // private control?: Control;
     // @ts-ignore
     private funds: number;
-    // changes these later
-    // private weather: any[];
-    // private narration: any[];
-    // private complications: any[];
+    private tasks: Task[][];
+    private popupContainer?: Phaser.GameObjects.Container;
     
     constructor() {
         super('ProjectScene');
+        //this.popupContainer = this.add.container(0, 0);
 
-        // game controls
-        // this.cursor = null;
+        this.tasks = [
+            [
+                new Task("task 1", "description 1", false),
+                new Task("task 2", "description 2", false),
+            ],
+            [
+                new Task("task 3", "description 3", false),
+            ],
+            [
+                new Task("task 4", "description 4", false),
+                new Task("task 5", "description 5", false),
+                new Task("task 6", "description 6", false),
+            ],
+            [
+                new Task("task 7", "description 7", false),
+            ],
+            [
+                new Task("task 8", "description 8", false),
+                new Task("task 9", "description 9", false),
+                new Task("task 10", "description 10", false),
+            ],
+            [
+                new Task("task 11", "description 11", false),
+                new Task("task 12", "description 12", false),
+            ],
 
-        // remaining funds the player has
-
-
-        // weather forecast for duration of project - implement
-
-
-        // text bubble shown to viewer at beginning of day
-
-
-        // complications - add game complexity - v2
-
-
+        ];
     }
 
     preload() {
@@ -38,73 +50,111 @@ export default class ProjectScene extends Phaser.Scene {
         this.load.image('button1Normal', 'assets/buttons/button_normal.png');
         this.load.image('button1Hover', 'assets/buttons/button_hover.png');
         this.load.image('background', 'assets/backgrounds/background1.png');
+
+        //this.load.image('cardBackground', 'assets/cards/card3/Card X5.png');
+        this.load.image('taskCard', 'assets/cards/card3/Card X5.png');
+        //this.load.image('panel', 'assets/cards/card1/Panel Empty Green.png');
+        this.load.image('background', 'assets/backgrounds/background1.png');
         
     }
 
     create() {
-
-        // draw background
+        
+        
         this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
+        //this.cameras.main.setBounds(0, 0, Config.WindowWidth, Config.WindowHeight);
+        const TASK_SCALE_FACTOR = 0.5;
+        const TASK_X_START_POS = 200;
+        const XPOS_DIFF_FACTOR = 450;
+        const TASK_Y_START_POS = 300;
+        const YPOS_DIFF_FACTOR = 300;
 
-        // const INIT_MAIN_UI_X = 200;
-        // const INIT_MAIN_UI_Y = 50;
-        // const HUD_BUTTON_TEXT_SIZE = 30
-        //
-        // // projectButton
-        // // create button and add to scene
-        //
-        // const projectButton = new CustomButton(this, INIT_MAIN_UI_X, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Project', HUD_BUTTON_TEXT_SIZE);
-        // this.add.existing(projectButton);
-        //
-        // // program button to do something
-        //
-        // // contractorsButton
-        // const contractorsButton = new CustomButton(this, projectButton.x + projectButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contractors', HUD_BUTTON_TEXT_SIZE);
-        // // contractorsButton.setTextColor('#fcd498');
-        // this.add.existing(contractorsButton);
-        //
-        //
-        // // materialsButton
-        // const materialsButton = new CustomButton(this, contractorsButton.x + contractorsButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Materials', HUD_BUTTON_TEXT_SIZE);
-        // this.add.existing(materialsButton);
-        //
-        // // personnelButton
-        // const personnelButton = new CustomButton(this, materialsButton.x + materialsButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Personnel', HUD_BUTTON_TEXT_SIZE);
-        // this.add.existing(personnelButton);
-        //
-        // // ContractsButton
-        // const contractButton = new CustomButton(this, personnelButton.x + personnelButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contract', HUD_BUTTON_TEXT_SIZE);
-        // this.add.existing(contractButton);
-        //
-        // // event to go to ContractScene
-        // contractButton.setInteractive()
-        //     .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-        //         this.scene.stop('MainScene');
-        //         this.scene.start('ContractScene');
-        //     });
-        //
-        // // event to go to ContractorsScene
-        // contractorsButton.setInteractive()
-        //     .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-        //         this.scene.stop('MainScene');
-        //         this.scene.start('ContractorsScene');
-        //     });
-        //
-        // // endWeekButton - change to dynamically allow different weeks
-        // const endWeekButton = new CustomButton(this, contractButton.x + contractButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'END WEEK 1', HUD_BUTTON_TEXT_SIZE);
-        // this.add.existing(endWeekButton);
+        for (let i = 0; i < this.tasks.length; i++) {
+            for (let j = 0; j < this.tasks[i].length; j++) {
+                const task = this.tasks[i][j];
+                
+                // Create a task button as an image
+                const taskButton = this.add.image(
+                    TASK_X_START_POS + XPOS_DIFF_FACTOR * i,
+                    TASK_Y_START_POS + YPOS_DIFF_FACTOR * j,
+                    'taskCard'
+                ).setScale(TASK_SCALE_FACTOR, TASK_SCALE_FACTOR);
+                
+                this.add.text(TASK_X_START_POS + XPOS_DIFF_FACTOR * i - 110, TASK_Y_START_POS + YPOS_DIFF_FACTOR * j - 30, task.Title, { fontSize: '70px', color: '#ffffff' }).setOrigin(0,0);
+                
+                // Set interactive to make it clickable
+                taskButton.setInteractive();
+
+                // Define a callback function when the button is clicked
+                taskButton.on('pointerdown', () => {
+                    // Handle the task button click here, e.g., show task details
+                    console.log(`Task ${i + 1}-${j + 1} clicked.`);
+
+                    this.openPopup(task);
+                });
+            }
+        }
     }
 
     update() {
-        
-        // let isSelectDown = Phaser.Input.Keyboard.JustDown(this.control.keyEsc);
-        // if (isSelectDown) {
-        //     this.scene.stop('ProjectScene');
-        //     this.scene.launch('GameMenu');
-        // }
     }
 
+    private openPopup(task: Task): void {
 
+        if (this.popupContainer) {
+            // If a popup is open, close it before opening a new one
+            //this.closePopup();
+            return;
+        }
 
+        // Create the popup container
+        this.popupContainer = this.add.container(Config.WindowWidth / 2, Config.WindowHeight / 2);
+    
+        // Create an image and add it to the popup container
+        const popupImage = this.add.image(0, 0, 'taskCard'); // Replace 'taskCard' with the key of your image asset
+        popupImage.setScale(2.5); // Adjust the scale as needed
+        this.popupContainer.add(popupImage);
+
+        const popupBackground = this.add.rectangle(0, 0, 400, 200, 0x000000, 0.8);
+        this.popupContainer.add(popupBackground);
+    
+        // Create text to overlay on the image
+        const popupText = this.add.text(0, 0, task.description, {
+            fontSize: '24px',
+            color: '#ffffff',
+            wordWrap: { width: 360 },
+        });
+        popupText.setOrigin(1, 0.5); // Center the text on the image
+        this.popupContainer.add(popupText);
+    
+        // Position the image and text as needed
+        // Adjust the coordinates to place them correctly on the image
+        popupImage.setPosition(0, 0);
+        popupText.setPosition(0, popupImage.height / 2 + 20); // Adjust the Y position as needed
+    
+        // Create a close button
+        const closeButton = this.add.text(180, 80, 'Close', {
+            fontSize: '24px',
+            color: '#ffffff',
+            backgroundColor: '#333333',
+            padding: { x: 10, y: 5 },
+        }).setInteractive();
+        closeButton.on('pointerdown', () => {
+            // Close the popup when the close button is clicked
+            this.closePopup();
+        });
+        this.popupContainer.add(closeButton);
+    }
+      
+    
+      private closePopup(): void {
+        if (this.popupContainer) {
+          this.popupContainer.destroy();
+          //this.popupContainer = this.add.container(0, 0);
+          this.popupContainer = undefined;
+        }
+      }
+    
+    
     
 }
