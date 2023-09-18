@@ -16,6 +16,7 @@
     "e2e-open": "cypress open --project test --config-file cypress/cypress-detailed.config.mjs",
     "e2e-setup": "cypress run --project test --config-file cypress/cypress.config.mjs --headless",
     "e2e": "start-server-and-test dev http://localhost:5173/ e2e-setup"
+
   },
   "author": "",
   "license": "ISC",
