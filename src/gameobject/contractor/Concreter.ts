@@ -2,12 +2,12 @@ import Contractor from "./Contractor.js";
 
 export default class Concreter implements Contractor {
 
-    private _contractorID: integer;
-    private _rate: integer;
-    private _rating: integer;
+    private _contractorID: number;
+    private _rate: number;
+    private _rating: number;
     private _ratingPath: string;
 
-    constructor(contractorID: integer, rate: integer, rating: integer, ratingPath: string) {
+    constructor(contractorID: number, rate: number, rating: number, ratingPath: string) {
         this._contractorID = contractorID;
         this._rate = rate;
         this._rating = rating;
@@ -23,25 +23,25 @@ export default class Concreter implements Contractor {
     }
 
 
-    get rating(): integer {
+    get rating(): number {
         return this._rating;
     }
 
-    set rating(value: integer) {
+    set rating(value: number) {
         this._rating = value;
     }
-    get rate(): integer {
+    get rate(): number {
         return this._rate;
     }
 
-    set rate(value: integer) {
+    set rate(value: number) {
         this._rate = value;
     }
-    get contractorID(): integer {
+    get contractorID(): number {
         return this._contractorID;
     }
 
-    set contractorID(value: integer) {
+    set contractorID(value: number) {
         this._contractorID = value;
     }
 

@@ -1,21 +1,21 @@
 import Weather from "./Weather.ts";
 
 export default class Week {
-    private _weekID: integer;
+    private _weekID: number;
     private _weatherForecast: Weather[];
-    private _events: Map<integer, Event>;
+    private _events: Map<number, Event>;
 
-    constructor(weekID: integer, weatherForecast: Weather[], events: Map<integer, Event>) {
+    constructor(weekID: number, weatherForecast: Weather[], events: Map<number, Event>) {
         this._weekID = weekID;
         this._events = events;
         this._weatherForecast = weatherForecast;
     }
 
-    get events(): Map<integer, Event> {
+    get events(): Map<number, Event> {
         return this._events;
     }
 
-    set events(value: Map<integer, Event>) {
+    set events(value: Map<number, Event>) {
         this._events = value;
     }
 
@@ -27,11 +27,11 @@ export default class Week {
         this._weatherForecast = value;
     }
 
-    get weekID(): integer {
+    get weekID(): number {
         return this._weekID;
     }
 
-    set weekID(value: integer) {
+    set weekID(value: number) {
         this._weekID = value;
     }
 

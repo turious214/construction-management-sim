@@ -2,11 +2,11 @@ export default interface Contractor {
 
     get ratingPath(): string;
     set ratingPath(value: string)
-    get rating(): integer;
-    set rating(value: integer);
-    get rate(): integer;
-    set rate(value: integer);
-    get contractorID(): integer;
-    set contractorID(value: integer);
+    get rating(): number;
+    set rating(value: number);
+    get rate(): number;
+    set rate(value: number);
+    get contractorID(): number;
+    set contractorID(value: number);
 
 }

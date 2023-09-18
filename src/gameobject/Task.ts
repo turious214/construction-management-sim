@@ -2,12 +2,12 @@ import List = Phaser.Structs.List;
 import Phaser from "phaser";
 
 export default class Task {
-    private _taskID: integer;
+    private _taskID: number;
     private _complete: boolean;
     private _description: string;
     private _nextTasks: List<Task>
 
-    constructor(taskID: integer, description: string, nextTasks: List<Task>) {
+    constructor(taskID: number, description: string, nextTasks: List<Task>) {
         this._taskID = taskID;
         this._description = description;
         this._nextTasks = nextTasks;
@@ -28,11 +28,11 @@ export default class Task {
     set complete(value: boolean) {
         this._complete = value;
     }
-    get taskID(): integer {
+    get taskID(): number {
         return this._taskID;
     }
 
-    set taskID(value: integer) {
+    set taskID(value: number) {
         this._taskID = value;
     }
 

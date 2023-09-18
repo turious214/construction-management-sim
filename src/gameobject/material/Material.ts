@@ -1,13 +1,16 @@
-import MaterialCategory from "./MaterialCategory.js";
+import MaterialCategory from "./MaterialCategory.ts";
+
 
 export default class Material {
 
     private _name: string;
     private _category: MaterialCategory;
+    private _price: number;
 
-    constructor(name: string, category: MaterialCategory) {
+    constructor(name: string, category: MaterialCategory, price: number) {
         this._name = name;
         this._category = category;
+        this._price = price;
     }
 
     get name(): string {
@@ -23,6 +26,14 @@ export default class Material {
 
     set category(value: MaterialCategory) {
         this._category = value;
+    }
+
+    get price(): number {
+        return this._price;
+    }
+
+    set price(value: number) {
+        this._price = value;
     }
 
 

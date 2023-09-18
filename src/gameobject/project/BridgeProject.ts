@@ -6,12 +6,12 @@ import Event from "../event/Event.ts";
 export default class BridgeProject {
 
     private _funds: number;
-    private _tasks: Map<integer, Task>;
-    private _contractors: Map<integer, Contractor>;
+    private _tasks: Map<number, Task>;
+    private _contractors: Map<number, Contractor>;
     private _materials: Map<string, Material>;
-    private _events: Map<integer, Event>
+    private _events: Map<number, Event>
 
-    constructor(funds: number, tasks: Map<integer, Task>, contractors: Map<integer, Contractor>, materials: Map<string, Material>, events: Map<integer, Event>) {
+    constructor(funds: number, tasks: Map<number, Task>, contractors: Map<number, Contractor>, materials: Map<string, Material>, events: Map<number, Event>) {
         this._funds = funds;
         this._tasks = tasks;
         this._contractors = contractors;
@@ -26,18 +26,18 @@ export default class BridgeProject {
     set funds(value: number) {
         this._funds = value;
     }
-    get tasks(): Map<integer, Task> {
+    get tasks(): Map<number, Task> {
         return this._tasks;
     }
 
-    set tasks(value: Map<integer, Task>) {
+    set tasks(value: Map<number, Task>) {
         this._tasks = value;
     }
-    get contractors(): Map<integer, Contractor> {
+    get contractors(): Map<number, Contractor> {
         return this._contractors;
     }
 
-    set contractors(value: Map<integer, Contractor>) {
+    set contractors(value: Map<number, Contractor>) {
         this._contractors = value;
     }
     get materials(): Map<string, Material> {
@@ -47,11 +47,11 @@ export default class BridgeProject {
     set materials(value: Map<string, Material>) {
         this._materials = value;
     }
-    get events(): Map<integer, Event> {
+    get events(): Map<number, Event> {
         return this._events;
     }
 
-    set events(value: Map<integer, Event>) {
+    set events(value: Map<number, Event>) {
         this._events = value;
     }
 
