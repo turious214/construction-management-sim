@@ -8,7 +8,6 @@ export default class PersonnelScene extends Phaser.Scene {
         // this.control = null;
         // this.cursor = null;
     }
-    //comment
 
     preload() {
         // this.control = new Control(this);
