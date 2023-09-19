@@ -65,7 +65,7 @@ export default class TaskAssignmentScene extends Phaser.Scene {
         // lists to store task, clickAreas
         let tasks: any[] = []; // change to Task[]
         let clickAreas: Phaser.GameObjects.Graphics[]  = []
-        let infoNum = this.cache.json.get('data').infoGenerateNum;
+        let infoNum: number = 20
         
         // generate random info 
         this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, HEADING_SPACE_Y, tasks, clickAreas, infoNum )
@@ -106,7 +106,7 @@ export default class TaskAssignmentScene extends Phaser.Scene {
             this.scrollbar.y = Phaser.Math.Clamp(offsetY, 50, 250);
 
             //set scroll speed
-            const contentY: number = (this.scrollbar.y / 8) * (this.cache.json.get('data').infoGenerateNum * 2.6 + (0.65 * (this.cache.json.get('data').infoGenerateNum - 20))) - 400;
+            const contentY: number = (this.scrollbar.y / 8) * (20 * 2.6 + (0.65 * (20 - 20))) - 400;
             this.scrollView.y = -contentY;
         }
     }

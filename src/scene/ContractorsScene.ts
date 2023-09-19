@@ -102,8 +102,9 @@ export default class ContractorsScene extends Phaser.Scene {
         let ratings: Phaser.GameObjects.Image[] = [];
         let prices: Phaser.GameObjects.Text[] = [];
         let clickAreas: Phaser.GameObjects.Graphics[] = [];
-        let infoNum: number = this.cache.json.get('data').infoGenerateNum;
+        let infoNum: number = 20
 
+       
         // generate random info
         this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
 
@@ -162,7 +163,7 @@ export default class ContractorsScene extends Phaser.Scene {
 
             //set scroll speed
             // @ts-ignore
-            const contentY: number = (this.scrollbar.y / 10) * (this.cache.json.get('data').infoGenerateNum * 2.6 + (0.65 * (this.cache.json.get('data').infoGenerateNum - 20))) - 400;
+            const contentY: number = (this.scrollbar.y / 10) * (20 * 2.6 + (0.65 * (20 - 20))) - 400;
             // @ts-ignore
             this.scrollView.y = -contentY;
         }
