@@ -1,6 +1,58 @@
 {
     "funds": 100000000,
-    "weather": [{}],
-    "day": [{}],
-    "infoGenerateNum": 20
-} 
+    "weeks": [
+        {
+            "weekID": 1,
+            "weatherForecast": ["SUNNY", "SUNNY", "CLOUDY", "SUNNY", "SUNNY"],
+            "narration": "Welcome to the first week of the project",
+            "events": [1, 2]
+
+        }
+    ],
+    "events": [
+        {
+            "event_id": 1,
+            "description": "Flood",
+            "occurrence_rate": 0.1,
+            "fundsMod": -10000,
+            "timeMod": 2
+        },
+        {
+            "event_id": 2,
+            "description": "Earthquake",
+            "occurrence_rate": 0.1,
+            "fundsMod": -20000,
+            "timeMod": 3
+        }
+    ],
+    "materials": [
+        {
+            "name": "wood",
+            "price": 100,
+            "quality": 50
+        },
+        {
+            "name": "marble",
+            "price": 500,
+            "quality": 150
+        },
+        {
+            "name": "stone",
+            "price": 250,
+            "quality": 125
+        }
+    ],
+    "riskManagementTools": [
+        {
+            "name": "insurance",
+            "price": 10000,
+            "uses": 1,
+            "event": 1,
+            "rateMod": 1,
+            "fundsMod": 10000,
+            "timeMod": 0
+        }
+    ],
+    "tasks"
+
+}

@@ -46,6 +46,7 @@ function longestChainHelper(task: Task): number {
 //Consider the degree of a task to be the number of previous tasks of a task. 
 
 //HARD CODED - Function that return the max number of tasks that have the same degree given a list of tasks of degree 0
+// @ts-ignore
 function maxNumOfTheSameDegree(tasks: Task[]): number {
     return 6;
 }
@@ -85,6 +86,7 @@ function getGrid(tasks: Task[]) {
 }
 
 function allocateTasks(tasks: Task[], current_x: number, current_y: Row, grid: number[][]) {
+    // @ts-ignore
     let i = 0
     let saved_y = current_y.value
     tasks.forEach((task: Task) => {

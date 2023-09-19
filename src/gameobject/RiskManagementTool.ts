@@ -1,22 +1,22 @@
 import Event from './event/Event.ts';
 
-export default class RiskMitigationTool {
+export default class RiskManagementTool {
     private _name: string;
-    private _rateModifier: number;
+    private _rateMod: number;
     private _price: number;
     private _uses: number;
     private _event: Event;
 
-    constructor(name: string, rateModifier: number, price: number, uses: number, event: Event) {
+    constructor(name: string, rateMod: number, price: number, uses: number, event: Event) {
         this._name = name;
-        this._rateModifier = rateModifier;
+        this._rateMod = rateMod;
         this._price = price;
         this._uses = uses;
         this._event = event;
     }
 
     activate (): void {
-        this._event.occurrenceRate = this._rateModifier;
+        this._event.occurrenceRate = this._rateMod;
     }
 
     get name(): string {
@@ -26,12 +26,12 @@ export default class RiskMitigationTool {
     set name(value: string) {
         this._name = value;
     }
-    get rateModifier(): number {
-        return this._rateModifier;
+    get rateMod(): number {
+        return this._rateMod;
     }
 
-    set rateModifier(value: number) {
-        this._rateModifier = value;
+    set rateMod(value: number) {
+        this._rateMod = value;
     }
     get price(): number {
         return this._price;
