@@ -1,5 +1,4 @@
 //Task class with int id and a list of next tasks
-
 class Task {
     id: number;
     nextTasks: Task[];
@@ -34,7 +33,7 @@ class Task {
     return 1 + longestChainSize;
   }
   
-  //Consider the degree of a task the number of previous tasks of a task. Code a function that return the max number of tasks that have the same degree. For example if there are 1 task of degree 0, 2 tasks of degree 1, 5 tasks of degree 2 and 1 task of degree 1 it should return 5;
+  //Consider the degree of a task the number of previous tasks of a task. Function that return the max number of tasks that have the same degree. For example if there are 1 task of degree 0, 2 tasks of degree 1, 5 tasks of degree 2 and 1 task of degree 1 it should return 5;
   function maxNumOfTheSameDegree(tasks: Task[]): number {
     let maxNumOfTheSameDegree = 0;
     const degrees: number[] = [];
