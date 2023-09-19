@@ -4,6 +4,7 @@
 - function returning a 2 dimensional array specifying where each task should be placed in the grid (To do)
 */
 
+/************************ TASK CLASS ********************************/
 //Task class with int id and a list of next tasks
 class Task {
     id: number;
@@ -18,7 +19,10 @@ class Task {
       this.nextTasks.push(task);
     }
   }
-  
+/**********************************************************************/
+
+/************************UTILITY FUNCTIONS********************************/
+
   //function that returns the size of the longest chain of tasks using recursion
   function longestChain(tasks: Task[]): number {
     let longestChainSize = 0;
@@ -39,12 +43,14 @@ class Task {
     return 1 + longestChainSize;
   }
   
-  //Consider the degree of a task the number of previous tasks of a task. Function that return the max number of tasks that have the same degree. For example if there are 1 task of degree 0, 2 tasks of degree 1, 5 tasks of degree 2 and 1 task of degree 1 it should return 5;
+  //Consider the degree of a task the number of previous tasks of a task.
+  
+  //Function that return the max number of tasks that have the same degree.
   function maxNumOfTheSameDegree(tasks: Task[]): number {
     let maxNumOfTheSameDegree = 0;
     const degrees: number[] = [];
     tasks.forEach((task: Task) => {
-      const degree = maxNumOfTheSameDegreeHelper(task);
+      const degree = getDegree(task);
       degrees[degree] = degrees[degree] ? degrees[degree] + 1 : 1;
       maxNumOfTheSameDegree = Math.max(maxNumOfTheSameDegree, degrees[degree]);
     });
@@ -52,14 +58,18 @@ class Task {
   }
   
   //helper function that returns the degree of a task using recursion
-  function maxNumOfTheSameDegreeHelper(task: Task): number {
+  function getDegree(task: Task): number {
     let maxNumOfTheSameDegree = 0;
     task.nextTasks.forEach((nextTask: Task) => {
-      const degree = maxNumOfTheSameDegreeHelper(nextTask);
+      const degree = getDegree(nextTask);
       maxNumOfTheSameDegree = Math.max(maxNumOfTheSameDegree, degree);
     });
     return 1 + maxNumOfTheSameDegree;
   }
+
+/**********************************************************************/
+
+/***************FUNCTION RETURNING THE SIZE OF THE GRID ******************/
 
   function getGridSize(tasks: Task[]) {
     const gridSize = {
@@ -69,6 +79,11 @@ class Task {
     return gridSize;
   }
   
+/**********************************************************************/
+
+
+/************************ SIMPLE TEST **********************************/
+
   const task1 = new Task(1);
   const task2 = new Task(2);
   const task3 = new Task(3);
@@ -94,7 +109,7 @@ class Task {
   task6.addNextTask(task11);
   task3.addNextTask(task12);
   
-  
   const tasks = [task1, task2, task3, task4, task5, task6, task7, task8, task9, task10, task11, task12];
+  console.log(getGridSize(tasks)) //Should return 5, 6
 
-  console.log(getGridSize(tasks)) //Should return 5, 6  
+  /************************************************************************************/
