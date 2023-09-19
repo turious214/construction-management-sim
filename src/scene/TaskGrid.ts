@@ -1,3 +1,9 @@
+/*The final version of this document must include:
+- Task class (Test version Done)
+- function returning the size of the grid given a list of tasks (Done)
+- function returning a 2 dimensional array specifying where each task should be placed in the grid (To do)
+*/
+
 //Task class with int id and a list of next tasks
 class Task {
     id: number;
