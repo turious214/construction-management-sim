@@ -11,16 +11,16 @@
     ],
     "events": [
         {
-            "event_id": 1,
+            "eventID": 1,
             "description": "Flood",
-            "occurrence_rate": 0.1,
+            "occurrenceRate": 0.1,
             "fundsMod": -10000,
             "timeMod": 2
         },
         {
-            "event_id": 2,
+            "eventID": 2,
             "description": "Earthquake",
-            "occurrence_rate": 0.1,
+            "occurrenceRate": 0.1,
             "fundsMod": -20000,
             "timeMod": 3
         }
@@ -28,18 +28,21 @@
     "materials": [
         {
             "name": "wood",
+            "type": "CONSTRUCTION",
             "price": 100,
-            "quality": 50
-        },
-        {
-            "name": "marble",
-            "price": 500,
-            "quality": 150
+            "quantity": 50
         },
         {
             "name": "stone",
+            "type": "CONSTRUCTION",
+            "price": 500,
+            "quantity": 150
+        },
+        {
+            "name": "glass",
+            "type": "CONSTRUCTION",
             "price": 250,
-            "quality": 125
+            "quantity": 125
         }
     ],
     "riskManagementTools": [
@@ -53,6 +56,63 @@
             "timeMod": 0
         }
     ],
-    "tasks"
+    "tasks": [
+        {
+            "taskID": 1,
+            "description": "Geotechnical Investigation",
+            "nextTasks": [2]
+        },
+        {
+            "taskID": 2,
+            "description": "Foundation Construction",
+            "nextTasks": [3]
+        },
+        {
+            "taskID": 3,
+            "description": "Pile Capping",
+            "nextTasks": [4]
+        },
+        {
+            "taskID": 4,
+            "description": "Column/Pier Construction",
+            "nextTasks": [5]
+        },
+        {
+            "taskID": 5,
+            "description": "Transoms/Sleepers",
+            "nextTasks": [6]
+        },
+        {
+            "taskID": 6,
+            "description": "Bearing Pads",
+            "nextTasks": [7]
+        },
+        {
+            "taskID": 7,
+            "description": "Bridge Girders",
+            "nextTasks": [8]
+        },
+        {
+            "taskID": 8,
+            "description": "Bridge Deck",
+            "nextTasks": [9]
+        },
+        {
+            "taskID": 9,
+            "description": "Asphalt Surfacing",
+            "nextTasks": []
+        }
+    ],
+    "contractors": [
+        {
+            "contractorID": 1,
+            "type": "ELECTRICIAN",
+            "rate": 1000,
+            "performance": 5,
+            "experience": 3,
+            "safety": 5,
+            "discipline": 4
+        }
+    ]
 
 }
