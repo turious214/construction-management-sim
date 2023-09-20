@@ -1,7 +1,21 @@
-enum Weather {
+import {MaterialCategory} from "./material/MaterialCategory.js";
+
+export enum Weather {
     SUNNY= "Bright sunny day",
     RAINY = "Gloomy rainy day",
     CLOUDY = "Grey gloomy day",
 }
 
-export default Weather;
+export function stringToEnumWeather(weather: string): Weather {
+    switch (weather) {
+        case 'SUNNY': {
+            return Weather.SUNNY
+        }
+        case 'RAINY': {
+            return Weather.RAINY
+        }
+        case 'CLOUDY': {
+            return Weather.CLOUDY
+        }
+    }
+}

@@ -1,33 +1,31 @@
-import ContractorType from "./ContractorType.js";
+import {ContractorType} from "./ContractorType.js";
 
 export default class Contractor {
     
     private _contractorID: number;
     private _type: ContractorType;
     private _rate: number;
-    private _ratingPath: string;
 
-    // Note: 1 - 5 {increments of 0.5} //
+    // Note: 1 - 5 integers //
     private _rating: number;
-    private _efficiency: number;
     private _performance: number;
+    private _experience: number;
     private _safety: number;
     private _discipline: number;
     
 
-    constructor(contractorID: number, type: ContractorType, rate: number, ratingPath: string, efficiency: number, performance: number, safety: number, discipline: number) {
+    constructor(contractorID: number, type: ContractorType, rate: number, performance: number, experience: number, safety: number, discipline: number) {
         this._contractorID = contractorID
         this._type = type;
         this._rate = rate;
-        this._ratingPath = ratingPath;
-        this._efficiency = efficiency;
         this._performance = performance;
+        this._experience = experience;
         this._safety = safety;
         this._discipline = discipline;
 
         const NUMBER_OF_FIELDS: number = 4;
 
-        this._rating = (efficiency + performance + safety) / NUMBER_OF_FIELDS;
+        this._rating = Math.round((experience + performance + safety + discipline) / NUMBER_OF_FIELDS);
 
     }
 
@@ -61,20 +59,13 @@ export default class Contractor {
     set rating(value: number) {
         this._rating = value;
     }
-    get ratingPath(): string {
-        return this._ratingPath;
+
+    get experience(): number {
+        return this._experience;
     }
 
-    set ratingPath(value: string) {
-        this._ratingPath = value;
-    }
-
-    get efficiency(): number {
-        return this._efficiency;
-    }
-
-    set efficiency(value: number) {
-        this._efficiency = value;
+    set experience(value: number) {
+        this._experience = value;
     }
 
     get performance(): number {
@@ -92,8 +83,6 @@ export default class Contractor {
         this._safety = value;
     }
 
-
-
     get discipline(): number {
         return this._discipline;
     }
@@ -101,6 +90,8 @@ export default class Contractor {
     set discipline(value: number) {
         this._discipline = value;
     }
+
+
 
 
 

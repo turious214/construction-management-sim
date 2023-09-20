@@ -1,18 +1,24 @@
 import Event from './event/Event.ts';
+import {name} from "ts-jest/dist/transformers/hoist-jest.js";
 
 export default class RiskManagementTool {
+
     private _name: string;
-    private _rateMod: number;
     private _price: number;
     private _uses: number;
     private _event: Event;
+    private _rateMod: number;
+    private _fundsMod: number;
+    private _timeMod: number;
 
-    constructor(name: string, rateMod: number, price: number, uses: number, event: Event) {
+    constructor(name: string, price: number, uses: number, event: Event,  rateMod: number, fundsMod: number, timeMod: number) {
         this._name = name;
-        this._rateMod = rateMod;
         this._price = price;
         this._uses = uses;
         this._event = event;
+        this._rateMod = rateMod;
+        this._fundsMod = fundsMod;
+        this._timeMod = timeMod;
     }
 
     activate (): void {
@@ -53,6 +59,21 @@ export default class RiskManagementTool {
 
     set event(value: Event) {
         this._event = value;
+    }
+
+    get fundsMod(): number {
+        return this._fundsMod;
+    }
+
+    set fundsMod(value: number) {
+        this._fundsMod = value;
+    }
+    get timeMod(): number {
+        return this._timeMod;
+    }
+
+    set timeMod(value: number) {
+        this._timeMod = value;
     }
 
 
