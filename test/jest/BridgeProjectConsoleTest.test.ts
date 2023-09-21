@@ -1,7 +1,5 @@
 // import { expect } from '@jest/globals';
 // import {fc, test} from "@fast-check/jest";
-// import BridgeProjectFactory from "../../src/config/BridgeProjectFactory";
-// import {data} from "../../assets/project/bridge1.js";
 import BridgeProjectFactory from "../../src/config/BridgeProjectFactory";
 
 
@@ -29,12 +27,22 @@ test('vs', () => {
 
         // console.log(data);
 
-        const data = require('../../assets/project/bridge1.json');
+        // const data = require('../../assets/project/bridge1.json');
+        const path: string = '../../assets/project/bridge1.json';
         const b = new BridgeProjectFactory();
+        b.manufactureProject(path);
 
-        const tasks = b.createTasks(data);
+        // const tasks = b.createTasks(data);
+         // console.log(tasks);
 
-        console.log(tasks);
+        // const contractors = b.createContractors(data);
+        // console.log(contractors);
+
+
+
+
+
+
 
 
 

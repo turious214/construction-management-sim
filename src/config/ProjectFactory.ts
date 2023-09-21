@@ -1,4 +1,4 @@
-import Project from "../gameobject/project/Project.js";
+import Project from "../gameobject/project/Project.ts";
 
 export default interface ProjectFactory {
     manufactureProject(path: string): Project;

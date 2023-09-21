@@ -28,19 +28,19 @@
     "materials": [
         {
             "name": "wood",
-            "type": "CONSTRUCTION",
+            "category": "CONSTRUCTION",
             "price": 100,
             "quantity": 50
         },
         {
             "name": "stone",
-            "type": "CONSTRUCTION",
+            "category": "CONSTRUCTION",
             "price": 500,
             "quantity": 150
         },
         {
             "name": "glass",
-            "type": "CONSTRUCTION",
+            "category": "CONSTRUCTION",
             "price": 250,
             "quantity": 125
         }
