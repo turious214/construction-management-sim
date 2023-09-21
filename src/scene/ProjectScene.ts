@@ -16,14 +16,14 @@ export default class ProjectScene extends Phaser.Scene {
     
     constructor() {
         super('ProjectScene');
-        //this.popupContainer = this.add.container(0, 0);
 
         this.tasks = [
             [
                 new Task("task 1", "description 1", false),
-                new Task("task 2", "description 2", false),
+                
             ],
             [
+                new Task("task 2", "description 2", false),
                 new Task("task 3", "description 3", false),
             ],
             [
@@ -48,14 +48,11 @@ export default class ProjectScene extends Phaser.Scene {
     }
 
     preload() {
-        // this.control = new Control(this);
         this.load.image('button1Normal', 'assets/buttons/button_normal.png');
         this.load.image('button1Hover', 'assets/buttons/button_hover.png');
         this.load.image('background', 'assets/backgrounds/background1.png');
 
-        //this.load.image('cardBackground', 'assets/cards/card3/Card X5.png');
         this.load.image('taskCard', 'assets/cards/card3/Card X5.png');
-        //this.load.image('panel', 'assets/cards/card1/Panel Empty Green.png');
         this.load.image('background', 'assets/backgrounds/background1.png');
 
         this.load.image('leftArrow', 'assets/icons/09.png');
@@ -189,18 +186,18 @@ export default class ProjectScene extends Phaser.Scene {
 
         // Create a close button using the 'taskCard' image
         const closeButton = this.add.image(
-            popupImage.width + 10, // Adjust the X position for the bottom right corner
-            popupImage.height , // Adjust the Y position for the bottom right corner
+            popupImage.width + 10, 
+            popupImage.height , 
             'taskCard'
-        ).setScale(0.25); // Adjust the scale as needed
+        ).setScale(0.25); 
 
-        closeButton.setOrigin(1, 1); // Set the origin to the bottom right corner
+        closeButton.setOrigin(1, 1); 
         closeButton.setInteractive();
 
         // Add "Exit" text to the close button
         const exitText = this.add.text(
-            closeButton.x - 100, // Adjust the X position for text placement
-            closeButton.y - 55, // Adjust the Y position for text placement
+            closeButton.x - 100, 
+            closeButton.y - 55, 
             'Exit',
             {
                 fontSize: '24px',
@@ -222,7 +219,6 @@ export default class ProjectScene extends Phaser.Scene {
       private closePopup(): void {
         if (this.popupContainer) {
           this.popupContainer.destroy();
-          //this.popupContainer = this.add.container(0, 0);
           this.popupContainer = undefined;
         }
       }
