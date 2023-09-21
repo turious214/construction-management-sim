@@ -1,11 +1,11 @@
 import {expect} from '@jest/globals';
-import Material from '../../src/gameobject/material/Material';
+import Material from '../../../../src/gameobject/material/Material';
 import {fc, test} from '@fast-check/jest';
-import MaterialCategory from "../../src/gameobject/material/MaterialCategory";
+import { MaterialCategory } from "../../../../src/gameobject/material/MaterialCategory";
 
 describe ('Material name PBT', () => {
     test('valid string name', () => {
-        const material: Material = new Material('a', MaterialCategory.HVAC, 0);
+        const material: Material = new Material(null, null, null, null);
 
         fc.assert(
             fc.property(fc.asciiString(), s => {
@@ -20,7 +20,7 @@ describe ('Material name PBT', () => {
 });
 
 describe ('Material category', () => {
-    const material: Material = new Material('a', MaterialCategory.HVAC, 0);
+    const material: Material = new Material(null, null, null, null);
     test('MaterialCategory CONSTRUCTION', () => {
         const cat = MaterialCategory.CONSTRUCTION;
         material.category = cat;
@@ -51,7 +51,7 @@ describe ('Material category', () => {
 
 describe ('Material price PBT', () => {
     test('valid price range', () => {
-        const material: Material = new Material('a', MaterialCategory.HVAC, 0);
+        const material: Material = new Material(null, null, null, null);
 
         fc.assert(
             fc.property(fc.double(), x => {

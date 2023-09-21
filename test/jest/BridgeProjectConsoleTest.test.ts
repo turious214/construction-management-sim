@@ -2,10 +2,6 @@
 // import {fc, test} from "@fast-check/jest";
 import BridgeProjectFactory from "../../src/config/BridgeProjectFactory";
 
-
-
-
-
 // describe ('CONSOLE', () => {
 
 test('vs', () => {

@@ -18,10 +18,12 @@ export default class Contractor {
         this._contractorID = contractorID
         this._type = type;
         this._rate = rate;
-        this._performance = performance;
-        this._experience = experience;
-        this._safety = safety;
-        this._discipline = discipline;
+
+        // limit between 1 - 5
+        this._performance = this.setValidLimit(performance);
+        this._experience = this.setValidLimit(experience);
+        this._safety = this.setValidLimit(safety);
+        this._discipline = this.setValidLimit(discipline);
 
         const NUMBER_OF_FIELDS: number = 4;
 
@@ -29,12 +31,21 @@ export default class Contractor {
 
     }
 
+    setValidLimit(num: number): number {
+        if (num < 1) {
+            return 1;
+        } else if (num > 5) {
+            return 5;
+        }
+        return num;
+    }
+
     get contractorID(): number {
         return this._contractorID;
     }
 
     set contractorID(value: number) {
-        this._contractorID = value;
+        this._contractorID = this.setValidLimit(value);
     }
 
     get type(): ContractorType {
@@ -49,7 +60,7 @@ export default class Contractor {
     }
 
     set rate(value: number) {
-        this._rate = value;
+        this._rate = this.setValidLimit(value);
     }
 
     get rating(): number {
@@ -57,7 +68,7 @@ export default class Contractor {
     }
 
     set rating(value: number) {
-        this._rating = value;
+        this._rating = this.setValidLimit(value);
     }
 
     get experience(): number {
@@ -65,7 +76,7 @@ export default class Contractor {
     }
 
     set experience(value: number) {
-        this._experience = value;
+        this._experience = this.setValidLimit(value);
     }
 
     get performance(): number {
@@ -73,14 +84,14 @@ export default class Contractor {
     }
 
     set performance(value: number) {
-        this._performance = value;
+        this._performance = this.setValidLimit(value);
     }
     get safety(): number {
         return this._safety;
     }
 
     set safety(value: number) {
-        this._safety = value;
+        this._safety = this.setValidLimit(value);
     }
 
     get discipline(): number {
@@ -88,11 +99,7 @@ export default class Contractor {
     }
 
     set discipline(value: number) {
-        this._discipline = value;
+        this._discipline = this.setValidLimit(value);
     }
-
-
-
-
 
 }
