@@ -3,12 +3,11 @@ import Week from "../gameobject/Week.ts";
 import Project from "../gameobject/project/Project.ts";
 import Task from "../gameobject/Task.ts";
 import Contractor from "../gameobject/contractor/Contractor.ts";
-import {ContractorType, stringToEnumContractorType} from "../gameobject/contractor/ContractorType.ts";
+import {ContractorType} from "../gameobject/contractor/ContractorType.ts";
 import Material from "../gameobject/material/Material.ts";
-import {MaterialCategory, stringToEnumMaterialCategory} from "../gameobject/material/MaterialCategory.ts";
 import RiskManagementTool from "../gameobject/RiskManagementTool.ts";
 import Event from "../gameobject/event/Event.ts"
-import {stringToEnumWeather, Weather} from "../gameobject/Weather.ts";
+import BridgeProject from "../gameobject/project/BridgeProject.ts";
 
 
 export default class BridgeProjectFactory implements ProjectFactory {
@@ -20,7 +19,7 @@ export default class BridgeProjectFactory implements ProjectFactory {
     // @ts-ignore
     manufactureProject(path: string): Project {
         // @ts-ignore
-        const data = require('../../assets/project/bridge1.json');
+        const data = require(path);
 
         // create tasks
         const tasks: Map<number, Task> = this.createTasks(data);
@@ -40,7 +39,26 @@ export default class BridgeProjectFactory implements ProjectFactory {
         // create Weeks
         const weeks: Week[] = this.createWeeks(data, events);
 
+        // INTERNAL TESTING ONLY - START //
 
+        // console.log(tasks);
+
+        // console.log(contractors);
+
+        // console.log(materials);
+
+        // console.log(events);
+
+        // console.log(riskManagementTools);
+
+        // console.log(weeks);
+
+        // INTERNAL TESTING ONLY - END //
+
+        const project: Project = new BridgeProject(data.funds, tasks, weeks,
+            contractors, materials, events, riskManagementTools);
+
+        return project;
 
     }
 
@@ -53,12 +71,16 @@ export default class BridgeProjectFactory implements ProjectFactory {
         for (let i: number = jsonTasks.length - 1; i >= 0; i--) {
             const jsonTask = jsonTasks[i];
 
+            const nextTasks = jsonTask.nextTasks;
+
 
             // connect task to existing task
             const linkedTasks: Task[] = [];
 
             // find tasks that are linked to this one
-            for (const tID of jsonTask.nextTasks) {
+            for (let j: number = 0; j < nextTasks.length; j++) {
+                const tID = jsonTasks[j]
+
                 // add task to linkedTasks
                 if (tasks.get(tID)) {
                     linkedTasks.push(tasks.get(tID));
@@ -77,19 +99,8 @@ export default class BridgeProjectFactory implements ProjectFactory {
         const jsonContractors = data.contractors;
         const contractors: Map<number, Contractor> = new Map();
 
-        const contractorTypes: string[] = Object.keys(ContractorType).filter((entry) => {
-            return isNaN(Number(entry));
-        });
-
         for (let i: number = 0; i < jsonContractors.length; i++) {
             const jsonContractor = jsonContractors[i];
-
-            const jsonContractorType = jsonContractor.type;
-
-            // retrieve corresponding ContractorType enum
-            const cTypeEnum: ContractorType = stringToEnumContractorType(jsonContractorType);
-
-
 
             // error finding - do later
             // match contractortype to enums
@@ -97,7 +108,7 @@ export default class BridgeProjectFactory implements ProjectFactory {
             //     return
             // }
 
-            const contractor: Contractor = new Contractor(jsonContractor.contractorID, cTypeEnum, jsonContractor.rate,
+            const contractor: Contractor = new Contractor(jsonContractor.contractorID, jsonContractor.type, jsonContractor.rate,
                 jsonContractor.performance, jsonContractor.experience, jsonContractor.safety, jsonContractor.discipline);
 
             contractors.set(contractor.contractorID, contractor);
@@ -119,20 +130,13 @@ export default class BridgeProjectFactory implements ProjectFactory {
         for (let i: number = 0; i < jsonMaterials.length; i++) {
             const jsonMaterial = jsonMaterials[i];
 
-            const jsonMaterialCategory = jsonMaterial.category;
-
-            // retrieve corresponding ContractorType enum
-            const mTypeEnum: MaterialCategory = stringToEnumMaterialCategory(jsonMaterialCategory);
-
-
-
             // error finding - do later
             // match contractortype to enums
             // if (contractorTypes.find(jsonContractorType.toUpperCase())) {
             //     return
             // }
 
-            const material: Material = new Material(jsonMaterial.name, mTypeEnum, jsonMaterial.price, jsonMaterial.quantity);
+            const material: Material = new Material(jsonMaterial.name, jsonMaterial.category, jsonMaterial.price, jsonMaterial.quantity);
             materials.set(material.name, material)
 
         }
@@ -149,14 +153,14 @@ export default class BridgeProjectFactory implements ProjectFactory {
             const jsonEvent = jsonEvents[i];
 
             const event: Event = new Event(jsonEvent.eventID, jsonEvent.description, jsonEvent.occurrenceRate, jsonEvent.fundsMod, jsonEvent.timeMod)
-            jsonEvent.set(event.eventID, event);
+            events.set(event.eventID, event);
         }
 
         return events;
     }
 
     createRiskManagementTools(data: any, events: Map<number, Event>): Map<string, RiskManagementTool> {
-        const jsonRiskManagementTools = data.contractors;
+        const jsonRiskManagementTools = data.riskManagementTools;
         const riskManagementTools: Map<string, RiskManagementTool> = new Map();
 
         for (let i: number = 0; i < jsonRiskManagementTools.length; i++) {
@@ -164,6 +168,7 @@ export default class BridgeProjectFactory implements ProjectFactory {
 
             // find corresponding events
             const riskManagementTool: RiskManagementTool = new RiskManagementTool(jsonRMT.name, jsonRMT.price, jsonRMT.uses , events.get(jsonRMT.event) ,jsonRMT.rateMod, jsonRMT.fundsMod, jsonRMT.timeMod)
+            riskManagementTools.set(riskManagementTool.name, riskManagementTool);
         }
         return riskManagementTools;
 
@@ -177,15 +182,6 @@ export default class BridgeProjectFactory implements ProjectFactory {
             const jsonWeek = jsonWeeks[i];
             const weekEvents: Map<number, Event> = new Map();
 
-            const weatherForecast: Weather[] = [];
-
-            // match weather string to enum
-            for (const weather in jsonWeek.weatherForecast) {
-                const wEnum: Weather = stringToEnumWeather(weather);
-                weatherForecast.push(wEnum);
-            }
-
-
             // add events from allEvents
             for (const eID of jsonWeek.events) {
                 weekEvents.set(eID, allEvents.get(eID));
@@ -193,7 +189,7 @@ export default class BridgeProjectFactory implements ProjectFactory {
 
             // @ts-ignore
             // potential issue
-            const week: Week = new Week(jsonWeek.weekID, weatherForecast, jsonWeek.narration, weekEvents);
+            const week: Week = new Week(jsonWeek.weekID, jsonWeek.weatherForecast, jsonWeek.narration, weekEvents);
             weeks.push(week);
 
 

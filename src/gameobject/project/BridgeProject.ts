@@ -1,9 +1,9 @@
-import Task from "../Task.js";
-import Week from "../Week.js";
-import Contractor from "../contractor/Contractor.js";
-import Material from "../material/Material.js";
-import Event from "../event/Event.js";
-import RiskManagementTool from "../RiskManagementTool.js";
+import Task from "../Task.ts";
+import Week from "../Week.ts";
+import Contractor from "../contractor/Contractor.ts";
+import Material from "../material/Material.ts";
+import Event from "../event/Event.ts";
+import RiskManagementTool from "../RiskManagementTool.ts";
 
 export default class BridgeProject {
     private _funds: number;

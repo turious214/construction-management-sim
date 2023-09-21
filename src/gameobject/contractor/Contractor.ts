@@ -1,4 +1,4 @@
-import {ContractorType} from "./ContractorType.js";
+import {ContractorType} from "./ContractorType.ts";
 
 export default class Contractor {
     

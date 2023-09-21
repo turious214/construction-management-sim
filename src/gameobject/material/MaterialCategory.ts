@@ -1,4 +1,3 @@
-import {ContractorType} from "../contractor/ContractorType.js";
 
 export enum MaterialCategory {
     CONSTRUCTION = 'CONSTRUCTION',

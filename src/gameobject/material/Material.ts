@@ -1,5 +1,5 @@
 import {MaterialCategory} from "./MaterialCategory.ts";
-import {name} from "ts-jest/dist/transformers/hoist-jest.js";
+// import {name} from "ts-jest/dist/transformers/hoist-jest.js";
 
 
 export default class Material {

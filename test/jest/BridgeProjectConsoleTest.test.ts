@@ -27,8 +27,10 @@ test('vs', () => {
 
         // console.log(data);
 
-        const data = require('../../assets/project/bridge1.json');
+        // const data = require('../../assets/project/bridge1.json');
+        const path: string = '../../assets/project/bridge1.json';
         const b = new BridgeProjectFactory();
+        b.manufactureProject(path);
 
         // const tasks = b.createTasks(data);
          // console.log(tasks);
