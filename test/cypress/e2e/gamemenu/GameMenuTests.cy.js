@@ -22,7 +22,7 @@ describe('Capture game menu', () => {
 
     it('My first JavaScript test!', () => {
         // change screen dimensions to force difference
-        // cy.viewport(1080, 720);
+        // cy.viewport(700, 400);
         cy.viewport(1080, 720);
         cy.visit('http://localhost:5173');
 
