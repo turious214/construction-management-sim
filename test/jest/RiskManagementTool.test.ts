@@ -18,7 +18,7 @@ import RiskManagementTool from "../../src/gameobject/RiskManagementTool";
 //     });
 // });
 
-describe ('RiskManagementTool PBT', () => {
+describe ('RiskManagementTool name PBT', () => {
     test('valid string name', () => {
         const rmt: RiskManagementTool = new RiskManagementTool(null, null, null, null, null, null, null);
 
@@ -33,3 +33,20 @@ describe ('RiskManagementTool PBT', () => {
         );
     });
 });
+
+describe ('RiskManagementTool price PBT', () => {
+    test('valid price range', () => {
+        const rmt: RiskManagementTool = new RiskManagementTool(null, null, null, null, null, null, null);
+
+        fc.assert(
+            fc.property(fc.double(), x => {
+
+                // recast to String
+                const testPrice: number = Number(x);
+                rmt.price = testPrice;
+                expect(rmt.price).toEqual(testPrice);
+            })
+        );
+    });
+});
+

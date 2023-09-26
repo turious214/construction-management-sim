@@ -15,15 +15,27 @@ export default class Contractor {
     
 
     constructor(contractorID: number, type: ContractorType, rate: number, performance: number, experience: number, safety: number, discipline: number) {
-        this._contractorID = contractorID
+        // range error checking
+        if (contractorID < 0) {
+            throw new RangeError("contractorID must be non-negative");
+        }
+        if (rate < 0) {
+            throw new RangeError("rate must be non-negative");
+        }
+
+        this.checkValidLimit(performance);
+        this.checkValidLimit(experience);
+        this.checkValidLimit(safety);
+        this.checkValidLimit(discipline);
+
+        this._contractorID = contractorID;
         this._type = type;
         this._rate = rate;
 
-        // limit between 1 - 5
-        this._performance = this.setValidLimit(performance);
-        this._experience = this.setValidLimit(experience);
-        this._safety = this.setValidLimit(safety);
-        this._discipline = this.setValidLimit(discipline);
+        this._performance = performance;
+        this._experience = experience;
+        this._safety = safety;
+        this._discipline = discipline;
 
         const NUMBER_OF_FIELDS: number = 4;
 
@@ -31,13 +43,11 @@ export default class Contractor {
 
     }
 
-    setValidLimit(num: number): number {
-        if (num < 1) {
-            return 1;
-        } else if (num > 5) {
-            return 5;
+    checkValidLimit(num: number): void {
+        if (num < 1 || num > 5) {
+            throw new RangeError("field must be between 1-5")
         }
-        return num;
+
     }
 
     get contractorID(): number {
@@ -45,7 +55,10 @@ export default class Contractor {
     }
 
     set contractorID(value: number) {
-        this._contractorID = this.setValidLimit(value);
+        if (value < 0) {
+            throw new RangeError("contractorID must be non-negative");
+        }
+        this._contractorID = value;
     }
 
     get type(): ContractorType {
@@ -60,7 +73,10 @@ export default class Contractor {
     }
 
     set rate(value: number) {
-        this._rate = this.setValidLimit(value);
+        if (value < 0) {
+            throw new RangeError("rate must be non-negative");
+        }
+        this._rate = value;
     }
 
     get rating(): number {
@@ -68,7 +84,8 @@ export default class Contractor {
     }
 
     set rating(value: number) {
-        this._rating = this.setValidLimit(value);
+        this.checkValidLimit(value)
+        this._rating = value;
     }
 
     get experience(): number {
@@ -76,7 +93,8 @@ export default class Contractor {
     }
 
     set experience(value: number) {
-        this._experience = this.setValidLimit(value);
+        this.checkValidLimit(value);
+        this._experience = value;
     }
 
     get performance(): number {
@@ -84,14 +102,16 @@ export default class Contractor {
     }
 
     set performance(value: number) {
-        this._performance = this.setValidLimit(value);
+        this.checkValidLimit(value);
+        this._performance = value;
     }
     get safety(): number {
         return this._safety;
     }
 
     set safety(value: number) {
-        this._safety = this.setValidLimit(value);
+        this.checkValidLimit(value);
+        this._safety = value;
     }
 
     get discipline(): number {
@@ -99,7 +119,8 @@ export default class Contractor {
     }
 
     set discipline(value: number) {
-        this._discipline = this.setValidLimit(value);
+        this.checkValidLimit(value);
+        this._discipline = value;
     }
 
 }
