@@ -17,31 +17,36 @@ describe ('Material name PBT', () => {
             })
         );
     });
+
 });
 
 describe ('Material category', () => {
-    const material: Material = new Material(undefined, undefined, undefined, undefined);
     test('MaterialCategory CONSTRUCTION', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
         const cat = MaterialCategory.CONSTRUCTION;
         material.category = cat;
         expect(material.category).toEqual(cat);
     });
     test('MaterialCategory ELECTRICAL', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
         const cat = MaterialCategory.ELECTRICAL;
         material.category = cat;
         expect(material.category).toEqual(cat);
     });
     test('MaterialCategory PLUMBING', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
         const cat = MaterialCategory.PLUMBING;
         material.category = cat;
         expect(material.category).toEqual(cat);
     });
     test('MaterialCategory LANDSCAPING', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
         const cat = MaterialCategory.LANDSCAPING;
         material.category = cat;
         expect(material.category).toEqual(cat);
     });
     test('MaterialCategory HVAC', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
         const cat = MaterialCategory.HVAC;
         material.category = cat;
         expect(material.category).toEqual(cat);

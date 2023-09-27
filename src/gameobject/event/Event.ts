@@ -50,10 +50,4 @@ export default class Event {
         this._timeMod = value;
     }
 
-
-
-
-
-
-
 }

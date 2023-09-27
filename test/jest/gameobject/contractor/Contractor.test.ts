@@ -33,7 +33,7 @@ describe ('Contractor contractorID PBT', () => {
             })
         );
     });
-    test('invalid contractorID range', () => {
+    test('invalid contractorID range < 0', () => {
         const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
 
         fc.assert(
@@ -47,6 +47,13 @@ describe ('Contractor contractorID PBT', () => {
                 }).toThrow(RangeError("contractorID must be non-negative"));
             })
         );
+    });
+    test('contractorID Number.MAX_VALUE + 1', () => {
+        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+
+        const testContractorID: number = Number.MAX_VALUE + 1;
+        contractor.contractorID = testContractorID;
+        expect(contractor.contractorID).toEqual(testContractorID);
     });
 });
 
@@ -130,7 +137,19 @@ describe ('Contractor rate PBT', () => {
                 }).toThrow(RangeError("rate must be non-negative"));
             })
         );
-    })
+    });
+
+    test('rate Number.MAX_VALUE + 1', () => {
+        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+
+            const testRate: number = Number.MAX_VALUE + 1
+            contractor.rate = testRate;
+            expect(contractor.rate).toEqual(testRate);
+
+    });
+
+
+
 });
 
 describe ('Contractor performance PBT', () => {

@@ -7,15 +7,40 @@ export default class Task {
     private _taskID: number;
     private _complete: boolean;
     private _description: string;
-    private _nextTasks: Task[]
+    private _nextTasks: Task[];
     private _personnel: Map<number, Contractor>;
 
     constructor(taskID: number, description: string, nextTasks: Task[]) {
+
+        if (taskID < 0) {
+            throw new RangeError("taskID must be non-negative");
+        }
+
         this._taskID = taskID;
         this._description = description;
         this._nextTasks = nextTasks;
         this._complete = false;
         this._personnel = new Map();
+    }
+
+    get taskID(): number {
+        return this._taskID;
+    }
+
+    set taskID(value: number) {
+        if (value < 0) {
+            throw new RangeError("taskID must be non-negative");
+        }
+
+        this._taskID = value;
+    }
+
+    get complete(): boolean {
+        return this._complete;
+    }
+
+    set complete(value: boolean) {
+        this._complete = value;
     }
 
     get description(): string {
@@ -24,20 +49,6 @@ export default class Task {
 
     set description(value: string) {
         this._description = value;
-    }
-    get complete(): boolean {
-        return this._complete;
-    }
-
-    set complete(value: boolean) {
-        this._complete = value;
-    }
-    get taskID(): number {
-        return this._taskID;
-    }
-
-    set taskID(value: number) {
-        this._taskID = value;
     }
 
     get nextTasks(): Task[] {
