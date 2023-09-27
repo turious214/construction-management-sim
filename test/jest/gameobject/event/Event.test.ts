@@ -5,7 +5,7 @@ import Event from "../../../../src/gameobject/event/Event";
 describe ('Event eventID PBT', () =>  {
     test('valid eventID range', () => {
 
-        const event = new Event(null, null, null, null, null);
+        const event = new Event(undefined, undefined, undefined, undefined, undefined);
         fc.assert(
             fc.property(fc.double(), x => {
 
@@ -22,7 +22,7 @@ describe ('Event eventID PBT', () =>  {
 describe('Event description PBT', () => {
     test('valid string description', () => {
 
-        const event = new Event(null, null, null, null, null);
+        const event = new Event(undefined, undefined, undefined, undefined, undefined);
         fc.assert(
             fc.property(fc.asciiString(), s => {
 
@@ -38,7 +38,7 @@ describe('Event description PBT', () => {
 describe('Event occurrenceRate PBT', () => {
     test('valid occurenceRate range', () => {
 
-        const event = new Event(null, null, null, null, null);
+        const event = new Event(undefined, undefined, undefined, undefined, undefined);
         fc.assert(
             fc.property(fc.double(), x => {
 
@@ -55,7 +55,7 @@ describe('Event occurrenceRate PBT', () => {
 describe('Event fundsMod PBT', () => {
     test('valid fundsMod range', () => {
 
-        const event = new Event(null, null, null, null, null);
+        const event = new Event(undefined, undefined, undefined, undefined, undefined);
         fc.assert(
             fc.property(fc.double(), x => {
 
@@ -72,7 +72,7 @@ describe('Event fundsMod PBT', () => {
 describe('Event timeMod PBT', () => {
     test('valid timeMod range', () => {
 
-        const event = new Event(null, null, null, null, null);
+        const event = new Event(undefined, undefined, undefined, undefined, undefined);
         fc.assert(
             fc.property(fc.double(), x => {
 

@@ -4,7 +4,7 @@ import RiskManagementTool from "../../src/gameobject/RiskManagementTool";
 
 // describe ('', () => {
 //     test('', () => {
-//         const material: Material = new Material(null, null, null, null);
+//         const material: Material = new Material(undefined, undefined, undefined, undefined);
 //
 //         fc.assert(
 //             fc.property(fc.asciiString(), s => {
@@ -20,7 +20,7 @@ import RiskManagementTool from "../../src/gameobject/RiskManagementTool";
 
 describe ('RiskManagementTool name PBT', () => {
     test('valid string name', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(null, null, null, null, null, null, null);
+        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
 
         fc.assert(
             fc.property(fc.asciiString(), s => {
@@ -36,7 +36,7 @@ describe ('RiskManagementTool name PBT', () => {
 
 describe ('RiskManagementTool price PBT', () => {
     test('valid price range', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(null, null, null, null, null, null, null);
+        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
 
         fc.assert(
             fc.property(fc.double(), x => {

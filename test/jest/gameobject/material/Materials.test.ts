@@ -5,7 +5,7 @@ import { MaterialCategory } from "../../../../src/gameobject/material/MaterialCa
 
 describe ('Material name PBT', () => {
     test('valid string name', () => {
-        const material: Material = new Material(null, null, null, null);
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
 
         fc.assert(
             fc.property(fc.asciiString(), s => {
@@ -20,7 +20,7 @@ describe ('Material name PBT', () => {
 });
 
 describe ('Material category', () => {
-    const material: Material = new Material(null, null, null, null);
+    const material: Material = new Material(undefined, undefined, undefined, undefined);
     test('MaterialCategory CONSTRUCTION', () => {
         const cat = MaterialCategory.CONSTRUCTION;
         material.category = cat;
@@ -51,7 +51,7 @@ describe ('Material category', () => {
 
 describe ('Material price PBT', () => {
     test('valid price range', () => {
-        const material: Material = new Material(null, null, null, null);
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
 
         fc.assert(
             fc.property(fc.double(), x => {
