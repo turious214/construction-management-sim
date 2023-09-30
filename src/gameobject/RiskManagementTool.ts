@@ -32,18 +32,14 @@ export default class RiskManagementTool {
     set name(value: string) {
         this._name = value;
     }
-    get rateMod(): number {
-        return this._rateMod;
-    }
-
-    set rateMod(value: number) {
-        this._rateMod = value;
-    }
     get price(): number {
         return this._price;
     }
 
     set price(value: number) {
+        if (value < 0) {
+            throw new RangeError("price must be non-negative");
+        }
         this._price = value;
     }
     get uses(): number {
@@ -51,6 +47,9 @@ export default class RiskManagementTool {
     }
 
     set uses(value: number) {
+        if (value < 0) {
+            throw new RangeError("uses must be non-negative");
+        }
         this._uses = value;
     }
     get event(): Event {
@@ -60,7 +59,13 @@ export default class RiskManagementTool {
     set event(value: Event) {
         this._event = value;
     }
+    get rateMod(): number {
+        return this._rateMod;
+    }
 
+    set rateMod(value: number) {
+        this._rateMod = value;
+    }
     get fundsMod(): number {
         return this._fundsMod;
     }
@@ -75,6 +80,8 @@ export default class RiskManagementTool {
     set timeMod(value: number) {
         this._timeMod = value;
     }
+
+
 
 
 }
