@@ -32,10 +32,14 @@ export default class Material {
     }
 
     get price(): number {
+
         return this._price;
     }
 
     set price(value: number) {
+        if (value < 0) {
+            throw new RangeError("price must be non-negative");
+        }
         this._price = value;
     }
 
@@ -44,6 +48,9 @@ export default class Material {
     }
 
     set quantity(value: number) {
+        if (value < 0) {
+            throw new RangeError("quantity must be non-negative");
+        }
         this._quantity = value;
     }
 

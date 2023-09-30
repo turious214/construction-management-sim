@@ -2,6 +2,7 @@ import {expect} from '@jest/globals';
 import Material from '../../../../src/gameobject/material/Material';
 import {fc, test} from '@fast-check/jest';
 import { MaterialCategory } from "../../../../src/gameobject/material/MaterialCategory";
+import RiskManagementTool from "../../../../src/gameobject/RiskManagementTool";
 
 describe ('Material name PBT', () => {
     test('valid string name', () => {
@@ -55,20 +56,86 @@ describe ('Material category', () => {
 
 
 describe ('Material price PBT', () => {
-    test('valid price range', () => {
+    test('valid price range >= 0', () => {
         const material: Material = new Material(undefined, undefined, undefined, undefined);
 
         fc.assert(
-            fc.property(fc.double(), x => {
+            fc.property(fc.double({min: 0}), x => {
 
-                // recast to Number
-                const testPrice: number = Number(x)
-                material.price = testPrice;
-                expect(material.price).toEqual(testPrice);
+                const testValue: number = Number(x)
+                material.price = testValue;
+                expect(material.price).toEqual(testValue);
             })
         );
     });
+
+    test('invalid price range < 0', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
+
+        fc.assert(
+            fc.property(fc.double({max: -1}), x => {
+
+                const testValue: number = Number(x);
+
+                expect(() => {
+                    material.price = testValue;
+                }).toThrow(RangeError("price must be non-negative"));
+
+            })
+        );
+    });
+
+    test('price range Number.MAX_VALUE + 1', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
+        const testValue: number = Number.MAX_VALUE + 1;
+        material.price = testValue;
+        expect(material.price).toEqual(testValue);
+    });
+
+   
 });
+
+
+describe ('Material quantity PBT', () => {
+    test('valid quantity range >= 0', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
+
+        fc.assert(
+            fc.property(fc.double({min: 0}), x => {
+
+                const testValue: number = Number(x)
+                material.quantity = testValue;
+                expect(material.quantity).toEqual(testValue);
+            })
+        );
+    });
+
+    test('invalid quantity range < 0', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
+
+        fc.assert(
+            fc.property(fc.double({max: -1}), x => {
+
+                const testValue: number = Number(x);
+
+                expect(() => {
+                    material.quantity = testValue;
+                }).toThrow(RangeError("quantity must be non-negative"));
+
+            })
+        );
+    });
+
+    test('quantity range Number.MAX_VALUE + 1', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
+        const testValue: number = Number.MAX_VALUE + 1;
+        material.quantity = testValue;
+        expect(material.quantity).toEqual(testValue);
+    });
+
+
+});
+
 
 
 
