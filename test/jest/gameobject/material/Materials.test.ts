@@ -92,6 +92,17 @@ describe ('Material price PBT', () => {
         expect(material.price).toEqual(testValue);
     });
 
+    test('invalid price range Number.MIN_VALUE - 1', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
+
+        const testValue: number = Number.MIN_VALUE - 1;
+
+        expect(() => {
+            material.price = testValue;
+        }).toThrow(RangeError("price must be non-negative"));
+
+    });
+
    
 });
 
@@ -131,6 +142,17 @@ describe ('Material quantity PBT', () => {
         const testValue: number = Number.MAX_VALUE + 1;
         material.quantity = testValue;
         expect(material.quantity).toEqual(testValue);
+    });
+
+    test('invalid quantity range Number.MIN_VALUE - 1', () => {
+        const material: Material = new Material(undefined, undefined, undefined, undefined);
+
+        const testValue: number = Number.MIN_VALUE - 1;
+
+        expect(() => {
+            material.quantity = testValue;
+        }).toThrow(RangeError("quantity must be non-negative"));
+
     });
 
 

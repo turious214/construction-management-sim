@@ -55,6 +55,17 @@ describe ('Contractor contractorID PBT', () => {
         contractor.contractorID = testContractorID;
         expect(contractor.contractorID).toEqual(testContractorID);
     });
+
+    test('invalid contractorID Number.MIN_VALUE - 1', () => {
+        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+
+        const testContractorID: number = Number.MIN_VALUE - 1;
+
+        expect(() => {
+            contractor.contractorID = testContractorID;
+        }).toThrow(RangeError("contractorID must be non-negative"));
+
+    });
 });
 
 describe ('Contractor type', () => {
@@ -145,6 +156,17 @@ describe ('Contractor rate PBT', () => {
             const testRate: number = Number.MAX_VALUE + 1
             contractor.rate = testRate;
             expect(contractor.rate).toEqual(testRate);
+
+    });
+
+    test('invalid rate Number.MIN_VALUE - 1', () => {
+        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+
+        const testrate: number = Number.MIN_VALUE - 1;
+
+        expect(() => {
+            contractor.rate = testrate;
+        }).toThrow(RangeError("rate must be non-negative"));
 
     });
 

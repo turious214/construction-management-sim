@@ -58,6 +58,17 @@ describe ('Task taskID PBT', () => {
             expect(task.taskID).toEqual(Number.MAX_VALUE + 1);
     });
 
+    test('invalid taskID Number.MIN_VALUE - 1', () => {
+        const task: Task = new Task(undefined, undefined, undefined);
+
+        const testValue: number = Number.MIN_VALUE - 1;
+
+        expect(() => {
+            task.taskID = testValue;
+        }).toThrow(RangeError("taskID must be non-negative"));
+
+    });
+
 });
 
 describe ('Task complete boolean values', () => {

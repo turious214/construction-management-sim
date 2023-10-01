@@ -48,7 +48,26 @@ describe('Event occurrenceRate PBT', () => {
                 expect(event.occurrenceRate).toEqual(testOccurrenceRate);
             })
         );
+    });
 
+    test('occurenceRate range Number.MAX_VALUE + 1', () => {
+
+        const event = new Event(undefined, undefined, undefined, undefined, undefined);
+
+        // recast to Number
+        const testOccurrenceRate: number = Number.MAX_VALUE + 1;
+        event.occurrenceRate = testOccurrenceRate;
+        expect(event.occurrenceRate).toEqual(testOccurrenceRate);
+    });
+
+    test('occurenceRate range Number.MIN_VALUE - 1', () => {
+
+        const event = new Event(undefined, undefined, undefined, undefined, undefined);
+
+        // recast to Number
+        const testOccurrenceRate: number = Number.MIN_VALUE - 1;
+        event.occurrenceRate = testOccurrenceRate;
+        expect(event.occurrenceRate).toEqual(testOccurrenceRate);
     });
 });
 
@@ -67,6 +86,26 @@ describe('Event fundsMod PBT', () => {
         );
 
     });
+
+    test('occurenceRate range Number.MAX_VALUE + 1', () => {
+
+        const event = new Event(undefined, undefined, undefined, undefined, undefined);
+
+        // recast to Number
+        const testfundsMod: number = Number.MAX_VALUE + 1;
+        event.fundsMod = testfundsMod;
+        expect(event.fundsMod).toEqual(testfundsMod);
+    });
+
+    test('occurenceRate range Number.MIN_VALUE - 1', () => {
+
+        const event = new Event(undefined, undefined, undefined, undefined, undefined);
+
+        // recast to Number
+        const testfundsMod: number = Number.MIN_VALUE - 1;
+        event.fundsMod = testfundsMod;
+        expect(event.fundsMod).toEqual(testfundsMod);
+    });
 });
 
 describe('Event timeMod PBT', () => {
@@ -83,6 +122,26 @@ describe('Event timeMod PBT', () => {
             })
         );
 
+    });
+
+    test('occurenceRate range Number.MAX_VALUE + 1', () => {
+
+        const event = new Event(undefined, undefined, undefined, undefined, undefined);
+
+        // recast to Number
+        const testtimeMod: number = Number.MAX_VALUE + 1;
+        event.timeMod = testtimeMod;
+        expect(event.timeMod).toEqual(testtimeMod);
+    });
+
+    test('occurenceRate range Number.MIN_VALUE - 1', () => {
+
+        const event = new Event(undefined, undefined, undefined, undefined, undefined);
+
+        // recast to Number
+        const testtimeMod: number = Number.MIN_VALUE - 1;
+        event.timeMod = testtimeMod;
+        expect(event.timeMod).toEqual(testtimeMod);
     });
 });
 
