@@ -6,16 +6,16 @@ export enum Weather {
     CLOUDY = "Grey gloomy day",
 }
 
-export function stringToEnumWeather(weather: string): Weather {
-    switch (weather) {
-        case 'SUNNY': {
-            return Weather.SUNNY
-        }
-        case 'RAINY': {
-            return Weather.RAINY
-        }
-        case 'CLOUDY': {
-            return Weather.CLOUDY
-        }
-    }
-}
+// export function stringToEnumWeather(weather: string): Weather {
+//     switch (weather) {
+//         case 'SUNNY': {
+//             return Weather.SUNNY
+//         }
+//         case 'RAINY': {
+//             return Weather.RAINY
+//         }
+//         case 'CLOUDY': {
+//             return Weather.CLOUDY
+//         }
+//     }
+// }

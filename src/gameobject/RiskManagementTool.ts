@@ -21,9 +21,9 @@ export default class RiskManagementTool {
         this._timeMod = timeMod;
     }
 
-    activate (): void {
-        this._event.occurrenceRate = this._rateMod;
-    }
+    // activate (): void {
+    //     this._event.occurrenceRate = this._rateMod;
+    // }
 
     get name(): string {
         return this._name;

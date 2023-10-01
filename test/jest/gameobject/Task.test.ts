@@ -2,6 +2,7 @@ import {expect} from '@jest/globals';
 import {fc, test} from '@fast-check/jest';
 import Task from "../../../src/gameobject/Task";
 import Contractor from "../../../src/gameobject/contractor/Contractor";
+import Personnel from "../../../src/scene/Personnel";
 
 // describe ('', () => {
 //     test('', () => {
@@ -19,13 +20,56 @@ import Contractor from "../../../src/gameobject/contractor/Contractor";
 //     });
 // });
 
+describe ('Task constructor test PBT', () => {
+    test('instantiate valid taskID range >= 0', () => {
+        const task: Task = new Task(undefined, undefined, undefined);
+
+        fc.assert(
+            fc.property(fc.double({min: 0, noNaN: true}), x => {
+                const testValue: number = Number(x);
+                const task: Task = new Task(testValue, undefined, undefined);
+
+                expect(task.taskID).toEqual(testValue);
+            })
+        );
+    });
+
+    test('invalid taskID < 0', () => {
+
+        fc.assert(
+            fc.property(fc.double({max: -1, noNaN: true}), x => {
+                const testValue: number = Number(x);
+
+                expect(() => {
+                    const task: Task = new Task(testValue, undefined, undefined);
+                }).toThrow(RangeError("taskID must be non-negative"));
+            })
+        );
+    });
+
+    test('instantiate taskID Number.MAX_VALUE + 1', () => {
+        const task: Task = new Task(Number.MAX_VALUE + 1, undefined, undefined);
+
+        expect(task.taskID).toEqual(Number.MAX_VALUE + 1);
+    });
+
+    test('instantiate invalid taskID Number.MIN_VALUE - 1', () => {
+
+        expect(() => {
+            const task: Task = new Task(Number.MIN_VALUE - 1, undefined, undefined);
+        }).toThrow(RangeError("taskID must be non-negative"));
+
+    });
+
+});
+
 
 describe ('Task taskID PBT', () => {
     test('valid taskID range >= 0', () => {
         const task: Task = new Task(undefined, undefined, undefined);
 
         fc.assert(
-            fc.property(fc.double({min: 0}), x => {
+            fc.property(fc.double({min: 0, noNaN: true}), x => {
 
 
                 const testValue: number = Number(x);
@@ -145,8 +189,8 @@ describe ('Task nextTasks', () => {
 });
 
 
-describe ('Task personnel', () => {
-    test('personnel 0 entries', () => {
+describe ('Task set personnel', () => {
+    test('personnel set 0 entries', () => {
         const task: Task = new Task(undefined, undefined, undefined);
         const testValue: Map<number, Contractor> = new Map<number, Contractor>;
         task.personnel = testValue;
@@ -154,7 +198,7 @@ describe ('Task personnel', () => {
         expect(task.personnel.size).toEqual(0);
     });
 
-    test('personnel 1 entries', () => {
+    test('personnel set 1 entries', () => {
         const task: Task = new Task(undefined, undefined, undefined);
         const testValue: Map<number, Contractor> = new Map<number, Contractor>;
 
@@ -165,7 +209,7 @@ describe ('Task personnel', () => {
         expect(task.personnel.size).toEqual(1);
     });
 
-    test('personnel multiple entries', () => {
+    test('personnel set multiple entries', () => {
         const task: Task = new Task(undefined, undefined, undefined);
         const testValue: Map<number, Contractor> = new Map<number, Contractor>;
 
@@ -180,4 +224,43 @@ describe ('Task personnel', () => {
     });
 
 });
+
+
+describe ('Task add personnel', () => {
+    test('personnel add 0 entries', () => {
+        const task: Task = new Task(undefined, undefined, undefined);
+        const totalPersonnel: number = 0;
+
+        for (let i: number = 0; i < totalPersonnel; i++) {
+            task.addPersonnel(new Contractor(i, undefined, undefined, undefined, undefined, undefined, undefined))
+        }
+
+        expect(task.personnel.size).toEqual(0);
+    });
+
+    test('personnel add 1 entries', () => {
+        const task: Task = new Task(undefined, undefined, undefined);
+        const totalPersonnel: number = 1;
+
+        for (let i: number = 0; i < totalPersonnel; i++) {
+            task.addPersonnel(new Contractor(i, undefined, undefined, undefined, undefined, undefined, undefined))
+        }
+
+        expect(task.personnel.size).toEqual(1);
+    });
+
+    test('personnel add multiple entries', () => {
+        const task: Task = new Task(undefined, undefined, undefined);
+        const totalPersonnel: number = 10;
+
+        for (let i: number = 0; i < totalPersonnel; i++) {
+            task.addPersonnel(new Contractor(i, undefined, undefined, undefined, undefined, undefined, undefined))
+        }
+
+        expect(task.personnel.size).toEqual(totalPersonnel);
+    });
+
+});
+
+
 

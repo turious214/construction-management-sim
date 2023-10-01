@@ -19,12 +19,92 @@ import {ContractorType} from "../../../../src/gameobject/contractor/ContractorTy
 //     });
 // });
 
+describe ('Contractor constructor PBT', () => {
+    test('instantiate valid contractorID range', () => {
+
+        fc.assert(
+            fc.property(fc.double({min: 0, noNaN: true}), x => {
+                const testContractorID: number = Number(x);
+                const contractor: Contractor = new Contractor(testContractorID, undefined, 1, 1, 1, 1, 1);
+                expect(contractor.contractorID).toEqual(testContractorID);
+            })
+        );
+    });
+    test('instantiate invalid contractorID range < 0', () => {
+
+        fc.assert(
+            fc.property(fc.double({max: -1, noNaN: true}), x => {
+
+                const testContractorID: number = Number(x);
+
+                expect(() => {
+                    const contractor: Contractor = new Contractor(testContractorID, undefined, 1, 1, 1, 1, 1);
+                }).toThrow(RangeError("contractorID must be non-negative"));
+            })
+        );
+    });
+    test('instantiate contractorID Number.MAX_VALUE + 1', () => {
+
+        const testContractorID: number = Number.MAX_VALUE + 1;
+        const contractor: Contractor = new Contractor(testContractorID, undefined, 1, 1, 1, 1, 1);
+        expect(contractor.contractorID).toEqual(testContractorID);
+    });
+
+    test('instantiate invalid contractorID Number.MIN_VALUE - 1', () => {
+        const testContractorID: number = Number.MIN_VALUE - 1;
+
+        expect(() => {
+            const contractor: Contractor = new Contractor(testContractorID, undefined, 1, 1, 1, 1, 1);
+        }).toThrow(RangeError("contractorID must be non-negative"));
+
+    });
+
+    test('instantiate valid rate range', () => {
+
+        fc.assert(
+            fc.property(fc.double({min: 0, noNaN: true}), x => {
+                const testValue: number = Number(x);
+                const contractor: Contractor = new Contractor(1, undefined, testValue, 1, 1, 1, 1);
+                expect(contractor.rate).toEqual(testValue);
+            })
+        );
+    });
+    test('instantiate invalid rate range < 0', () => {
+
+        fc.assert(
+            fc.property(fc.double({max: -1, noNaN: true}), x => {
+
+                const testValue: number = Number(x);
+
+                expect(() => {
+                    const contractor: Contractor = new Contractor(1, undefined, testValue, 1, 1, 1, 1);
+                }).toThrow(RangeError("rate must be non-negative"));
+            })
+        );
+    });
+    test('instantiate rate Number.MAX_VALUE + 1', () => {
+
+        const testValue: number = Number.MAX_VALUE + 1;
+        const contractor: Contractor = new Contractor(1, undefined, testValue, 1, 1, 1, 1);
+        expect(contractor.rate).toEqual(testValue);
+    });
+
+    test('instantiate invalid rate Number.MIN_VALUE - 1', () => {
+        const testValue: number = Number.MIN_VALUE - 1;
+
+        expect(() => {
+            const contractor: Contractor = new Contractor(1, undefined, testValue, 1, 1, 1, 1);
+        }).toThrow(RangeError("rate must be non-negative"));
+
+    });
+});
+
 describe ('Contractor contractorID PBT', () => {
     test('valid contractorID range', () => {
         const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
 
         fc.assert(
-            fc.property(fc.double({min: 0}), x => {
+            fc.property(fc.double({min: 0, noNaN: true}), x => {
 
                 // recast to number
                 const testContractorID: number = Number(x);

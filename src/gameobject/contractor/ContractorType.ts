@@ -13,36 +13,36 @@ export enum ContractorType {
 
 // export default ContractorType;
 
-export function stringToEnumContractorType(contractor: string): ContractorType {
-    switch (contractor) {
-        case 'EXCAVATOR': {
-            return ContractorType.EXCAVATOR;
-        }
-        case 'PAINTER': {
-            return ContractorType.PAINTER;
-        }
-        case 'CONCRETER': {
-            return ContractorType.CONCRETER;
-        }
-        case 'ELECTRICIAN': {
-            return ContractorType.ELECTRICIAN;
-        }
-        case 'PLUMBER': {
-            return ContractorType.PLUMBER;
-        }
-        case 'HVAC': {
-            return ContractorType.HVAC;
-        }
-        case 'MASON': {
-            return ContractorType.MASON;
-        }
-        case 'LANDSCAPER': {
-            return ContractorType.LANDSCAPER;
-        }
-        default:
-            return undefined;
-    }
-}
+// export function stringToEnumContractorType(contractor: string): ContractorType {
+//     switch (contractor) {
+//         case 'EXCAVATOR': {
+//             return ContractorType.EXCAVATOR;
+//         }
+//         case 'PAINTER': {
+//             return ContractorType.PAINTER;
+//         }
+//         case 'CONCRETER': {
+//             return ContractorType.CONCRETER;
+//         }
+//         case 'ELECTRICIAN': {
+//             return ContractorType.ELECTRICIAN;
+//         }
+//         case 'PLUMBER': {
+//             return ContractorType.PLUMBER;
+//         }
+//         case 'HVAC': {
+//             return ContractorType.HVAC;
+//         }
+//         case 'MASON': {
+//             return ContractorType.MASON;
+//         }
+//         case 'LANDSCAPER': {
+//             return ContractorType.LANDSCAPER;
+//         }
+//         default:
+//             return undefined;
+//     }
+// }
 
 
 

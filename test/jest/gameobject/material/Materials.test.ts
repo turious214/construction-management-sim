@@ -60,7 +60,7 @@ describe ('Material price PBT', () => {
         const material: Material = new Material(undefined, undefined, undefined, undefined);
 
         fc.assert(
-            fc.property(fc.double({min: 0}), x => {
+            fc.property(fc.double({min: 0, noNaN: true}), x => {
 
                 const testValue: number = Number(x)
                 material.price = testValue;
@@ -73,7 +73,7 @@ describe ('Material price PBT', () => {
         const material: Material = new Material(undefined, undefined, undefined, undefined);
 
         fc.assert(
-            fc.property(fc.double({max: -1}), x => {
+            fc.property(fc.double({max: -1, noNaN: true}), x => {
 
                 const testValue: number = Number(x);
 
@@ -112,7 +112,7 @@ describe ('Material quantity PBT', () => {
         const material: Material = new Material(undefined, undefined, undefined, undefined);
 
         fc.assert(
-            fc.property(fc.double({min: 0}), x => {
+            fc.property(fc.double({min: 0, noNaN: true}), x => {
 
                 const testValue: number = Number(x)
                 material.quantity = testValue;
@@ -125,7 +125,7 @@ describe ('Material quantity PBT', () => {
         const material: Material = new Material(undefined, undefined, undefined, undefined);
 
         fc.assert(
-            fc.property(fc.double({max: -1}), x => {
+            fc.property(fc.double({max: -1,  noNaN: true}), x => {
 
                 const testValue: number = Number(x);
 

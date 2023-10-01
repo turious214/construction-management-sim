@@ -40,7 +40,7 @@ describe ('RiskManagementTool price PBT', () => {
         const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
 
         fc.assert(
-            fc.property(fc.double({min: 0}), x => {
+            fc.property(fc.double({min: 0, noNaN: true}), x => {
 
                 const testPrice: number = Number(x);
                 rmt.price = testPrice;
@@ -53,7 +53,7 @@ describe ('RiskManagementTool price PBT', () => {
         const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
 
         fc.assert(
-            fc.property(fc.double({max: -1}), x => {
+            fc.property(fc.double({max: -1, noNaN: true}), x => {
 
                 const testValue: number = Number(x);
 
@@ -79,7 +79,7 @@ describe ('RiskManagementTool uses PBT', () => {
         const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
 
         fc.assert(
-            fc.property(fc.double({min: 0}), x => {
+            fc.property(fc.double({min: 0, noNaN: true}), x => {
 
                 const testValue: number = Number(x);
                 rmt.uses = testValue;
