@@ -75,15 +75,17 @@ export default class BridgeProjectFactory implements ProjectFactory {
 
 
             // connect task to existing task
-            const linkedTasks: Task[] = [];
+            const linkedTasks: Task[] | null = [];
 
             // find tasks that are linked to this one
             for (let j: number = 0; j < nextTasks.length; j++) {
                 const tID = jsonTasks[j]
 
+                const task: Task | undefined = tasks.get(tID)
+
                 // add task to linkedTasks
-                if (tasks.get(tID)) {
-                    linkedTasks.push(tasks.get(tID));
+                if (task) {
+                    linkedTasks.push(task);
                 }
                 // console.log(tID);
             }
@@ -167,8 +169,11 @@ export default class BridgeProjectFactory implements ProjectFactory {
             const jsonRMT = jsonRiskManagementTools[i];
 
             // find corresponding events
-            const riskManagementTool: RiskManagementTool = new RiskManagementTool(jsonRMT.name, jsonRMT.price, jsonRMT.uses , events.get(jsonRMT.event) ,jsonRMT.rateMod, jsonRMT.fundsMod, jsonRMT.timeMod)
-            riskManagementTools.set(riskManagementTool.name, riskManagementTool);
+            const event: Event | undefined = events.get(jsonRMT.event);
+            if (event) {
+                const riskManagementTool: RiskManagementTool = new RiskManagementTool(jsonRMT.name, jsonRMT.price, jsonRMT.uses, event, jsonRMT.rateMod, jsonRMT.fundsMod, jsonRMT.timeMod)
+                riskManagementTools.set(riskManagementTool.name, riskManagementTool);
+            }
         }
         return riskManagementTools;
 
@@ -184,7 +189,10 @@ export default class BridgeProjectFactory implements ProjectFactory {
 
             // add events from allEvents
             for (const eID of jsonWeek.events) {
-                weekEvents.set(eID, allEvents.get(eID));
+                const event: Event | undefined = allEvents.get(eID);
+                if (event) {
+                    weekEvents.set(eID, event);
+                }
             }
 
             // @ts-ignore

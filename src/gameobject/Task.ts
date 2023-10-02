@@ -7,10 +7,10 @@ export default class Task {
     private _taskID: number;
     private _complete: boolean;
     private _description: string;
-    private _nextTasks: Task[];
+    private _nextTasks: Task[] | null;
     private _personnel: Map<number, Contractor>;
 
-    constructor(taskID: number, description: string, nextTasks: Task[]) {
+    constructor(taskID: number, description: string, nextTasks: Task[] | null) {
 
         if (taskID < 0) {
             throw new RangeError("taskID must be non-negative");
@@ -51,7 +51,7 @@ export default class Task {
         this._description = value;
     }
 
-    get nextTasks(): Task[] {
+    get nextTasks(): Task[] | null{
         return this._nextTasks;
     }
 

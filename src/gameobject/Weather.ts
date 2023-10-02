@@ -1,4 +1,3 @@
-import {MaterialCategory} from "./material/MaterialCategory.js";
 
 export enum Weather {
     SUNNY = "Bright sunny day",

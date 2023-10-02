@@ -5,7 +5,7 @@ import {ContractorType} from "../../../../src/gameobject/contractor/ContractorTy
 
 // describe ('', () => {
 //     test('', () => {
-//         const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+//         const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 //
 //         fc.assert(
 //             fc.property(fc.asciiString(), s => {
@@ -25,7 +25,7 @@ describe ('Contractor constructor PBT', () => {
         fc.assert(
             fc.property(fc.double({min: 0, noNaN: true}), x => {
                 const testContractorID: number = Number(x);
-                const contractor: Contractor = new Contractor(testContractorID, undefined, 1, 1, 1, 1, 1);
+                const contractor: Contractor = new Contractor(testContractorID, ContractorType.HVAC, 1, 1, 1, 1, 1);
                 expect(contractor.contractorID).toEqual(testContractorID);
             })
         );
@@ -38,7 +38,7 @@ describe ('Contractor constructor PBT', () => {
                 const testContractorID: number = Number(x);
 
                 expect(() => {
-                    const contractor: Contractor = new Contractor(testContractorID, undefined, 1, 1, 1, 1, 1);
+                    const contractor: Contractor = new Contractor(testContractorID, ContractorType.HVAC, 1, 1, 1, 1, 1);
                 }).toThrow(RangeError("contractorID must be non-negative"));
             })
         );
@@ -46,7 +46,7 @@ describe ('Contractor constructor PBT', () => {
     test('instantiate contractorID Number.MAX_VALUE + 1', () => {
 
         const testContractorID: number = Number.MAX_VALUE + 1;
-        const contractor: Contractor = new Contractor(testContractorID, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(testContractorID, ContractorType.HVAC, 1, 1, 1, 1, 1);
         expect(contractor.contractorID).toEqual(testContractorID);
     });
 
@@ -54,7 +54,7 @@ describe ('Contractor constructor PBT', () => {
         const testContractorID: number = Number.MIN_VALUE - 1;
 
         expect(() => {
-            const contractor: Contractor = new Contractor(testContractorID, undefined, 1, 1, 1, 1, 1);
+            const contractor: Contractor = new Contractor(testContractorID, ContractorType.HVAC, 1, 1, 1, 1, 1);
         }).toThrow(RangeError("contractorID must be non-negative"));
 
     });
@@ -64,7 +64,7 @@ describe ('Contractor constructor PBT', () => {
         fc.assert(
             fc.property(fc.double({min: 0, noNaN: true}), x => {
                 const testValue: number = Number(x);
-                const contractor: Contractor = new Contractor(1, undefined, testValue, 1, 1, 1, 1);
+                const contractor: Contractor = new Contractor(1, ContractorType.HVAC, testValue, 1, 1, 1, 1);
                 expect(contractor.rate).toEqual(testValue);
             })
         );
@@ -77,7 +77,7 @@ describe ('Contractor constructor PBT', () => {
                 const testValue: number = Number(x);
 
                 expect(() => {
-                    const contractor: Contractor = new Contractor(1, undefined, testValue, 1, 1, 1, 1);
+                    const contractor: Contractor = new Contractor(1, ContractorType.HVAC, testValue, 1, 1, 1, 1);
                 }).toThrow(RangeError("rate must be non-negative"));
             })
         );
@@ -85,7 +85,7 @@ describe ('Contractor constructor PBT', () => {
     test('instantiate rate Number.MAX_VALUE + 1', () => {
 
         const testValue: number = Number.MAX_VALUE + 1;
-        const contractor: Contractor = new Contractor(1, undefined, testValue, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, testValue, 1, 1, 1, 1);
         expect(contractor.rate).toEqual(testValue);
     });
 
@@ -93,7 +93,7 @@ describe ('Contractor constructor PBT', () => {
         const testValue: number = Number.MIN_VALUE - 1;
 
         expect(() => {
-            const contractor: Contractor = new Contractor(1, undefined, testValue, 1, 1, 1, 1);
+            const contractor: Contractor = new Contractor(1, ContractorType.HVAC, testValue, 1, 1, 1, 1);
         }).toThrow(RangeError("rate must be non-negative"));
 
     });
@@ -101,7 +101,7 @@ describe ('Contractor constructor PBT', () => {
 
 describe ('Contractor contractorID PBT', () => {
     test('valid contractorID range', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 0, noNaN: true}), x => {
@@ -114,7 +114,7 @@ describe ('Contractor contractorID PBT', () => {
         );
     });
     test('invalid contractorID range < 0', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({max: -1, noNaN: true}), x => {
@@ -129,7 +129,7 @@ describe ('Contractor contractorID PBT', () => {
         );
     });
     test('contractorID Number.MAX_VALUE + 1', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         const testContractorID: number = Number.MAX_VALUE + 1;
         contractor.contractorID = testContractorID;
@@ -137,7 +137,7 @@ describe ('Contractor contractorID PBT', () => {
     });
 
     test('invalid contractorID Number.MIN_VALUE - 1', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         const testContractorID: number = Number.MIN_VALUE - 1;
 
@@ -150,49 +150,49 @@ describe ('Contractor contractorID PBT', () => {
 
 describe ('Contractor type', () => {
     test('ContractorType EXCAVATOR', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
         const testType = ContractorType.EXCAVATOR;
         contractor.type = testType;
         expect(contractor.type).toEqual(testType)
     });
     test('ContractorType PAINTER', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
         const testType = ContractorType.PAINTER;
         contractor.type = testType;
         expect(contractor.type).toEqual(testType)
     });
     test('ContractorType CONCRETER', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
         const testType = ContractorType.CONCRETER;
         contractor.type = testType;
         expect(contractor.type).toEqual(testType)
     });
     test('ContractorType ELECTRICIAN', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
         const testType = ContractorType.ELECTRICIAN;
         contractor.type = testType;
         expect(contractor.type).toEqual(testType)
     });
     test('ContractorType PLUMBER', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
         const testType = ContractorType.PLUMBER;
         contractor.type = testType;
         expect(contractor.type).toEqual(testType)
     });
     test('ContractorType HVAC', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
         const testType = ContractorType.HVAC;
         contractor.type = testType;
         expect(contractor.type).toEqual(testType)
     });
     test('ContractorType MASON', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
         const testType = ContractorType.MASON;
         contractor.type = testType;
         expect(contractor.type).toEqual(testType)
     });
     test('ContractorType LANDSCAPER', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
         const testType = ContractorType.LANDSCAPER;
         contractor.type = testType;
         expect(contractor.type).toEqual(testType)
@@ -201,7 +201,7 @@ describe ('Contractor type', () => {
 
 describe ('Contractor rate PBT', () => {
     test('valid rate range', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 0, noNaN: true}), x => {
@@ -215,7 +215,7 @@ describe ('Contractor rate PBT', () => {
     });
 
     test('invalid rate range', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({max: -1, noNaN: true}), x => {
@@ -231,7 +231,7 @@ describe ('Contractor rate PBT', () => {
     });
 
     test('rate Number.MAX_VALUE + 1', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
             const testRate: number = Number.MAX_VALUE + 1
             contractor.rate = testRate;
@@ -240,7 +240,7 @@ describe ('Contractor rate PBT', () => {
     });
 
     test('invalid rate Number.MIN_VALUE - 1', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         const testrate: number = Number.MIN_VALUE - 1;
 
@@ -256,7 +256,7 @@ describe ('Contractor rate PBT', () => {
 
 describe ('Contractor performance PBT', () => {
     test('valid performance range', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 1, max: 5}), x => {
@@ -270,7 +270,7 @@ describe ('Contractor performance PBT', () => {
     });
 
     test('invalid performance range <= 0', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({max: 0, noNaN: true}), x => {
@@ -286,7 +286,7 @@ describe ('Contractor performance PBT', () => {
     });
 
     test('invalid performance range > 5', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 6, noNaN: true}), x => {
@@ -305,7 +305,7 @@ describe ('Contractor performance PBT', () => {
 
 describe ('Contractor experience PBT', () => {
     test('valid experience range', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 1, max: 5}), x => {
@@ -319,7 +319,7 @@ describe ('Contractor experience PBT', () => {
     });
 
     test('invalid experience range <= 0', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({max: 0, noNaN: true}), x => {
@@ -335,7 +335,7 @@ describe ('Contractor experience PBT', () => {
     });
 
     test('invalid experience range > 5', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 6, noNaN: true}), x => {
@@ -353,7 +353,7 @@ describe ('Contractor experience PBT', () => {
 
 describe ('Contractor safety PBT', () => {
     test('valid safety range', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 1, max: 5}), x => {
@@ -367,7 +367,7 @@ describe ('Contractor safety PBT', () => {
     });
 
     test('invalid safety range <= 0', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({max: 0, noNaN: true}), x => {
@@ -383,7 +383,7 @@ describe ('Contractor safety PBT', () => {
     });
 
     test('invalid safety range > 5', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 6, noNaN: true}), x => {
@@ -402,7 +402,7 @@ describe ('Contractor safety PBT', () => {
 
 describe ('Contractor discipline PBT', () => {
     test('valid discipline range', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 1, max: 5}), x => {
@@ -416,7 +416,7 @@ describe ('Contractor discipline PBT', () => {
     });
 
     test('invalid discipline range <= 0', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({max: 0, noNaN: true}), x => {
@@ -432,7 +432,7 @@ describe ('Contractor discipline PBT', () => {
     });
 
     test('invalid discipline range > 5', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 6, noNaN: true}), x => {
@@ -451,7 +451,7 @@ describe ('Contractor discipline PBT', () => {
 
 describe ('Contractor rating PBT', () => {
     test('valid rating range', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 1, max: 5}), x => {
@@ -465,7 +465,7 @@ describe ('Contractor rating PBT', () => {
     });
 
     test('invalid rating range <= 0', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({max: 0, noNaN: true}), x => {
@@ -481,7 +481,7 @@ describe ('Contractor rating PBT', () => {
     });
 
     test('invalid rating range > 5', () => {
-        const contractor: Contractor = new Contractor(1, undefined, 1, 1, 1, 1, 1);
+        const contractor: Contractor = new Contractor(1, ContractorType.HVAC, 1, 1, 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 6, noNaN: true}), x => {

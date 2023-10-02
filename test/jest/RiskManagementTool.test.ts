@@ -21,7 +21,7 @@ import Event from "../../src/gameobject/event/Event";
 
 describe ('RiskManagementTool name PBT', () => {
     test('valid string name', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
 
         fc.assert(
             fc.property(fc.asciiString(), s => {
@@ -37,7 +37,7 @@ describe ('RiskManagementTool name PBT', () => {
 
 describe ('RiskManagementTool price PBT', () => {
     test('valid price range >= 0', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 0, noNaN: true}), x => {
@@ -50,7 +50,7 @@ describe ('RiskManagementTool price PBT', () => {
     });
 
     test('invalid price range < 0', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({max: -1, noNaN: true}), x => {
@@ -66,7 +66,7 @@ describe ('RiskManagementTool price PBT', () => {
     });
 
     test('price range Number.MAX_VALUE + 1', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
         const testValue: number = Number.MAX_VALUE + 1;
         rmt.price = testValue;
         expect(rmt.price).toEqual(testValue);
@@ -76,7 +76,7 @@ describe ('RiskManagementTool price PBT', () => {
 
 describe ('RiskManagementTool uses PBT', () => {
     test('valid uses range >= 0', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({min: 0, noNaN: true}), x => {
@@ -89,7 +89,7 @@ describe ('RiskManagementTool uses PBT', () => {
     });
 
     test('invalid uses range < 0', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double({max: -1}), x => {
@@ -105,7 +105,7 @@ describe ('RiskManagementTool uses PBT', () => {
     });
 
     test('uses range Number.MAX_VALUE + 1', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
         const testValue: number = Number.MAX_VALUE + 1;
         rmt.uses = testValue;
         expect(rmt.uses).toEqual(testValue);
@@ -115,7 +115,7 @@ describe ('RiskManagementTool uses PBT', () => {
 
 describe ('RiskManagementTool rateMod PBT', () => {
     test('valid rateMod range', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double(), x => {
@@ -128,14 +128,14 @@ describe ('RiskManagementTool rateMod PBT', () => {
     });
 
     test('rateMod range Number.MAX_VALUE + 1', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
         const testValue: number = Number.MAX_VALUE + 1;
         rmt.rateMod = testValue;
         expect(rmt.rateMod).toEqual(testValue);
     });
 
     test('rateMod range Number.MIN_VALUE - 1', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
         const testValue: number = Number.MIN_VALUE - 1;
         rmt.rateMod = testValue;
         expect(rmt.rateMod).toEqual(testValue);
@@ -145,19 +145,10 @@ describe ('RiskManagementTool rateMod PBT', () => {
 
 describe ('RiskManagementTool event Test', () => {
     test('RMT valid event', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
-        rmt.event = new Event(undefined, undefined, undefined, undefined, undefined);
-
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
+        rmt.event = new Event(1, 'a', 0.7, 1, 1)
         expect(rmt.event !== undefined);
     });
-
-    test('RMT invalid event', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
-        rmt.event = new Event(undefined, undefined, undefined, undefined, undefined);
-
-        expect(rmt.event === undefined);
-    });
-
 
 });
 
@@ -166,7 +157,7 @@ describe ('RiskManagementTool event Test', () => {
 
 describe ('RiskManagementTool fundsMod PBT', () => {
     test('valid fundsMod range', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double(), x => {
@@ -179,14 +170,14 @@ describe ('RiskManagementTool fundsMod PBT', () => {
     });
 
     test('fundsMod range Number.MAX_VALUE + 1', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
         const testValue: number = Number.MAX_VALUE + 1;
         rmt.fundsMod = testValue;
         expect(rmt.fundsMod).toEqual(testValue);
     });
 
     test('fundsMod range Number.MIN_VALUE - 1', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
         const testValue: number = Number.MIN_VALUE - 1;
         rmt.fundsMod = testValue;
         expect(rmt.fundsMod).toEqual(testValue);
@@ -196,7 +187,7 @@ describe ('RiskManagementTool fundsMod PBT', () => {
 
 describe ('RiskManagementTool timeMod PBT', () => {
     test('valid timeMod range', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
 
         fc.assert(
             fc.property(fc.double(), x => {
@@ -209,14 +200,14 @@ describe ('RiskManagementTool timeMod PBT', () => {
     });
 
     test('timeMod range Number.MAX_VALUE + 1', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
         const testValue: number = Number.MAX_VALUE + 1;
         rmt.timeMod = testValue;
         expect(rmt.timeMod).toEqual(testValue);
     });
 
     test('timeMod range Number.MIN_VALUE - 1', () => {
-        const rmt: RiskManagementTool = new RiskManagementTool(undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+        const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
         const testValue: number = Number.MIN_VALUE - 1;
         rmt.timeMod = testValue;
         expect(rmt.timeMod).toEqual(testValue);

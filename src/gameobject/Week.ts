@@ -1,6 +1,5 @@
 import {Weather} from "./Weather.ts";
 
-
 export default class Week {
 
     private _weekID: number;

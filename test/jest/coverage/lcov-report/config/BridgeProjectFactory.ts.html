@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.71% </span>
+                <span class="strong">98.79% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>77/78</span>
+                <span class='fraction'>82/83</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.59% </span>
+                <span class="strong">98.68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>70/71</span>
+                <span class='fraction'>75/76</span>
             </div>
         
             
@@ -264,7 +264,15 @@
 <a name='L199'></a><a href='#L199'>199</a>
 <a name='L200'></a><a href='#L200'>200</a>
 <a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -345,6 +353,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -435,6 +445,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -451,6 +464,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -542,15 +558,17 @@ export default class BridgeProjectFactory implements ProjectFactory {
 &nbsp;
 &nbsp;
             // connect task to existing task
-            const linkedTasks: Task[] = [];
+            const linkedTasks: Task[] | null = [];
 &nbsp;
             // find tasks that are linked to this one
             for (let j: number = 0; j &lt; nextTasks.length; j++) {
                 const tID = jsonTasks[j]
 &nbsp;
+                const task: Task | undefined = tasks.get(tID)
+&nbsp;
                 // add task to linkedTasks
-                <span class="missing-if-branch" title="if path not taken" >I</span>if (tasks.get(tID)) {
-<span class="cstat-no" title="statement not covered" >                    linkedTasks.push(tasks.get(tID));</span>
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (task) {
+<span class="cstat-no" title="statement not covered" >                    linkedTasks.push(task);</span>
                 }
                 // console.log(tID);
             }
@@ -634,8 +652,11 @@ export default class BridgeProjectFactory implements ProjectFactory {
             const jsonRMT = jsonRiskManagementTools[i];
 &nbsp;
             // find corresponding events
-            const riskManagementTool: RiskManagementTool = new RiskManagementTool(jsonRMT.name, jsonRMT.price, jsonRMT.uses , events.get(jsonRMT.event) ,jsonRMT.rateMod, jsonRMT.fundsMod, jsonRMT.timeMod)
-            riskManagementTools.set(riskManagementTool.name, riskManagementTool);
+            const event: Event | undefined = events.get(jsonRMT.event);
+            if (event) {
+                const riskManagementTool: RiskManagementTool = new RiskManagementTool(jsonRMT.name, jsonRMT.price, jsonRMT.uses, event, jsonRMT.rateMod, jsonRMT.fundsMod, jsonRMT.timeMod)
+                riskManagementTools.set(riskManagementTool.name, riskManagementTool);
+            }
         }
         return riskManagementTools;
 &nbsp;
@@ -651,7 +672,10 @@ export default class BridgeProjectFactory implements ProjectFactory {
 &nbsp;
             // add events from allEvents
             for (const eID of jsonWeek.events) {
-                weekEvents.set(eID, allEvents.get(eID));
+                const event: Event | undefined = allEvents.get(eID);
+                if (event) {
+                    weekEvents.set(eID, event);
+                }
             }
 &nbsp;
             // @ts-ignore
@@ -673,7 +697,7 @@ export default class BridgeProjectFactory implements ProjectFactory {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-01T04:42:26.607Z
+                at 2023-10-02T06:46:03.672Z
             </div>
         <script src="../prettify.js"></script>
         <script>
