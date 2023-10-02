@@ -92,7 +92,7 @@ describe ('RiskManagementTool uses PBT', () => {
         const rmt: RiskManagementTool = new RiskManagementTool('insurance', 1, 1, new Event(1, 'a', 0.7, 1, 1), 1, 1, 1);
 
         fc.assert(
-            fc.property(fc.double({max: -1}), x => {
+            fc.property(fc.double({max: -1, noNaN: true}), x => {
 
                 const testValue: number = Number(x);
 
