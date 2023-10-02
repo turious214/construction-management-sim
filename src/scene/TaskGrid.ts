@@ -28,13 +28,15 @@ function longestChainHelper(task: Task): number {
     return 1 + longestChainSize;
 }
 
-//Consider the degree of a task to be the number of previous tasks of a task. 
-
-//HARD CODED - Function that return the max number of tasks that have the same degree given a list of tasks of degree 0
-// @ts-ignore
-function maxNumOfTheSameDegree(tasks: Task[]): number {
-    return 6;
-
+//Function that return the max number of tasks that have no sub tasks, i.e. the number of leafs in the tree
+function numberOfLeafs(tasks: Task[]): number {
+    let leafs = 0;
+    tasks.forEach((task: Task) => {
+        if (task.nextTasks.length === 0) {
+            leafs++;
+        }
+    });
+    return leafs;
 }
 
 /**********************************************************************/
@@ -44,7 +46,7 @@ function maxNumOfTheSameDegree(tasks: Task[]): number {
 function getGridSize(tasks: Task[]) {
     const gridSize = {
         x: longestChain(tasks),
-        y: maxNumOfTheSameDegree(tasks)
+        y: numberOfLeafs(tasks)
     };
     return gridSize;
 }
