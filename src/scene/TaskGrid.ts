@@ -64,7 +64,7 @@ class Row {
 
 function getGrid(tasks: Task[]) {
     const gridSize = getGridSize(tasks);
-    let grid: number[][] = Array(gridSize.y).fill(null).map(() => Array(gridSize.x).fill(-1));
+    let grid: number[][] = Array(gridSize.y).fill(undefined).map(() => Array(gridSize.x).fill(-1));
     
     let current_x = 0;
     let current_y = new Row(0)
@@ -93,18 +93,18 @@ function allocateTasks(tasks: Task[], current_x: number, current_y: Row, grid: n
 
 /************************ SIMPLE TEST **********************************/
 
-const task1 = new Task(1, "dummy task", null);
-const task2 = new Task(2, "dummy task", null);
-const task3 = new Task(3, "dummy task", null);
-const task4 = new Task(4, "dummy task", null);
-const task5 = new Task(5, "dummy task", null);
-const task6 = new Task(6, "dummy task", null);
-const task7 = new Task(7, "dummy task", null);
-const task8 = new Task(8, "dummy task", null);
-const task9 = new Task(9, "dummy task", null);
-const task10 = new Task(10, "dummy task", null);
-const task11 = new Task(11, "dummy task", null);
-const task12 = new Task(12, "dummy task", null);
+const task1 = new Task(1, "dummy task", undefined);
+const task2 = new Task(2, "dummy task", undefined);
+const task3 = new Task(3, "dummy task", undefined);
+const task4 = new Task(4, "dummy task", undefined);
+const task5 = new Task(5, "dummy task", undefined);
+const task6 = new Task(6, "dummy task", undefined);
+const task7 = new Task(7, "dummy task", undefined);
+const task8 = new Task(8, "dummy task", undefined);
+const task9 = new Task(9, "dummy task", undefined);
+const task10 = new Task(10, "dummy task", undefined);
+const task11 = new Task(11, "dummy task", undefined);
+const task12 = new Task(12, "dummy task", undefined);
 
 task1.nextTasks = task1.nextTasks.concat(task2);
 task1.nextTasks = task1.nextTasks.concat(task3);
@@ -122,7 +122,7 @@ const tasks = [task1];
 console.log(getGridSize(tasks)) //Should return 5, 6
 
 //const gridSize = getGridSize(tasks);
-//let grid: number[][] = Array(gridSize.y).fill(null).map(() => Array(gridSize.x).fill(-1));
+//let grid: number[][] = Array(gridSize.y).fill(undefined).map(() => Array(gridSize.x).fill(-1));
 
 let grid = getGrid(tasks);
 
