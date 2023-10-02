@@ -5,7 +5,9 @@ import { ContractorsScene } from "./scene/ContractorsScene.js";
 import { MaterialsScene } from "./scene/MaterialsScene.js";
 import { PersonnelScene } from "./scene/PersonnelScene.js";
 import { ContractScene } from "./scene/ContractScene.js";
+import { TaskAssignmentScene } from "./scene/TaskAssignmentScene.js"
 import { Config } from "./config/Config.js"
+import {EstimatePointSet} from "./scene/EstimatePointSet.js";
 
 
 const config = {
@@ -13,7 +15,7 @@ const config = {
     width: Config.WindowWidth,
     height: Config.WindowHeight,
     parent: 'main-game',
-    scene: [GameMenu, HUDScene, ProjectScene, ContractorsScene, MaterialsScene, PersonnelScene, ContractScene, TaskAssignmentScene],
+    scene: [GameMenu, HUDScene, ProjectScene, ContractorsScene, MaterialsScene, PersonnelScene, ContractScene, TaskAssignmentScene, EstimatePointSet],
 
     scale: {
             mode: Phaser.Scale.FIT,

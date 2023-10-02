@@ -3,6 +3,15 @@ import {Config} from "../config/Config.js";
 import {CustomButton} from "../button/CustomButton.js";
 import {TaskAssignmentScene} from "./TaskAssignmentScene.js";
 
+let INIT_MAIN_UI_X;
+INIT_MAIN_UI_X = 200;
+let INIT_MAIN_UI_Y;
+INIT_MAIN_UI_Y = 50;
+let CONTENT_BUFFER_X;
+CONTENT_BUFFER_X = 50;
+let SUBHEADING_SPACE_Y;
+SUBHEADING_SPACE_Y = 100;
+
 export class ContractorsScene extends Phaser.Scene {
 
     constructor() {

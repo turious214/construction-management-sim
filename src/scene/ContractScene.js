@@ -1,10 +1,16 @@
-
-// import * as mlregression from "ml-regression";
-// import * as fs from "fs";
-
 import {Control} from "../gameinput/Control.js";
 import {Config} from "../config/Config.js";
 import {CustomButton} from "../button/CustomButton.js";
+
+let INIT_MAIN_UI_X;
+INIT_MAIN_UI_X = 200;
+let INIT_MAIN_UI_Y;
+INIT_MAIN_UI_Y = 50;
+let CONTENT_BUFFER_X;
+CONTENT_BUFFER_X = 50;
+let SUBHEADING_SPACE_Y;
+SUBHEADING_SPACE_Y = 100;
+
 export class ContractScene extends Phaser.Scene {
 
     constructor() {
@@ -40,6 +46,8 @@ export class ContractScene extends Phaser.Scene {
         this.load.image('5 star', 'assets/images/5 star.png')
 
         this.load.json('data', 'assets/project/bridge1.json')
+        this.load.json('estimateData', 'assets/project/Estimate.json')
+        this.load.json('expenseData', 'assets/project/expense.json')
 
         this.load.image('red-panel', 'assets/cards/card1/Panel Red.png')
 
@@ -77,9 +85,17 @@ export class ContractScene extends Phaser.Scene {
         rightHeading.setDepth(1);
 
         // add scroll view
-        this.scrollView = this.add.container(INIT_MAIN_UI_X * 1.05, INIT_MAIN_UI_Y * 6 + SUBHEADING_SPACE_Y);
+        this.scrollView = this.add.container(INIT_MAIN_UI_X * 0.8, INIT_MAIN_UI_Y * 6.5 + SUBHEADING_SPACE_Y);
 
-        const subHeadings = this.add.text(this.scrollView.x, this.scrollView.y - SUBHEADING_SPACE_Y, `\t\t\t\tCost Category\t\t\t\t\t\t\t\t\t\t\t\t\tPredicted Cost(week)\t\t\t\t\t\t\tActual Cost(week)`, {
+        // Add a horizontal line between view and subheading
+        const line = this.add.graphics();
+        line.lineStyle(2, 0xffffff); // Line thickness and color
+        line.beginPath();
+        line.moveTo(this.scrollView.x * 1.55, this.scrollView.y / 1.5 + 75); // Starting point
+        line.lineTo(this.scrollView.x * 1.55 + 1450, this.scrollView.y / 1.5 + 75); // Ending point
+        line.strokePath();
+
+        const subHeadings = this.add.text(this.scrollView.x * 1.55, this.scrollView.y / 1.5, `Cost Category\t\t\t\tPredicted Cost\t\t\tActual Cost`, {
             fontSize: 40,
             color: '#ffffff'
         });
@@ -87,27 +103,27 @@ export class ContractScene extends Phaser.Scene {
         let infoNum = this.cache.json.get('data').infoGenerateNum;
 
         // generate random info
-        this.generateContent(infoNum)
+        this.generateContent(this.contractors[this.contractorsWindow[1]])
 
         // move between contractors
         leftArrow.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                     this.shiftHeading(leftHeading, middleHeading, rightHeading, 'left', card.x, HEADING_DIST);
                     this.scrollView.removeAll(true);
-                    this.generateContent(infoNum)
+                    this.generateContent(this.contractors[this.contractorsWindow[1]])
         });
 
         rightArrow.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                     this.shiftHeading(leftHeading, middleHeading, rightHeading, 'right', card.x, HEADING_DIST);
                     this.scrollView.removeAll(true);
-                    this.generateContent(infoNum)
+                    this.generateContent(this.contractors[this.contractorsWindow[1]])
         });
 
         // add scroll bar
-        this.scrollbar = this.add.graphics();
-        this.scrollbar.fillStyle(0x666666, 1);
-        this.scrollbar.fillRect(INIT_MAIN_UI_X * 8.5, INIT_MAIN_UI_Y * 7.8, 30, 50);
+        // this.scrollbar = this.add.graphics();
+        // this.scrollbar.fillStyle(0x666666, 1);
+        // this.scrollbar.fillRect(INIT_MAIN_UI_X * 8.5, INIT_MAIN_UI_Y * 7.8, 30, 50);
     }
 
     update() {
@@ -117,41 +133,44 @@ export class ContractScene extends Phaser.Scene {
             this.scene.stop('ContractScene');
             this.scene.launch('MainScene');
         }
-
-        // set scroll bar
-        this.scrollbar.setInteractive(new Phaser.Geom.Rectangle(this.scrollbar.commandBuffer[4], this.scrollbar.commandBuffer[5], 30, 50), Phaser.Geom.Rectangle.Contains);
-
-        this.scrollbar.on('pointerdown', () => {
-            this.isDragging = true;
-        });
-
-        this.input.on('pointerup', () => {
-            this.isDragging = false;
-        });
-
-        // set scroll view connect with scroll bar
-        if (this.isDragging) {
-            const pointer = this.input.activePointer;
-
-            const offsetY = pointer.y - this.scrollbar.commandBuffer[5];
-            this.scrollbar.y = Phaser.Math.Clamp(offsetY, 0, 410);
-
-            //set scroll speed
-            const contentY = (this.scrollbar.y / 10) * (this.cache.json.get('data').infoGenerateNum * 2.6 + (0.65 * (this.cache.json.get('data').infoGenerateNum - 20))) - 400;
-            this.scrollView.y = -contentY;
-        }
     }
 
 
-    generateContent(infoNum, type) {
+    generateContent(type) {
+        let infoNum = 2;
+        const jsonData = this.cache.json.get('estimateData');
+        // check tab
+        if (type === "OBS") {
+
+        } else  if (type === "CBS") {
+            infoNum = 2
+
+            // check estimate point set
+            if (jsonData.optimistic === null && jsonData.pessimistic === null && jsonData.mostLikely === null) {
+                this.input.enabled = false;
+                const EstimateAssignmentScene = this.scene.get('EstimatePointSet');
+
+                this.scene.launch('EstimatePointSet', {
+                    param1: "CBS"
+                });
+
+                this.scene.get('EstimatePointSet').events.on('getResult', (result) => {
+                    EstimateAssignmentScene.events.off('getResult');
+                    this.input.enabled = true;
+                });
+            }
+        } else {
+
+        }
+
         // put OBS/CBS/WBS info
         for (let i = 0; i < infoNum; i++) {
             // add each contract
-            const scrollViewContent = this.add.container((INIT_MAIN_UI_X * 1.05) / 10, (INIT_MAIN_UI_Y * 6 + SUBHEADING_SPACE_Y) / 6 * i);
+            const scrollViewContent = this.add.container(INIT_MAIN_UI_X / 10, (INIT_MAIN_UI_Y * 8 + SUBHEADING_SPACE_Y) / 6 * i);
             this.scrollView.add(scrollViewContent);
 
             // category
-            const categoryName = generateCategoryName();
+            const categoryName = generateCategoryName(i, type);
             const name = this.add.text(scrollViewContent.x + CONTENT_BUFFER_X, scrollViewContent.y, categoryName, {
                 fontSize: 40,
                 color: '#ffffff'
@@ -159,45 +178,46 @@ export class ContractScene extends Phaser.Scene {
             scrollViewContent.add(name);
 
             // predicted cost
-            const predictedCost = generatePredictedCost();
-            const pCost = this.add.text(scrollViewContent.x + 300, scrollViewContent.y + 18,  `$${predictedCost}`, {
+            const predictedCost = generatePredictedCost(this.cache.json.get('estimateData'));
+            const pCost = this.add.text(scrollViewContent.x + 500, scrollViewContent.y,  `$${predictedCost}`, {
                 fontSize: 40,
                 color: '#ffffff'
             });
             scrollViewContent.add(pCost);
 
             // actual cost
-            const actualCost = generateActualCost();
-            const aCost = this.add.text(scrollViewContent.x + 600, scrollViewContent.y + 3, `$${actualCost}`, {
+            const actualCost = generateActualCost(this.cache.json.get('expenseData'));
+            const aCost = this.add.text(scrollViewContent.x + 875, scrollViewContent.y, `$${actualCost}`, {
                 fontSize: 40,
                 color: '#ffffff'
             });
             scrollViewContent.add(aCost);
 
             // graph button
-            const graphButton = new graphButton(scrollViewContent.x + 1200, scrollViewContent.y, 'button1Normal', 'button1Hover', 'Graph', 30);
+            const graphButton = new CustomButton(this, scrollViewContent.x + 1380 , scrollViewContent.y + 20, 'button1Normal', 'button1Hover', 'Graph', 30).setDepth(1);
+            scrollViewContent.add(graphButton);
 
             // generate Graph
-            graphButton.setInteractive()
-                .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-
-                });
+            graphButton.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                onGraphButtonClick(type);
+                console.log('Button clicked!');
+            });
 
             // add scroll view mask
             const mask = this.make.graphics();
             mask.fillStyle(0xffffff);
             mask.fillRect(0, -1000, 1000, 1000);
             mask.fillStyle(0x000000);
-            mask.fillRect(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 + 80, 1382, 470)
+            mask.fillRect(INIT_MAIN_UI_X * 1.05 + 40, INIT_MAIN_UI_Y * 6 + 60, 1500, 470)
             scrollViewContent.setMask(mask.createGeometryMask());
 
             // add each container's touchable area
-            const clickArea = this.add.graphics();
-            clickArea.fillStyle(0xff0000);
-            clickArea.fillRoundedRect(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60, 10);
-            clickArea.setAlpha(0.5);
-            clickArea.setDepth(-1);
-            scrollViewContent.add(clickArea);
+            // const clickArea = this.add.graphics();
+            // clickArea.fillStyle(0xff0000);
+            // clickArea.fillRoundedRect(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60, 10);
+            // clickArea.setAlpha(0.5);
+            // clickArea.setDepth(-1);
+            // scrollViewContent.add(clickArea);
 
             // set each clickArea open window
             // const areaCheck1 = new Phaser.Geom.Rectangle(scrollViewContent.x, scrollViewContent.y - 10, 1380, 60)
@@ -234,7 +254,6 @@ export class ContractScene extends Phaser.Scene {
 
         if (direction === 'left') {
             // check for shifting past beginning
-            // console.log('left');
             if (left - 1 < 0) {
                 left = this.contractors.length - 1;
             } else {
@@ -286,7 +305,6 @@ export class ContractScene extends Phaser.Scene {
         rightHeading.destroy();
 
         // make new buttons
-
         middleHeading = new CustomButton(this, cardxPos, 150,'button1Normal', 'button1Hover', `${this.contractors[this.contractorsWindow[1]]}`, 30).setScale(1.2, 1.2);
         this.add.existing(middleHeading);
 
@@ -301,7 +319,7 @@ export class ContractScene extends Phaser.Scene {
 
 function generateCategoryName(i, type) {
     const OBS = []
-    const CBS = ["Material Cost", "Labor Cost", "Contractor Cost"]
+    const CBS = ["Material Cost", "Labor Cost"]
     const WBS = []
 
     if (type === "OBS") {
@@ -313,29 +331,31 @@ function generateCategoryName(i, type) {
     }
 }
 
-function generatePredictedCost() {
-    // const mlregression = require('ml-regression');
-    // simple Linear Regression
-    const SLR = mlregression.SLR;
-
-    // read the JSON file
-    const dataset = JSON.parse(fs.readFileSync('assets/project/CBS.json', 'utf-8'));
-    const materialTrainingData = dataset.material;
-
-    // prepare the training data
-    const factor = materialTrainingData.map(item => item.features);
-    const cost = materialTrainingData.map(item => item.output);
-
-    // train the model
-    const regression = new SLR(factor, cost);
-    const newFactor = [this.temperature, this.weather, this.weekDay];
-
-    return regression.predict(newFactor);
+function generatePredictedCost(jsonData) {
+    // 3 point estimate
+    const estimatedCost = (jsonData.optimistic + (4 * jsonData.mostLikely) + jsonData.pessimistic) / 6;
+    return estimatedCost.toFixed(2);
 }
 
-function generateActualCost() {
-    // read the JSON file
-    const jsonData = JSON.parse(fs.readFileSync('assets/project/expense.json', 'utf-8'));
-    const materialExpenses = jsonData.weeklyExpenses[0].actualExpenses.filter(expense => expense.type === "material");
-    return materialExpenses.reduce((total, expense) => total + expense.expense, 0)
+function generateActualCost(jsonData) {
+    let totalArchiveExpense = 0;
+    for (const week of jsonData.archive) {
+        totalArchiveExpense += week.totalExpense;
+    }
+
+    return totalArchiveExpense.toFixed(2);
 }
+
+// Function to display the bar chart
+// function displayBarChart(type) {
+//     // Create a canvas element
+//     const canvas = document.createElement('canvas');
+//     canvas.width = 400;
+//     canvas.height = 300;
+//
+//     // Append the canvas to the document body
+//     document.body.appendChild(canvas);
+//
+//     const ctx = canvas.getContext('2d');
+//     ctx.fillStyle = 'white';
+//     ctx.fillRect(0, 0, canvas.width, canvas.height);
