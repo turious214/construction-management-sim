@@ -1,4 +1,5 @@
 import Config from "../config/Config.ts";
+import Phaser from "phaser";
 
 export default class ProjectSelectionScene extends Phaser.Scene {
 
@@ -50,6 +51,26 @@ export default class ProjectSelectionScene extends Phaser.Scene {
         });
         projectGroup1.add(bridge1CaptionText);
 
+        // group interactivity
+        this.input.setHitArea(projectGroup1.getChildren())
+            // hover
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
+
+                projectGroup1.getChildren().forEach(child => {
+                    child.setScale(child.scaleX * 1.2, child.scaleY * 1.2);
+                });
+            })
+
+            //
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
+
+                projectGroup1.getChildren().forEach(child => {
+                    child.setScale(child.scaleX * (1.0/1.2), child.scaleY * (1.0/1.2));
+                });
+            });
+
+
+
 
         // project groups
         const projectGroup2: Phaser.GameObjects.Group = this.add.group({
@@ -74,14 +95,14 @@ export default class ProjectSelectionScene extends Phaser.Scene {
         IMAGE_TEXT_BUFFER_X = 110;
         IMAGE_TEXT_BUFFER_Y = railway1.displayHeight / 2 + 30;
 
-        const railway2Caption: string = 'Railway 1';
-        this.add.text(railway1.x - IMAGE_TEXT_BUFFER_X, railway1.y + IMAGE_TEXT_BUFFER_Y, railway2Caption, {
+        const railway1Caption: string = 'Railway 1';
+        const railway1CaptionText: Phaser.GameObjects.Text = this.add.text(railway1.x - IMAGE_TEXT_BUFFER_X, railway1.y + IMAGE_TEXT_BUFFER_Y, railway1Caption, {
             align: 'center',
             fontSize: 75,
             color: '#000',
             fontFamily: 'Satisfy'
         });
-
+        projectGroup2.add(railway1CaptionText);
 
 
     }
