@@ -1,4 +1,4 @@
-export class Sort {
+export default class Sort {
     private text: string;
     private sort: Function;
 
