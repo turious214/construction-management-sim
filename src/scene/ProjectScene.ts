@@ -153,7 +153,7 @@ export default class ProjectScene extends Phaser.Scene {
             this.shiftTaskButtons(-XPOS_DIFF_FACTOR);
         });
 
-        this.input.on('wheel', (pointer: Phaser.Input.Pointer, gameObjects: Phaser.GameObjects.GameObject[], deltaX: number, deltaY: number, deltaZ: number) => {
+        this.input.on('wheel', (_pointer: Phaser.Input.Pointer, _gameObjects: Phaser.GameObjects.GameObject[], _deltaX: number, deltaY: number, _deltaZ: number) => {
             this.scrollTasks(-deltaY * 0.1); // Adjust the scrolling speed as needed
         });
 
