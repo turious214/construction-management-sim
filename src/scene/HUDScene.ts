@@ -70,7 +70,7 @@ export default class HUDScene extends Phaser.Scene {
 
         materialsButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                        this.changeScene('MaterialScene', materialsButton);
+                        this.changeScene('MaterialsScene', materialsButton);
         });
 
         personnelButton.setInteractive()

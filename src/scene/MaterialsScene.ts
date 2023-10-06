@@ -60,7 +60,7 @@ export default class MaterialsScene extends Phaser.Scene {
         // go main scene
         exitButton.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, (): void => {
-                this.scene.stop('ContractorsScene');
+                this.scene.stop('MaterialsScene');
                 this.scene.launch('ProjectScene');
             });
 
@@ -74,7 +74,7 @@ export default class MaterialsScene extends Phaser.Scene {
 
         // add contractor-type heading
         const HEADING_DIST: number = 20;
-
+    
         let middleHeading: CustomButton = new CustomButton(this, card.x, 150,'button1Normal', 'button1Hover', 'Electricians', 30).setScale(1.2, 1.2);
         this.add.existing(middleHeading);
 
@@ -83,7 +83,7 @@ export default class MaterialsScene extends Phaser.Scene {
 
         let rightHeading: CustomButton = new CustomButton(this, middleHeading.x + middleHeading.width + HEADING_DIST, 150,'button1Normal', 'button1Hover', 'Plasterers', 30).setScale(0.75, 0.75);
         this.add.existing(rightHeading);
-
+       
         const CONTENT_BUFFER_X: number = 50;
         const SUBHEADING_SPACE_Y: number = 100;
 
@@ -104,26 +104,26 @@ export default class MaterialsScene extends Phaser.Scene {
         let clickAreas: Phaser.GameObjects.Graphics[] = [];
         let infoNum: number = 20
 
-
+       
         // generate random info
         this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
 
         // move between contractors
         leftArrow.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, (): void => {
-                this.shiftHeading(leftHeading, middleHeading, rightHeading, 'left', card.x, HEADING_DIST);
-                this.destroyWindowContents(names, ratings, prices, clickAreas);
-                this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
-                // console.log('left');
-            });
+                    this.shiftHeading(leftHeading, middleHeading, rightHeading, 'left', card.x, HEADING_DIST);
+                    this.destroyWindowContents(names, ratings, prices, clickAreas);
+                    this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
+                    // console.log('left');
+        });
 
         rightArrow.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, (): void => {
-                this.shiftHeading(leftHeading, middleHeading, rightHeading, 'right', card.x, HEADING_DIST);
-                this.destroyWindowContents(names, ratings, prices, clickAreas);
-                this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
-                // console.log('right');
-            });
+                    this.shiftHeading(leftHeading, middleHeading, rightHeading, 'right', card.x, HEADING_DIST);
+                    this.destroyWindowContents(names, ratings, prices, clickAreas);
+                    this.generateContent(INIT_MAIN_UI_X, INIT_MAIN_UI_Y, CONTENT_BUFFER_X, SUBHEADING_SPACE_Y, names, ratings, prices, clickAreas, infoNum)
+                    // console.log('right');
+        });
 
         // add scroll bar
         this.scrollbar = this.add.graphics();
@@ -135,7 +135,7 @@ export default class MaterialsScene extends Phaser.Scene {
 
         // let isSelectDown: boolean = Phaser.Input.Keyboard.JustDown(this.control.keyEsc);
         // if (isSelectDown) {
-        //     this.scene.stop('ContractorsScene');
+        //     this.scene.stop('MaterialsScene');
         //     this.scene.launch('MainScene');
         // }
 
@@ -435,7 +435,3 @@ function generateRandomRating(): string {
         return "0 star";
     }
 }
-
-
-
-
