@@ -21,6 +21,7 @@
   "license": "ISC",
   "devDependencies": {
     "@applitools/eyes-cypress": "^3.38.0",
+    "@applitools/eyes-images": "^4.23.32",
     "@fast-check/jest": "^1.7.3",
     "@types/jest": "^29.5.5",
     "@types/node-fetch": "^2.6.4",
@@ -38,7 +39,6 @@
     ]
   },
   "dependencies": {
-    "@applitools/eyes-images": "^4.23.27",
     "node-fetch": "^2.6.7",
     "phaser": "^3.60.0"
   }
