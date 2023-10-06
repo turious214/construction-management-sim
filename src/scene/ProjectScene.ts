@@ -13,6 +13,10 @@ export default class ProjectScene extends Phaser.Scene {
     private popupContainer?: Phaser.GameObjects.Container;
 
     private taskButtonContainers: Phaser.GameObjects.Container[] = [];
+
+    private scrollBar?: Phaser.GameObjects.Graphics;
+    private scrollY = 0;
+    private maxY = 0;
     
     constructor() {
         super('ProjectScene');
@@ -42,6 +46,9 @@ export default class ProjectScene extends Phaser.Scene {
             [
                 new Task("task 11", "description 11", false),
                 new Task("task 12", "description 12", false),
+                new Task("task 8", "description 8", false),
+                new Task("task 9", "description 9", false),
+                new Task("task 10", "description 10", false),
             ],
 
         ];
@@ -72,15 +79,28 @@ export default class ProjectScene extends Phaser.Scene {
 
         this.taskButtonContainers = [];
         for (let i = 0; i < this.tasks.length; i++) {
+
+            // Draw a vertical white line between each task
+            const graphics = this.add.graphics();
+            graphics.lineStyle(2, 0xffffff); 
+            graphics.beginPath();
+            graphics.moveTo((TASK_X_START_POS + XPOS_DIFF_FACTOR * i) + 220, 1000);
+            graphics.lineTo((TASK_X_START_POS + XPOS_DIFF_FACTOR * i) + 220, 200); 
+            graphics.strokePath();
+            graphics.closePath();
+
             for (let j = 0; j < this.tasks[i].length; j++) {
                 const task = this.tasks[i][j];
-        
+                if(j > this.maxY) {
+                    this.maxY = j;
+                }
                 // Create a container for the task button
                 const taskButtonContainer = this.add.container(
                     TASK_X_START_POS + XPOS_DIFF_FACTOR * i,
                     TASK_Y_START_POS + YPOS_DIFF_FACTOR * j
                 );
-        
+                
+                taskButtonContainer.setData('startingYPos', TASK_Y_START_POS + YPOS_DIFF_FACTOR*i);
                 // Create a task button as an image
                 const taskButtonImage = this.add.image(0, 0, 'taskCard');
                 taskButtonImage.setScale(TASK_SCALE_FACTOR, TASK_SCALE_FACTOR);
@@ -89,6 +109,8 @@ export default class ProjectScene extends Phaser.Scene {
                 // Set the size of the container to match the task button image
                 taskButtonContainer.setSize(taskButtonImage.width, taskButtonImage.height);
         
+                
+
                 // Create text and add it to the container
                 const taskText = this.add.text(-110, -50, task.Title, { fontSize: '70px', color: '#ffffff', wordWrap: { width: 10 } }).setOrigin(0, 0);
                 taskButtonContainer.add(taskText);
@@ -102,12 +124,17 @@ export default class ProjectScene extends Phaser.Scene {
                     console.log(`Task ${i + 1}-${j + 1} (${task.Title}) clicked.`);
                     this.openPopup(task);
                 });
-        
                 // Give the container a unique name for later reference
                 taskButtonContainer.setName(`taskButtonContainer_${i}_${j}`);
                 this.taskButtonContainers.push(taskButtonContainer);
             }
         }
+
+        //scrollbar
+        this.scrollBar = this.add.graphics();
+        this.scrollBar.fillStyle(0x888888, 1);
+        this.scrollBar.fillRect(Config.WindowWidth - 20, 0, 20, Config.WindowHeight);
+
 
         const leftArrowButton = this.add.image(50, 50, 'leftArrow');
         leftArrowButton.setInteractive();
@@ -125,14 +152,41 @@ export default class ProjectScene extends Phaser.Scene {
             console.log(`right clicked.`);
             this.shiftTaskButtons(-XPOS_DIFF_FACTOR);
         });
+
+        this.input.on('wheel', (pointer: Phaser.Input.Pointer, gameObjects: Phaser.GameObjects.GameObject[], deltaX: number, deltaY: number, deltaZ: number) => {
+            this.scrollTasks(-deltaY * 0.1); // Adjust the scrolling speed as needed
+        });
+
     }
 
     update() {
     }
 
+    private scrollTasks(scrollAmount: number): void {
+        this.scrollY += scrollAmount;
+    
+        const minY = 0;
+    
+        this.scrollY = Phaser.Math.Clamp(this.scrollY, minY, this.maxY);
+
+        if (this.taskButtonContainers[0].y - scrollAmount > 300) {
+            return;
+        }
+        if (this.taskButtonContainers[this.taskButtonContainers.length -1].y -scrollAmount < this.maxY + 900) {
+            return;
+        }
+    
+        for (let i = 0; i < this.taskButtonContainers.length; i++) {
+
+            const taskButtonContainer = this.taskButtonContainers[i];
+            taskButtonContainer.y -= scrollAmount;
+        }
+    }
+    
+
     private shiftTaskButtons(shiftAmount: number): void {
         //set the bounds of horizontal scroll
-        if (this.taskButtonContainers[this.taskButtonContainers.length - 1].x + shiftAmount < 200){
+        if (this.taskButtonContainers[this.taskButtonContainers.length - 1].x + shiftAmount < 1500){
             return;
         }
         if (this.taskButtonContainers[0].x + shiftAmount > 200){
