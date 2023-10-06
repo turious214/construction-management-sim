@@ -27,7 +27,7 @@ class ContractScene extends Phaser.Scene {
         // this.load.image('4 star', 'assets/images/4 star.png')
         // this.load.image('5 star', 'assets/images/5 star.png')
         //
-        // this.load.json('data', 'assets/project/bridge1.json')
+        // this.load.json('data', 'assets/project/Bridge.ts')
         //
         // this.load.image('red-panel', 'assets/cards/card1/Panel Red.png')
         //

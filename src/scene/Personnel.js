@@ -13,7 +13,7 @@ class Personnel extends Phaser.Scene {
     }
     preload() {
         // this.control = new Control(this);
-        // this.load.json('data', 'assets/project/bridge1.json');
+        // this.load.json('data', 'assets/project/Bridge.ts');
         //
         // this.load.image('button1Normal', 'assets/buttons/button_normal.png');
         // this.load.image('button1Hover', 'assets/buttons/button_hover.png');

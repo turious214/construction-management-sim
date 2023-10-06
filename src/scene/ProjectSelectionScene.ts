@@ -57,6 +57,7 @@ export default class ProjectSelectionScene extends Phaser.Scene {
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
 
                 projectGroup1.getChildren().forEach(child => {
+                    // @ts-ignore
                     child.setScale(child.scaleX * 1.2, child.scaleY * 1.2);
                 });
             })
@@ -65,6 +66,7 @@ export default class ProjectSelectionScene extends Phaser.Scene {
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
 
                 projectGroup1.getChildren().forEach(child => {
+                    // @ts-ignore
                     child.setScale(child.scaleX * (1.0/1.2), child.scaleY * (1.0/1.2));
                 });
             });

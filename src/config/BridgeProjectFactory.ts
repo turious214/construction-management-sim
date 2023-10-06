@@ -8,18 +8,30 @@ import Material from "../gameobject/material/Material.ts";
 import RiskManagementTool from "../gameobject/RiskManagementTool.ts";
 import Event from "../gameobject/event/Event.ts"
 import BridgeProject from "../gameobject/project/BridgeProject.ts";
+import BridgeData from "../../assets/project/Bridge.ts";
+
 
 
 export default class BridgeProjectFactory implements ProjectFactory {
 
     constructor() {}
 
-
-
     // @ts-ignore
-    manufactureProject(path: string): Project {
+    manufactureProject(projectName: string): Project {
         // @ts-ignore
-        const data = require(path);
+        // const data = require(projectName);
+        let data;
+        try {
+            data = JSON.parse(BridgeData)[`${projectName}`];
+        } catch (error) {
+            if (error instanceof SyntaxError) {
+                console.log('SyntaxError: Detected invalid JSON syntax');
+            }
+
+        }
+
+        // console.log(data);
+
 
         // create tasks
         const tasks: Map<number, Task> = this.createTasks(data);
