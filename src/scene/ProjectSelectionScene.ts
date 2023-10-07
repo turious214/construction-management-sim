@@ -1,5 +1,8 @@
 import Config from "../config/Config.ts";
 import Phaser from "phaser";
+import Project from "../gameobject/project/Project.ts";
+import {ProjectType} from "../gameobject/project/ProjectType.js";
+import BridgeProjectFactory from "../config/BridgeProjectFactory.js";
 
 export default class ProjectSelectionScene extends Phaser.Scene {
 
@@ -69,6 +72,25 @@ export default class ProjectSelectionScene extends Phaser.Scene {
                     // @ts-ignore
                     child.setScale(child.scaleX * (1.0/1.2), child.scaleY * (1.0/1.2));
                 });
+            })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+
+                const projectName: string = 'bridge1';
+
+                // create project
+                const project: Project | undefined = this.createProject(ProjectType.BRIDGE, projectName);
+
+
+
+                if (project) {
+                    this.scene.start('ProjectScene', {project: project, name: projectName});
+                    this.scene.launch("HUDScene");
+                    this.scene.stop('ProjectSelectionScene');
+                }
+
+
+
+
             });
 
 
@@ -112,4 +134,18 @@ export default class ProjectSelectionScene extends Phaser.Scene {
     update() : void {
 
     }
+
+    createProject(projectType: ProjectType, projectName: string): Project | undefined {
+        if (projectType === ProjectType.BRIDGE) {
+            const factory: BridgeProjectFactory = new BridgeProjectFactory();
+            const project: Project = factory.manufactureProject(projectName);
+            return project;
+        }
+
+        return;
+
+    }
+
+
+
 }

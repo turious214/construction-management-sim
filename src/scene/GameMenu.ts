@@ -27,7 +27,7 @@ export default class GameMenu extends Phaser.Scene {
         this.load.image('button1Hover', 'assets/buttons/button_hover.png');
 
         // load background
-        this.load.image('background', 'assets/backgrounds/background1.png');
+        this.load.image('game-menu-background', 'assets/backgrounds/background1.png');
 
         
     }
@@ -35,7 +35,7 @@ export default class GameMenu extends Phaser.Scene {
     create(): void {
 
         // draw background
-        this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
+        this.add.image(0, 0, 'game-menu-background').setOrigin(0, 0);
 
         // let graphics = this.add.graphics({
         //     fillStyle: {

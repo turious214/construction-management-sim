@@ -1,17 +1,29 @@
 // import Control from "../gameinput/Control.ts"
 import Config from "../config/Config.ts"
+import Task from "../gameobject/Task.js";
+import Week from "../gameobject/Week.js";
+import Contractor from "../gameobject/contractor/Contractor.js";
+import Material from "../gameobject/material/Material.js";
+import Event from "../gameobject/event/Event.js";
+import RiskManagementTool from "../gameobject/RiskManagementTool.js";
 // import CustomButton from "../button/CustomButton.ts"
 
 
 export default class ProjectScene extends Phaser.Scene {
 
-    // private control?: Control;
+
     // @ts-ignore
-    private funds: number;
-    // changes these later
-    // private weather: any[];
-    // private narration: any[];
-    // private complications: any[];
+    private _funds: number;
+    private _tasks: Map<number, Task>;
+    private _weeks: Week[];
+    private _contractors: Map<number, Contractor>;
+    private _materials: Map<string, Material>;
+    private _events: Map<number, Event>;
+    private _riskManagementTools: Map<string, RiskManagementTool>;
+    private _backgroundPath: string;
+
+    
+ 
     
     constructor() {
         super('ProjectScene');
@@ -33,66 +45,43 @@ export default class ProjectScene extends Phaser.Scene {
 
     }
 
+    init(data) {
+
+        console.log(data.project);
+        this._funds = data.project.funds;
+        this._tasks = data.project.tasks;
+        this._weeks = data.project.weeks;
+        this._contractors = data.project.contractors;
+        this._materials = data.project.materials;
+        this._events = data.project.events;
+        this._riskManagementTools = data.project.riskManagementTools;
+
+        // console.log(data.project.name);
+        //     console.log(data.project.funds);
+
+        // load background image
+            this._backgroundPath = `assets/backgrounds/${data.name}.png`
+
+        
+        
+    }
+    
+
     preload() {
         // this.control = new Control(this);
         this.load.image('button1Normal', 'assets/buttons/button_normal.png');
         this.load.image('button1Hover', 'assets/buttons/button_hover.png');
-        this.load.image('background', 'assets/backgrounds/background1.png');
+        // this.load.image('background', 'assets/backgrounds/background1.png');
+        this.load.image('background', this._backgroundPath);
         
     }
 
     create() {
 
         // draw background
-        this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'background');
+        this.add.image(0, 0, 'background').setOrigin(0,0);
 
-        // const INIT_MAIN_UI_X = 200;
-        // const INIT_MAIN_UI_Y = 50;
-        // const HUD_BUTTON_TEXT_SIZE = 30
-        //
-        // // projectButton
-        // // create button and add to scene
-        //
-        // const projectButton = new CustomButton(this, INIT_MAIN_UI_X, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Project', HUD_BUTTON_TEXT_SIZE);
-        // this.add.existing(projectButton);
-        //
-        // // program button to do something
-        //
-        // // contractorsButton
-        // const contractorsButton = new CustomButton(this, projectButton.x + projectButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contractors', HUD_BUTTON_TEXT_SIZE);
-        // // contractorsButton.setTextColor('#fcd498');
-        // this.add.existing(contractorsButton);
-        //
-        //
-        // // materialsButton
-        // const materialsButton = new CustomButton(this, contractorsButton.x + contractorsButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Materials', HUD_BUTTON_TEXT_SIZE);
-        // this.add.existing(materialsButton);
-        //
-        // // personnelButton
-        // const personnelButton = new CustomButton(this, materialsButton.x + materialsButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Personnel', HUD_BUTTON_TEXT_SIZE);
-        // this.add.existing(personnelButton);
-        //
-        // // ContractsButton
-        // const contractButton = new CustomButton(this, personnelButton.x + personnelButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'Contract', HUD_BUTTON_TEXT_SIZE);
-        // this.add.existing(contractButton);
-        //
-        // // event to go to ContractScene
-        // contractButton.setInteractive()
-        //     .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-        //         this.scene.stop('MainScene');
-        //         this.scene.start('ContractScene');
-        //     });
-        //
-        // // event to go to ContractorsScene
-        // contractorsButton.setInteractive()
-        //     .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-        //         this.scene.stop('MainScene');
-        //         this.scene.start('ContractorsScene');
-        //     });
-        //
-        // // endWeekButton - change to dynamically allow different weeks
-        // const endWeekButton = new CustomButton(this, contractButton.x + contractButton.width, INIT_MAIN_UI_Y, 'button1Normal', 'button1Hover', 'END WEEK 1', HUD_BUTTON_TEXT_SIZE);
-        // this.add.existing(endWeekButton);
+
     }
 
     update() {
