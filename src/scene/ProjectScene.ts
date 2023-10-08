@@ -14,13 +14,13 @@ export default class ProjectScene extends Phaser.Scene {
 
     // @ts-ignore
     private _funds: number;
-    private _tasks: Map<number, Task>;
-    private _weeks: Week[];
-    private _contractors: Map<number, Contractor>;
-    private _materials: Map<string, Material>;
-    private _events: Map<number, Event>;
-    private _riskManagementTools: Map<string, RiskManagementTool>;
-    private _backgroundPath: string;
+    private _tasks?: Map<number, Task>;
+    private _weeks?: Week[];
+    private _contractors?: Map<number, Contractor>;
+    private _materials?: Map<string, Material>;
+    private _events?: Map<number, Event>;
+    private _riskManagementTools?: Map<string, RiskManagementTool>;
+    private _backgroundPath?: string;
 
     
  
@@ -45,7 +45,7 @@ export default class ProjectScene extends Phaser.Scene {
 
     }
 
-    init(data) {
+    init(data: any) {
 
         console.log(data.project);
         this._funds = data.project.funds;
