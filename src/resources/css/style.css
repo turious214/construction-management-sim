@@ -6,6 +6,11 @@
 
 }
 
+@font-face {
+    font-family: 'Satisfy';
+    src: url('../fonts/Satisfy-Regular.ttf');
+}
+
 /* html, body {
     height: 100%;
     width: 100%;

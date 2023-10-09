@@ -1,0 +1,31 @@
+{
+  "total": 1,
+  "totalPassed": 0,
+  "totalFailed": 1,
+  "totalSuites": 1,
+  "suites": [
+    {
+      "name": "GameMenuTests.cy.js",
+      "path": "cypress/e2e/gamemenu/GameMenuTests.cy.js",
+      "tests": [
+        {
+          "status": "fail",
+          "name": "GameMenuTests.cy-game-menu",
+          "percentage": 0.9008144463021598,
+          "failureThreshold": 0.1,
+          "specPath": "cypress/e2e/gamemenu/GameMenuTests.cy.js",
+          "specFilename": "GameMenuTests.cy.js",
+          "baselinePath": "cypress-visual-screenshots/baseline/GameMenuTests.cy-game-menu.png",
+          "diffPath": "cypress-visual-screenshots/diff/GameMenuTests.cy-game-menu.png",
+          "comparisonPath": "cypress-visual-screenshots/comparison/GameMenuTests.cy-game-menu.png"
+        }
+      ]
+    }
+  ],
+  "startedAt": "2023-09-18T01:11:20.047Z",
+  "endedAt": "2023-09-18T01:11:26.106Z",
+  "duration": 6059,
+  "browserName": "electron",
+  "browserVersion": "106.0.5249.51",
+  "cypressVersion": "12.17.4"
+}

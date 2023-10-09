@@ -1,0 +1,31 @@
+{
+  "total": 1,
+  "totalPassed": 1,
+  "totalFailed": 0,
+  "totalSuites": 1,
+  "suites": [
+    {
+      "name": "example.cy.js",
+      "path": "cypress\\e2e\\gamemenu\\example.cy.js",
+      "tests": [
+        {
+          "status": "pass",
+          "name": "example.cy-game-menu",
+          "percentage": 0,
+          "failureThreshold": 0.1,
+          "specPath": "cypress\\e2e\\gamemenu\\example.cy.js",
+          "specFilename": "example.cy.js",
+          "baselinePath": "cypress-visual-screenshots\\baseline\\example.cy-game-menu.png",
+          "diffPath": "",
+          "comparisonPath": "cypress-visual-screenshots\\comparison\\example.cy-game-menu.png"
+        }
+      ]
+    }
+  ],
+  "startedAt": "2023-09-17T07:35:06.034Z",
+  "endedAt": "2023-09-17T07:35:10.923Z",
+  "duration": 4889,
+  "browserName": "electron",
+  "browserVersion": "106.0.5249.51",
+  "cypressVersion": "12.17.4"
+}
