@@ -13,6 +13,8 @@ export default class EstimatePointSet extends Phaser.Scene {
     }
 
     preload() {
+        // @ts-ignore
+        this.param1 = this.scene.settings.data.param1;
         this.load.image('button1Normal', 'assets/buttons/button_normal.png');
         this.load.image('button1Hover', 'assets/buttons/button_hover.png');
 

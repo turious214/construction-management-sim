@@ -27,11 +27,17 @@ export default class ContractScene extends Phaser.Scene {
         this.load.image('button1Normal', 'assets/buttons/button_normal.png');
         this.load.image('button1Hover', 'assets/buttons/button_hover.png');
 
-        // Load other assets...
+        this.load.image('background', 'assets/backgrounds/background1.png');
+        this.load.image('card', 'assets/cards/card3/Card X5.png')
 
-        this.load.json('data', 'assets/project/bridge1.json');
-        this.load.json('estimateData', 'assets/project/Estimate.json');
-        this.load.json('expenseData', 'assets/project/expense.json');
+        this.load.json('data', 'assets/project/bridge1.json')
+        this.load.json('estimateData', 'assets/project/Estimate.json')
+        this.load.json('expenseData', 'assets/project/expense.json')
+
+        this.load.image('red-panel', 'assets/cards/card1/Panel Red.png')
+
+        this.load.image('left-arrow', 'assets/icons/09.png');
+        this.load.image('right-arrow', 'assets/icons/10.png');
     }
 
     create() {
@@ -76,8 +82,6 @@ export default class ContractScene extends Phaser.Scene {
             fontSize: 40,
             color: '#ffffff'
         });
-
-        let infoNum = this.cache.json.get('data').infoGenerateNum;
 
         // generate random info
         this.generateContent(this.contractors[this.contractorsWindow[1]])
@@ -124,7 +128,8 @@ export default class ContractScene extends Phaser.Scene {
                     param1: "CBS"
                 });
 
-                this.scene.get('EstimatePointSet').events.on('getResult', () => {
+                // @ts-ignore
+                this.scene.get('EstimatePointSet').events.on('getResult', (result) => {
                     EstimateAssignmentScene.events.off('getResult');
                     this.input.enabled = true;
                 });

@@ -10,6 +10,7 @@ import ContractScene from "./scene/ContractScene.ts";
 import Config from "./config/Config.ts";
 import Phaser from "phaser";
 import ProjectSelectionScene from "./scene/ProjectSelectionScene.ts";
+import EstimatePointSet from "./scene/EstimatePointSet.ts";
 
 
 const config:Phaser.Types.Core.GameConfig = {
@@ -17,7 +18,7 @@ const config:Phaser.Types.Core.GameConfig = {
     width: Config.WindowWidth,
     height: Config.WindowHeight,
     parent: 'main-game',
-    scene: [GameMenu, ProjectSelectionScene, HUDScene, ProjectScene, ContractorsScene, MaterialsScene, PersonnelScene, ContractScene],
+    scene: [GameMenu, ProjectSelectionScene, HUDScene, ProjectScene, ContractorsScene, MaterialsScene, PersonnelScene, ContractScene, EstimatePointSet],
     // scene: [GameMenu],
 
 

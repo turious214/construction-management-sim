@@ -61,7 +61,7 @@ class ContractScene extends Phaser.Scene {
 
         // add contractor-type heading
         const HEADING_DIST = 20;
-    
+
         let middleHeading = new CustomButton_1.CustomButton(this, card.x, 150,'button1Normal', 'button1Hover', 'CBS', 30).setScale(1.2, 1.2);
         this.add.existing(middleHeading);
         middleHeading.setDepth(1);
@@ -89,8 +89,6 @@ class ContractScene extends Phaser.Scene {
             fontSize: 40,
             color: '#ffffff'
         });
-
-        let infoNum = this.cache.json.get('data').infoGenerateNum;
 
         // generate random info
         this.generateContent(this.contractors[this.contractorsWindow[1]])
@@ -137,7 +135,7 @@ class ContractScene extends Phaser.Scene {
                     param1: "CBS"
                 });
 
-                this.scene.get('EstimatePointSet').events.on('getResult', () => {
+                this.scene.get('EstimatePointSet').events.on('getResult', (result) => {
                     EstimateAssignmentScene.events.off('getResult');
                     this.input.enabled = true;
                 });
