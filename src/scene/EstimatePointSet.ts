@@ -1,27 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.EstimatePointSet = void 0;
-const Control_1 = require("../gameinput/Control");
-const Config_1 = require("../config/Config");
-const CustomButton_1 = require("../button/CustomButton");
+import Config from "../config/Config.ts";
+import CustomButton from "../button/CustomButton.ts";
 
-class EstimatePointSet extends Phaser.Scene {
+export default class EstimatePointSet extends Phaser.Scene {
 
+    // @ts-ignore
+    private scrollView: Phaser.GameObjects.Container;
+    private inputMap: Map<string, any> = new Map();
+    // @ts-ignore
+    private param1: string;
     constructor() {
         super('EstimatePointSet');
-
-        // Game control
-        this.control = null;
-        this.scrollbar = null;
-        this.isDragging = false;
-        this.scrollView = null;
-        this.inputMap = new Map();
     }
 
     preload() {
-        this.control = new Control_1.Control(this);
-        this.param1 = this.scene.settings.data.param1;
-
         this.load.image('button1Normal', 'assets/buttons/button_normal.png');
         this.load.image('button1Hover', 'assets/buttons/button_hover.png');
 
@@ -32,13 +23,13 @@ class EstimatePointSet extends Phaser.Scene {
         const INIT_MAIN_UI_X = 88;
         const INIT_MAIN_UI_Y = 22;
         // draw background
-        this.add.image(Config_1.Config.WindowWidth / 2, Config_1.Config.WindowHeight / 2, 'card2').setScale(2.5, 2.3);
+        this.add.image(Config.WindowWidth / 2, Config.WindowHeight / 2, 'card2').setScale(2.5, 2.3);
 
         // add scroll view
         this.scrollView = this.add.container(INIT_MAIN_UI_X * 4.8, INIT_MAIN_UI_Y * 20);
 
         // add done button
-        const doneButton = new CustomButton_1.CustomButton(this, INIT_MAIN_UI_X * 11, INIT_MAIN_UI_Y * 39, 'button1Normal', 'button1Hover', 'Done', 25);
+        const doneButton = new CustomButton(this, INIT_MAIN_UI_X * 11, INIT_MAIN_UI_Y * 39, 'button1Normal', 'button1Hover', 'Done', 25);
         this.add.existing(doneButton);
         doneButton.setDepth(1);
 
@@ -50,7 +41,7 @@ class EstimatePointSet extends Phaser.Scene {
             });
 
         // add title
-        this.add.text(Config_1.Config.WindowWidth / 2.65, Config_1.Config.WindowHeight / 5, 'Points Set', {
+        this.add.text(Config.WindowWidth / 2.65, Config.WindowHeight / 5, 'Points Set', {
             color: '#fcd498',
             fontSize: 75,
             align: 'top',
@@ -58,14 +49,6 @@ class EstimatePointSet extends Phaser.Scene {
 
         // generate random info
         this.generateContent()
-    }
-
-    update() {
-        let isSelectDown = Phaser.Input.Keyboard.JustDown(this.control.keyEnter);
-        if (isSelectDown) {
-            this.scene.stop('GameMenu');
-            this.scene.launch('MainScene');
-        }
     }
 
     generateContent() {
@@ -93,13 +76,12 @@ class EstimatePointSet extends Phaser.Scene {
             this.inputMap.set(`input_${i}`, input)
         }
     }
-
 }
 
-function generateCategoryName(i, type) {
-    // const OBS = []
+function generateCategoryName(i: number, type: string) {
+    const OBS = ["a", "b", "c"]
     const CBS = ["Optimistic: ", "Pessimistic: ", "Most Likely: "]
-    // const WBS = []
+    const WBS = ["a", "b", "c"]
 
     if (type === "OBS") {
         return OBS[i];
@@ -109,5 +91,3 @@ function generateCategoryName(i, type) {
         return WBS[i];
     }
 }
-
-exports.EstimatePointSet = EstimatePointSet;
