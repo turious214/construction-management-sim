@@ -153,7 +153,7 @@ export default class ContractScene extends Phaser.Scene {
             scrollViewContent.add(name);
 
             // predicted cost
-            const predictedCost = generatePredictedCost(this.cache.json.get('estimateData'));
+            const predictedCost = generatePredictedCost(this.cache.json.get('estimateData'), categoryName);
             const pCost = this.add.text(scrollViewContent.x + 500, scrollViewContent.y,  `$${predictedCost}`, {
                 fontSize: 40,
                 color: '#ffffff'
@@ -161,7 +161,7 @@ export default class ContractScene extends Phaser.Scene {
             scrollViewContent.add(pCost);
 
             // actual cost
-            const actualCost = generateActualCost(this.cache.json.get('expenseData'));
+            const actualCost = generateActualCost(this.cache.json.get('expenseData'), categoryName);
             const aCost = this.add.text(scrollViewContent.x + 875, scrollViewContent.y, `$${actualCost}`, {
                 fontSize: 40,
                 color: '#ffffff'
@@ -271,16 +271,26 @@ function generateCategoryName(i: number, type: string) {
     }
 }
 
-function generatePredictedCost(jsonData: any) {
+function generatePredictedCost(jsonData: any, category: String) {
+
     // 3 point estimate
-    const estimatedCost = (jsonData.optimistic + (4 * jsonData.mostLikely) + jsonData.pessimistic) / 6;
-    return estimatedCost.toFixed(2);
+    if (category === "Material Cost") {
+        const estimatedCost = (jsonData["Material Estimate"]["optimistic"] + (4 * jsonData["Material Estimate"]["mostLikely"]) + jsonData["Material Estimate"]["pessimistic"]) / 6;
+        return estimatedCost.toFixed(2);
+    } else if (category === "Labor Cost") {
+        const estimatedCost = (jsonData["Labor Estimate"]["optimistic"] + (4 * jsonData["Labor Estimate"]["mostLikely"]) + jsonData["Labor Estimate"]["pessimistic"]) / 6;
+        return estimatedCost.toFixed(2);
+    }
 }
 
-function generateActualCost(jsonData: any) {
+function generateActualCost(jsonData: any, category: String) {
     let totalArchiveExpense = 0;
     for (const week of jsonData.archive) {
-        totalArchiveExpense += week.totalExpense;
+        if (category === "Material Cost") {
+            totalArchiveExpense += week.materialTotalExpense;
+        } else if (category === "Labor Cost") {
+            totalArchiveExpense += week.laborTotalExpense;
+        }
     }
 
     return totalArchiveExpense.toFixed(2);

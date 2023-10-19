@@ -3,9 +3,10 @@
     {
       "weekNumber": 1,
       "actualExpenses": [
-        { "type": "material", "expense": 18270 },
-        { "type": "labor", "expense": 2333 },
-        { "type": "contractor", "expense": 2333 }
+        { "type": "material", "expense": 14187325 },
+        { "type": "material", "expense": 14187325 },
+        { "type": "labor", "expense": 6379325 },
+        { "type": "labor", "expense": 6379325 }
       ]
     }
   ],
@@ -13,7 +14,8 @@
   "archive": [
     {
       "weekNumber": 1,
-      "totalExpense": 2200000
+      "materialTotalExpense": 28374650,
+      "laborTotalExpense": 12758650
     }
   ]
 }
