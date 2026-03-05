@@ -2,9 +2,6 @@
 
 A browser-based construction management simulation game developed as a team software project.
 
-## Tech Stack
-JavaScript, TypeScript, Phaser, Vite, Jest, Cypress
-
 ## Run Locally
 ```bash
 npm install
