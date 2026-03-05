@@ -9,7 +9,7 @@ JavaScript, TypeScript, Phaser, Vite, Jest, Cypress
 ```bash
 npm install
 
-** Test command lines **
+Test command lines
 JEST
 - npm run test
 - npm run test-detailed 
